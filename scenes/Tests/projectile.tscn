@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://c6aeq685vna12"]
+
+[ext_resource type="Script" uid="uid://dy7x63idt4nuv" path="res://scripts/Tests/projectile.gd" id="1_1fblu"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_gcmtq"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7c2me"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_1fblu"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="Projectile" type="RigidBody3D"]
+collision_mask = 3
+script = ExtResource("1_1fblu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_gcmtq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_7c2me")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_1fblu")
