@@ -8,3 +8,7 @@ func _ready() -> void:
 func _update_time(current_day, current_hour, current_min):
 	text = "%s : %s" % [current_hour, current_min]
 	pass
+
+
+func _on_add_time_button_pressed() -> void:
+	GlobalTime.add_time(0,1,0)
