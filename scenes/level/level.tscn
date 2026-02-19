@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://dugaivbj1o66n"]
+[gd_scene load_steps=15 format=3 uid="uid://dugaivbj1o66n"]
 
 [ext_resource type="Script" uid="uid://d0dgljwwl463n" path="res://scripts/level.gd" id="1_e1sh7"]
 [ext_resource type="PackedScene" uid="uid://cffjduipbb3s5" path="res://scenes/level/player.tscn" id="1_uvcbi"]
+[ext_resource type="Script" uid="uid://b7hxqglwotpm5" path="res://scenes/level/environment.gd" id="3_xv074"]
 [ext_resource type="PackedScene" uid="uid://bclq8vh1x2goy" path="res://scenes/ui/inventory_ui.tscn" id="4_x8g2h"]
 [ext_resource type="PackedScene" uid="uid://ccencq0lcd3ph" path="res://scenes/ui/multiplayer_chat_ui.tscn" id="5_x9g3h"]
 [ext_resource type="PackedScene" uid="uid://cqw8qnmveqmar" path="res://globals/Time/Scene/global_time.tscn" id="6_wcngd"]
@@ -17,14 +18,21 @@ albedo_color = Color(0, 0.321569, 0.172549, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_x3h1o"]
 size = Vector3(90, 0.05, 90)
 
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_wcngd"]
+
+[sub_resource type="Sky" id="Sky_xv074"]
+sky_material = SubResource("PhysicalSkyMaterial_wcngd")
+
 [sub_resource type="Environment" id="Environment_qb4jd"]
-fog_enabled = true
+background_mode = 2
+sky = SubResource("Sky_xv074")
 
 [node name="Level" type="Node3D"]
 script = ExtResource("1_e1sh7")
 player_scene = ExtResource("1_uvcbi")
 
 [node name="Environment" type="Node3D" parent="."]
+script = ExtResource("3_xv074")
 
 [node name="Floor" type="StaticBody3D" parent="Environment"]
 collision_layer = 2
@@ -40,7 +48,9 @@ shape = SubResource("BoxShape3D_x3h1o")
 environment = SubResource("Environment_qb4jd")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
-transform = Transform3D(1, 0, 0, 0, -0.5, 0.866025, 0, -0.866025, -0.5, 0, 4, 0)
+transform = Transform3D(1, 0, 0, 0, -0.9890154, 0.14780936, 0, -0.14780936, -0.9890154, 0, 4, 0)
+light_energy = 2.0
+light_angular_distance = 3.0
 shadow_enabled = true
 shadow_blur = 0.5
 

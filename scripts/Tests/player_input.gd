@@ -7,7 +7,7 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	if is_multiplayer_authority():
+func _process(_delta: float) -> void:
+	if is_multiplayer_authority() and multiplayer.multiplayer_peer != null:
 		if Input.is_action_just_pressed("Fire"):
 			fire_input.emit()

@@ -5,7 +5,7 @@ extends TextEdit
 func _ready() -> void:
 	GlobalTime.time_tick.connect(_update_time)
 
-func _update_time(current_day, current_hour, current_min):
+func _update_time(_current_day, current_hour, current_min):
 	text = "%s : %s" % [current_hour, current_min]
 	pass
 
