@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dugaivbj1o66n"]
+[gd_scene load_steps=17 format=3 uid="uid://dugaivbj1o66n"]
 
 [ext_resource type="Script" uid="uid://d0dgljwwl463n" path="res://scripts/level.gd" id="1_e1sh7"]
 [ext_resource type="PackedScene" uid="uid://cffjduipbb3s5" path="res://scenes/level/player.tscn" id="1_uvcbi"]
@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://cqw8qnmveqmar" path="res://globals/Time/Scene/global_time.tscn" id="6_wcngd"]
 [ext_resource type="PackedScene" uid="uid://bx7mq8t8hjn7q" path="res://scenes/ui/main_menu_ui.tscn" id="6_x9g3h"]
 [ext_resource type="PackedScene" uid="uid://d0xiw6rk55q4w" path="res://scenes/Tests/clock_ui.tscn" id="7_xv074"]
+[ext_resource type="PackedScene" uid="uid://c01xn2plqcvv1" path="res://scenes/Tests/time_component.tscn" id="9_sytrn"]
+[ext_resource type="PackedScene" uid="uid://sn664ywhj318" path="res://scenes/Tests/time_test_block.tscn" id="10_tf2q7"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_r5xs5"]
 size = Vector2(90, 90)
@@ -18,10 +20,12 @@ albedo_color = Color(0, 0.321569, 0.172549, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_x3h1o"]
 size = Vector3(90, 0.05, 90)
 
-[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_wcngd"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xv074"]
+sky_top_color = Color(0.32156864, 0.47058824, 0.70980394, 1)
+sun_angle_max = 15.0
 
 [sub_resource type="Sky" id="Sky_xv074"]
-sky_material = SubResource("PhysicalSkyMaterial_wcngd")
+sky_material = SubResource("ProceduralSkyMaterial_xv074")
 
 [sub_resource type="Environment" id="Environment_qb4jd"]
 background_mode = 2
@@ -48,9 +52,8 @@ shape = SubResource("BoxShape3D_x3h1o")
 environment = SubResource("Environment_qb4jd")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
-transform = Transform3D(1, 0, 0, 0, -0.9890154, 0.14780936, 0, -0.14780936, -0.9890154, 0, 4, 0)
+transform = Transform3D(1, 0, 0, 0, -0.7313534, 0.681998, 0, -0.681998, -0.7313534, 0, 4, 0)
 light_energy = 2.0
-light_angular_distance = 3.0
 shadow_enabled = true
 shadow_blur = 0.5
 
@@ -68,3 +71,8 @@ visible = false
 [node name="GlobalTime" parent="." instance=ExtResource("6_wcngd")]
 
 [node name="ClockUI" parent="GlobalTime" instance=ExtResource("7_xv074")]
+
+[node name="TimeComponent" parent="." instance=ExtResource("9_sytrn")]
+
+[node name="TimeTestBlock" parent="." instance=ExtResource("10_tf2q7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.186473, 1.9674404, 0)

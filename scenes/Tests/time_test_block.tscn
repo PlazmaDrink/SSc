@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://sn664ywhj318"]
+
+[ext_resource type="Script" uid="uid://bf82rrhbhlg2n" path="res://scenes/Tests/time_test_block.gd" id="1_27qd3"]
+[ext_resource type="Material" uid="uid://dxwb7cgjq6qqs" path="res://assets/Material/old.tres" id="2_fpggi"]
+[ext_resource type="PackedScene" uid="uid://c01xn2plqcvv1" path="res://scenes/Tests/time_component.tscn" id="2_ybtej"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_l5gki"]
+material = ExtResource("2_fpggi")
+
+[node name="TimeTestBlock" type="Node3D"]
+script = ExtResource("1_27qd3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_l5gki")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D"]
+mesh = SubResource("BoxMesh_l5gki")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D/MeshInstance3D"]
+mesh = SubResource("BoxMesh_l5gki")
+
+[node name="TimeComponent" parent="." instance=ExtResource("2_ybtej")]
+
+[connection signal="ActionFinished" from="TimeComponent" to="." method="_on_time_component_action_finished"]
