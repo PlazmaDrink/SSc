@@ -133,8 +133,8 @@ alignment = 1
 
 [node name="Host" type="Button" parent="MainContainer/MainMenu/Buttons"]
 layout_mode = 2
-theme_override_colors/font_hover_color = Color(0, 0.52549, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0.52549, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0.52549, 0, 1)
 theme_override_fonts/font = ExtResource("1_font")
 theme_override_font_sizes/font_size = 35
 text = "HOST"
@@ -142,8 +142,8 @@ flat = true
 
 [node name="Join" type="Button" parent="MainContainer/MainMenu/Buttons"]
 layout_mode = 2
-theme_override_colors/font_hover_color = Color(0, 0.525257, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0.52549, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0.525257, 0, 1)
 theme_override_fonts/font = ExtResource("1_font")
 theme_override_font_sizes/font_size = 35
 text = "JOIN"
@@ -157,8 +157,8 @@ alignment = 1
 
 [node name="Quit" type="Button" parent="MainContainer/MainMenu/Option4"]
 layout_mode = 2
-theme_override_colors/font_hover_color = Color(0.858807, 4.71681e-06, 1.15514e-06, 0.862745)
 theme_override_colors/font_pressed_color = Color(0.858824, 0, 0, 0.862745)
+theme_override_colors/font_hover_color = Color(0.858807, 4.71681e-06, 1.15514e-06, 0.862745)
 theme_override_fonts/font = ExtResource("1_font")
 theme_override_font_sizes/font_size = 35
 text = "QUIT"

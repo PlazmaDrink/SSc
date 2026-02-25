@@ -48,3 +48,10 @@ func add_time(day:int = 0, hour:int = 0, minute:int = 0) -> void:
 	time += newTime
 	_recalculate_time()
 	update_current_time.emit(current_day)
+
+func set_time(hour:int = 0, minute:int = 0)-> void:
+	hour *= MIN_PER_HOUR
+	var newTime:float = (hour + minute) * INGAME_TO_REAL_MINUTE_DURATION * real_time_multiplier
+	time = newTime
+	_recalculate_time()
+	update_current_time.emit(current_day)

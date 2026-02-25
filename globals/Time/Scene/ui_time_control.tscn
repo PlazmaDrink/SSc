@@ -1,0 +1,137 @@
+[gd_scene load_steps=4 format=3 uid="uid://cb2x40pyijrj5"]
+
+[ext_resource type="Script" uid="uid://h1c2pdf6pvkv" path="res://ui_time_control.gd" id="1_jy0qc"]
+[ext_resource type="FontFile" uid="uid://diapabmalpcrj" path="res://assets/fonts/Kurland.ttf" id="2_qsk8o"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_u1sij"]
+color = Color(0, 0, 0, 0)
+
+[node name="UI_TimeControl" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jy0qc")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.23529412, 0.23529412, 0.23529412, 0.5568628)
+
+[node name="MainContainer" type="VBoxContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -257.0
+offset_bottom = 257.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Label" type="Label" parent="ColorRect/MainContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("2_qsk8o")
+theme_override_font_sizes/font_size = 70
+text = "Current Time: "
+
+[node name="TimeValue" type="Label" parent="ColorRect/MainContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("2_qsk8o")
+theme_override_font_sizes/font_size = 70
+text = "Time"
+
+[node name="TimeMenu" type="VBoxContainer" parent="ColorRect/MainContainer"]
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="HSeparator1" type="HSeparator" parent="ColorRect/MainContainer/TimeMenu"]
+layout_mode = 2
+theme_override_constants/separation = 10
+theme_override_styles/separator = SubResource("StyleBoxLine_u1sij")
+
+[node name="Option1" type="HBoxContainer" parent="ColorRect/MainContainer/TimeMenu"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="AddTime" type="Button" parent="ColorRect/MainContainer/TimeMenu/Option1"]
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0, 0.52549, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0.52549, 0, 1)
+theme_override_fonts/font = ExtResource("2_qsk8o")
+theme_override_font_sizes/font_size = 35
+text = "Add Time "
+flat = true
+
+[node name="AddTimeInput" type="LineEdit" parent="ColorRect/MainContainer/TimeMenu/Option1"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qsk8o")
+theme_override_font_sizes/font_size = 35
+placeholder_text = "Provide value in minutes"
+max_length = 20
+expand_to_text_length = true
+
+[node name="Option2" type="HBoxContainer" parent="ColorRect/MainContainer/TimeMenu"]
+layout_mode = 2
+size_flags_vertical = 4
+alignment = 1
+
+[node name="SetTime" type="Button" parent="ColorRect/MainContainer/TimeMenu/Option2"]
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0, 0.52549, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0.52549, 0, 1)
+theme_override_fonts/font = ExtResource("2_qsk8o")
+theme_override_font_sizes/font_size = 35
+text = "Set Time "
+flat = true
+
+[node name="SetTimeInput" type="LineEdit" parent="ColorRect/MainContainer/TimeMenu/Option2"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_qsk8o")
+theme_override_font_sizes/font_size = 35
+placeholder_text = "Format HH:MM"
+alignment = 1
+expand_to_text_length = true
+
+[node name="HSeparator2" type="HSeparator" parent="ColorRect/MainContainer/TimeMenu"]
+layout_mode = 2
+theme_override_constants/separation = 30
+theme_override_styles/separator = SubResource("StyleBoxLine_u1sij")
+
+[node name="Option4" type="HBoxContainer" parent="ColorRect/MainContainer/TimeMenu"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Close" type="Button" parent="ColorRect/MainContainer/TimeMenu/Option4"]
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0.858824, 0, 0, 0.862745)
+theme_override_colors/font_hover_color = Color(0.858807, 4.71681e-06, 1.15514e-06, 0.862745)
+theme_override_fonts/font = ExtResource("2_qsk8o")
+theme_override_font_sizes/font_size = 35
+text = "Close menu"
+flat = true
+
+[connection signal="pressed" from="ColorRect/MainContainer/TimeMenu/Option1/AddTime" to="." method="_on_add_time_pressed"]
+[connection signal="text_changed" from="ColorRect/MainContainer/TimeMenu/Option1/AddTimeInput" to="." method="_on_add_time_input_text_changed"]
+[connection signal="pressed" from="ColorRect/MainContainer/TimeMenu/Option2/SetTime" to="." method="_on_set_time_pressed"]
+[connection signal="pressed" from="ColorRect/MainContainer/TimeMenu/Option4/Close" to="." method="_on_close_pressed"]

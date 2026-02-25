@@ -6,9 +6,11 @@ extends Node3D
 
 @onready var multiplayer_chat: MultiplayerChatUI = $MultiplayerChatUI
 @onready var inventory_ui: InventoryUI = $InventoryUI
+@onready var ui_time_control: UI_Time_Control = $UI_TimeControl
 
 var chat_visible = false
 var inventory_visible = false
+var UI_Time_menu_visible = false
 
 func _ready():
 	if DisplayServer.get_name() == "headless":
@@ -102,6 +104,8 @@ func _input(event):
 		_debug_add_item()
 	elif event is InputEventKey and event.pressed and event.keycode == KEY_F2:
 		_debug_print_inventory()
+	elif event.is_action_pressed("TimeMenu"):
+		toggle_UI_time_menu()
 
 func _on_chat_message_sent(message_text: String) -> void:
 	var trimmed_message = message_text.strip_edges()
@@ -132,6 +136,24 @@ func toggle_inventory():
 
 func is_inventory_visible() -> bool:
 	return inventory_visible
+
+# ---------- UI_Time_Menu ----------
+func toggle_UI_time_menu():
+	if ui_time_control.is_menu_visible():
+		return
+
+	var local_player = _get_local_player()
+	if not local_player:
+		return
+
+	UI_Time_menu_visible = !UI_Time_menu_visible
+	if UI_Time_menu_visible:
+		ui_time_control.open_UI_time_menu(local_player)
+	else:
+		ui_time_control.hide_menu()
+
+func is_UI_Time_Menu_visible() -> bool:
+	return UI_Time_menu_visible
 
 # Additional helper for testing
 func _notification(what):
