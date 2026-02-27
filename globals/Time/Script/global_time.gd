@@ -6,8 +6,8 @@ const INGAME_TO_REAL_MINUTE_DURATION = (2*PI) / MIN_PER_HOUR
 
 ##This value influence real/in-game time dependancy. Value 12 means 1sec=1min in game. Lower the value faster the in-game time
 @export var real_time_multiplier:int = 12
+@export var time: float = 0.0
 
-var time: float = 0.0
 var past_min: float = -1.0
 var total_minutes = int(time/INGAME_TO_REAL_MINUTE_DURATION)
 var total_day = int (total_minutes/ MIN_PER_DAY)
@@ -20,8 +20,8 @@ signal update_current_time(current_time:int)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
 
+	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -30,6 +30,7 @@ func _process(delta: float) -> void:
 	_recalculate_time()
 
 func _recalculate_time() -> void:
+	if !multiplayer.is_server(): return
 	total_minutes = int(time/INGAME_TO_REAL_MINUTE_DURATION) / real_time_multiplier
 	
 	total_day = int (total_minutes/ MIN_PER_DAY)
@@ -40,6 +41,7 @@ func _recalculate_time() -> void:
 	if past_min != current_min:
 		past_min = current_min
 		time_tick.emit(current_day, current_hour, current_min)
+		print("Global Time: Time Tick")
 
 func add_time(day:int = 0, hour:int = 0, minute:int = 0, isSetTime = false) -> void:
 	day *= MIN_PER_DAY

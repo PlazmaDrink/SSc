@@ -1,13 +1,11 @@
-[gd_scene load_steps=18 format=3 uid="uid://dugaivbj1o66n"]
+[gd_scene load_steps=16 format=3 uid="uid://dugaivbj1o66n"]
 
 [ext_resource type="Script" uid="uid://d0dgljwwl463n" path="res://scripts/level.gd" id="1_e1sh7"]
 [ext_resource type="PackedScene" uid="uid://cffjduipbb3s5" path="res://scenes/level/player.tscn" id="1_uvcbi"]
 [ext_resource type="Script" uid="uid://b7hxqglwotpm5" path="res://scenes/level/environment.gd" id="3_xv074"]
 [ext_resource type="PackedScene" uid="uid://bclq8vh1x2goy" path="res://scenes/ui/inventory_ui.tscn" id="4_x8g2h"]
 [ext_resource type="PackedScene" uid="uid://ccencq0lcd3ph" path="res://scenes/ui/multiplayer_chat_ui.tscn" id="5_x9g3h"]
-[ext_resource type="PackedScene" uid="uid://cqw8qnmveqmar" path="res://globals/Time/Scene/global_time.tscn" id="6_wcngd"]
 [ext_resource type="PackedScene" uid="uid://bx7mq8t8hjn7q" path="res://scenes/ui/main_menu_ui.tscn" id="6_x9g3h"]
-[ext_resource type="PackedScene" uid="uid://d0xiw6rk55q4w" path="res://scenes/Tests/clock_ui.tscn" id="7_xv074"]
 [ext_resource type="PackedScene" uid="uid://c01xn2plqcvv1" path="res://scenes/Tests/time_component.tscn" id="9_sytrn"]
 [ext_resource type="PackedScene" uid="uid://sn664ywhj318" path="res://scenes/Tests/time_test_block.tscn" id="10_tf2q7"]
 [ext_resource type="PackedScene" uid="uid://cb2x40pyijrj5" path="res://globals/Time/Scene/ui_time_control.tscn" id="11_pe1ox"]
@@ -68,10 +66,6 @@ visible = false
 
 [node name="InventoryUI" parent="." instance=ExtResource("4_x8g2h")]
 visible = false
-
-[node name="GlobalTime" parent="." instance=ExtResource("6_wcngd")]
-
-[node name="ClockUI" parent="GlobalTime" instance=ExtResource("7_xv074")]
 
 [node name="TimeComponent" parent="." instance=ExtResource("9_sytrn")]
 

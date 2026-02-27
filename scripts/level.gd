@@ -11,6 +11,7 @@ extends Node3D
 var chat_visible = false
 var inventory_visible = false
 var UI_Time_menu_visible = false
+#var global_Time: 
 
 func _ready():
 	if DisplayServer.get_name() == "headless":
