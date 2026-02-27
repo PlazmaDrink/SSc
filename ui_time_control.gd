@@ -26,7 +26,7 @@ func _on_set_time_pressed() -> void:
 	var input = set_time_input.text.split(":")
 	var hours:int = int(input[0])
 	var min:int = int(input[1])
-	GlobalTime.set_time(hours, min)
+	GlobalTime.add_time(0, hours, min, true)
 
 func _on_close_pressed() -> void:
 	hide_menu()
