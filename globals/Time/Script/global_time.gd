@@ -16,7 +16,7 @@ var current_hour = int(current_day/MIN_PER_HOUR)
 var current_min = int(current_day % MIN_PER_HOUR)
 
 signal time_tick(day:int, hour:int, minute:int)
-signal update_current_time(current_time:int)
+#signal update_current_time(current_time:int)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -41,7 +41,6 @@ func _recalculate_time() -> void:
 	if past_min != current_min:
 		past_min = current_min
 		time_tick.emit(current_day, current_hour, current_min)
-		print("Global Time: Time Tick")
 
 func add_time(day:int = 0, hour:int = 0, minute:int = 0, isSetTime = false) -> void:
 	day *= MIN_PER_DAY
@@ -52,4 +51,4 @@ func add_time(day:int = 0, hour:int = 0, minute:int = 0, isSetTime = false) -> v
 	else:
 		time += newTime
 	_recalculate_time()
-	update_current_time.emit(current_day)
+	#update_current_time.emit(current_day)
