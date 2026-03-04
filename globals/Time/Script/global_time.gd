@@ -15,19 +15,20 @@ var current_day = total_minutes % MIN_PER_DAY
 var current_hour = int(current_day/MIN_PER_HOUR)
 var current_min = int(current_day % MIN_PER_HOUR)
 
+
 signal time_tick(day:int, hour:int, minute:int)
 #signal update_current_time(current_time:int)
 
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-
-	pass # Replace with function body.
-
+func _enter_tree() -> void:
+	set_multiplayer_authority(1)
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	time += delta
-	#var value = (sin(time - PI/2) + 1.0)/2.0
-	_recalculate_time()
+	if is_multiplayer_authority():
+		time += delta
+		#var value = (sin(time - PI/2) + 1.0)/2.0
+		_recalculate_time()
 
 func _recalculate_time() -> void:
 	if !multiplayer.is_server(): return
@@ -39,9 +40,14 @@ func _recalculate_time() -> void:
 	current_min = int(current_day % MIN_PER_HOUR)
 	
 	if past_min != current_min:
-		past_min = current_min
-		time_tick.emit(current_day, current_hour, current_min)
+		_time_tick.rpc()
 
+@rpc("call_local")
+func _time_tick()-> int:
+	past_min = current_min
+	time_tick.emit(current_day, current_hour, current_min)
+	return current_day
+	
 func add_time(day:int = 0, hour:int = 0, minute:int = 0, isSetTime = false) -> void:
 	day *= MIN_PER_DAY
 	hour *= MIN_PER_HOUR

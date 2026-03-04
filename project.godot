@@ -28,6 +28,10 @@ GlobalTime="*res://globals/Time/Script/global_time.gd"
 window/size/viewport_width=1280
 window/size/viewport_height=720
 
+[dotnet]
+
+project/assembly_name="SSc"
+
 [input]
 
 move_left={
