@@ -14,12 +14,8 @@ func _process(_delta: float) -> void:
 	pass
 
 func on_time_tick(_current_day, _current_hour, _current_min)-> void:
-	if multiplayer.is_server():
-		sun_rotation(_current_day)
+	sun_rotation(_current_day)
 
 ##Sets directional light rotation based on in-game time(sun movement imitation)
 func sun_rotation(current_time:int)-> void:
 	sun.set_rotation_degrees(Vector3(current_time * 0.25 + SUN_START_POSITION_DEEGREES,0,0))
-	print(sun.rotation_degrees)
-	print(current_time)
-	print(get_parent())

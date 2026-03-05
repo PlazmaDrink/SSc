@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dugaivbj1o66n"]
+[gd_scene load_steps=17 format=3 uid="uid://dugaivbj1o66n"]
 
 [ext_resource type="Script" uid="uid://d0dgljwwl463n" path="res://scripts/level.gd" id="1_e1sh7"]
 [ext_resource type="PackedScene" uid="uid://cffjduipbb3s5" path="res://scenes/level/player.tscn" id="1_uvcbi"]
@@ -30,6 +30,11 @@ sky_material = SubResource("ProceduralSkyMaterial_xv074")
 background_mode = 2
 sky = SubResource("Sky_xv074")
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_sytrn"]
+properties/0/path = NodePath("DirectionalLight3D:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+
 [node name="Level" type="Node3D"]
 script = ExtResource("1_e1sh7")
 player_scene = ExtResource("1_uvcbi")
@@ -55,6 +60,9 @@ transform = Transform3D(1, 0, 0, 0, 0.9999995, 0, 0, 0, 0.9999995, 0, 4, 0)
 light_energy = 2.0
 shadow_enabled = true
 shadow_blur = 0.5
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Environment"]
+replication_config = SubResource("SceneReplicationConfig_sytrn")
 
 [node name="PlayersContainer" type="Node3D" parent="."]
 

@@ -21,7 +21,7 @@ config/icon="res://icon.png"
 
 Network="*res://scripts/network.gd"
 ItemDatabase="*res://scripts/item_database.gd"
-GlobalTime="*res://globals/Time/Script/global_time.gd"
+GlobalTime="*res://globals/Time/Scene/global_time.tscn"
 
 [display]
 

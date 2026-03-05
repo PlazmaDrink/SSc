@@ -11,7 +11,7 @@ const INGAME_TO_REAL_MINUTE_DURATION = (2*PI) / MIN_PER_HOUR
 var past_min: float = -1.0
 var total_minutes = int(time/INGAME_TO_REAL_MINUTE_DURATION)
 var total_day = int (total_minutes/ MIN_PER_DAY)
-var current_day = total_minutes % MIN_PER_DAY
+@export var current_day = total_minutes % MIN_PER_DAY
 var current_hour = int(current_day/MIN_PER_HOUR)
 var current_min = int(current_day % MIN_PER_HOUR)
 
@@ -28,10 +28,10 @@ func _process(delta: float) -> void:
 	if is_multiplayer_authority():
 		time += delta
 		#var value = (sin(time - PI/2) + 1.0)/2.0
-		_recalculate_time()
+		_recalculate_time.rpc()
 
+@rpc("authority", "call_local")
 func _recalculate_time() -> void:
-	if !multiplayer.is_server(): return
 	total_minutes = int(time/INGAME_TO_REAL_MINUTE_DURATION) / real_time_multiplier
 	
 	total_day = int (total_minutes/ MIN_PER_DAY)
@@ -40,14 +40,9 @@ func _recalculate_time() -> void:
 	current_min = int(current_day % MIN_PER_HOUR)
 	
 	if past_min != current_min:
-		_time_tick.rpc()
+		past_min = current_min
+		time_tick.emit(current_day, current_hour, current_min)
 
-@rpc("call_local")
-func _time_tick()-> int:
-	past_min = current_min
-	time_tick.emit(current_day, current_hour, current_min)
-	return current_day
-	
 func add_time(day:int = 0, hour:int = 0, minute:int = 0, isSetTime = false) -> void:
 	day *= MIN_PER_DAY
 	hour *= MIN_PER_HOUR
