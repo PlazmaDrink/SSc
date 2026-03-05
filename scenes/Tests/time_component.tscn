@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://c01xn2plqcvv1"]
-
-[ext_resource type="Script" uid="uid://beebkt1cljsef" path="res://scripts/Tests/time_component.gd" id="1_jhw1r"]
-
-[node name="TimeComponent" type="Node"]
-script = ExtResource("1_jhw1r")

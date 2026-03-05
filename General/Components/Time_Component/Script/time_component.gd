@@ -9,6 +9,7 @@ var action_Finish_Time: int = 0
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	GlobalTime.time_tick.connect(on_time_tick)
+	#TODO: assigne set_timer func to UI
 	set_timer(10)
 	
 func set_timer(wait_time:int) ->void:

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cb2x40pyijrj5"]
 
-[ext_resource type="Script" uid="uid://h1c2pdf6pvkv" path="res://ui_time_control.gd" id="1_jy0qc"]
+[ext_resource type="Script" uid="uid://h1c2pdf6pvkv" path="res://UI/Debug/UI_Time_Control/Script/ui_time_control.gd" id="1_jy0qc"]
 [ext_resource type="FontFile" uid="uid://diapabmalpcrj" path="res://assets/fonts/Kurland.ttf" id="2_qsk8o"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_u1sij"]
