@@ -18,4 +18,3 @@ func _on_fire_input() -> void:
 	var projectile = projectileScene.instantiate() as RigidBody3D
 	projectile.transform = marker_3d.transform
 	projectile_spawn_path.add_child(projectile, true)
-	

@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bclq8vh1x2goy" path="res://scenes/ui/inventory_ui.tscn" id="4_x8g2h"]
 [ext_resource type="PackedScene" uid="uid://ccencq0lcd3ph" path="res://scenes/ui/multiplayer_chat_ui.tscn" id="5_x9g3h"]
 [ext_resource type="PackedScene" uid="uid://bx7mq8t8hjn7q" path="res://scenes/ui/main_menu_ui.tscn" id="6_x9g3h"]
-[ext_resource type="PackedScene" uid="uid://c01xn2plqcvv1" path="res://scenes/Scene/time_component.tscn" id="9_sytrn"]
+[ext_resource type="PackedScene" uid="uid://c01xn2plqcvv1" path="res://General/Components/Time_Component/Scene/time_component.tscn" id="9_sytrn"]
 [ext_resource type="PackedScene" uid="uid://sn664ywhj318" path="res://scenes/Tests/time_test_block.tscn" id="10_tf2q7"]
 [ext_resource type="PackedScene" uid="uid://cb2x40pyijrj5" path="res://UI/Debug/UI_Time_Control/Scene/ui_time_control.tscn" id="11_pe1ox"]
 
