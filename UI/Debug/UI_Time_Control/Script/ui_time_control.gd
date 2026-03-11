@@ -5,6 +5,7 @@ class_name UI_Time_Control
 @onready var time_value: Label = $ColorRect/MainContainer/TimeValue
 @onready var set_time_input: LineEdit = $ColorRect/MainContainer/TimeMenu/Option2/SetTimeInput
 
+signal on_Close
 var addTime: int = 0
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -30,6 +31,7 @@ func _on_set_time_pressed() -> void:
 
 func _on_close_pressed() -> void:
 	hide_menu()
+	on_Close.emit()
 
 func _on_add_time_input_text_changed(new_text: String) -> void:
 	addTime = int(new_text)
