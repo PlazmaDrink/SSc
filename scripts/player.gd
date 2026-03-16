@@ -13,7 +13,8 @@ var player_inventory: PlayerInventory
 
 @export_category("Objects")
 @export var _body: Node3D = null
-@export var _spring_arm_offset: Node3D = null
+
+@onready var spring_arm_character: SpringArmCharacter = $SpringArmCharacter
 
 @export_category("Skin Colors")
 @export var blue_texture : CompressedTexture2D
@@ -35,7 +36,7 @@ var has_double_jumped = false
 
 func _enter_tree():
 	set_multiplayer_authority(str(name).to_int())
-	$SpringArmOffset/SpringArm3D/Camera3D.current = is_multiplayer_authority()
+	$"SpringArmCharacter/SpringArm3D/Camera3D".current = is_multiplayer_authority()
 
 func _ready():
 	var is_local_player = is_multiplayer_authority()
@@ -112,7 +113,7 @@ func _move() -> void:
 	var _direction: Vector3 = transform.basis * Vector3(_input_direction.x, 0, _input_direction.y).normalized()
 
 	is_running()
-	_direction = _direction.rotated(Vector3.UP, _spring_arm_offset.rotation.y)
+	_direction = _direction.rotated(Vector3.UP, spring_arm_character.rotation.y)
 
 	if _direction:
 		velocity.x = _direction.x * _current_speed

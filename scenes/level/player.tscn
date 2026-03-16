@@ -6,8 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://cw6pxwst2gh85" path="res://assets/characters/player/GodotRobotPaletteSwap/GodotYellowPalette.png" id="3_l3dv8"]
 [ext_resource type="Texture2D" uid="uid://bbid6mowxhd5b" path="res://assets/characters/player/GodotRobotPaletteSwap/GodotGreenPalette.png" id="4_74ree"]
 [ext_resource type="Texture2D" uid="uid://fpmmv2oxjcdv" path="res://assets/characters/player/GodotRobotPaletteSwap/GodotPalette.png" id="4_max2b"]
-[ext_resource type="Script" uid="uid://bj7yrijm7bppq" path="res://scripts/spring_arm_offset.gd" id="4_ygggd"]
 [ext_resource type="Texture2D" uid="uid://brp1gy30s4rks" path="res://assets/characters/player/GodotRobotPaletteSwap/GodotRedPalette.png" id="5_qlefn"]
+[ext_resource type="Script" uid="uid://bnwtu38clv4jd" path="res://scenes/level/spring_arm_character.gd" id="8_d2uvk"]
 [ext_resource type="Script" uid="uid://d4mmferc721pb" path="res://scripts/Tests/weapon.gd" id="9_pnmcy"]
 [ext_resource type="PackedScene" uid="uid://c6aeq685vna12" path="res://scenes/Tests/projectile.tscn" id="10_rtsbg"]
 [ext_resource type="Script" uid="uid://glqhmfnxywjc" path="res://scripts/Tests/player_input.gd" id="11_d2uvk"]
@@ -4783,12 +4783,11 @@ properties/3/path = NodePath("3DGodotRobot:rotation")
 properties/3/spawn = true
 properties/3/replication_mode = 1
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("_body", "_spring_arm_offset")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("_body")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 collision_mask = 3
 script = ExtResource("1_tdh26")
 _body = NodePath("3DGodotRobot")
-_spring_arm_offset = NodePath("SpringArmOffset")
 blue_texture = ExtResource("4_max2b")
 yellow_texture = ExtResource("3_l3dv8")
 green_texture = ExtResource("4_74ree")
@@ -4985,21 +4984,25 @@ bones/24/rotation = Quaternion(-6.34575e-08, -0.980764, 0.195196, 1.82779e-06)
 bones/24/scale = Vector3(1, 1, 1)
 
 [node name="Bottom" type="MeshInstance3D" parent="3DGodotRobot/RobotArmature/Skeleton3D"]
+visibility_range_begin = 1.0
 mesh = SubResource("ArrayMesh_qcia5")
 skin = SubResource("Skin_llc6q")
 surface_material_override/0 = SubResource("StandardMaterial3D_53giy")
 
 [node name="Chest" type="MeshInstance3D" parent="3DGodotRobot/RobotArmature/Skeleton3D"]
+visibility_range_begin = 1.0
 mesh = SubResource("ArrayMesh_fun53")
 skin = SubResource("Skin_hu16g")
 surface_material_override/0 = SubResource("StandardMaterial3D_kw1ok")
 
 [node name="Face" type="MeshInstance3D" parent="3DGodotRobot/RobotArmature/Skeleton3D"]
+visibility_range_begin = 0.7
 mesh = SubResource("ArrayMesh_fus4a")
 skin = SubResource("Skin_5h6fu")
 surface_material_override/0 = SubResource("StandardMaterial3D_krq4h")
 
 [node name="Llimbs and head" type="MeshInstance3D" parent="3DGodotRobot/RobotArmature/Skeleton3D"]
+visibility_range_begin = 1.0
 mesh = SubResource("ArrayMesh_0hcp6")
 skin = SubResource("Skin_gooby")
 surface_material_override/0 = SubResource("StandardMaterial3D_1ln88")
@@ -5009,18 +5012,6 @@ libraries = {
 &"": SubResource("AnimationLibrary_f1v7x")
 }
 autoplay = "Idle"
-
-[node name="SpringArmOffset" type="Node3D" parent="." node_paths=PackedStringArray("_spring_arm")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-script = ExtResource("4_ygggd")
-_spring_arm = NodePath("SpringArm3D")
-
-[node name="SpringArm3D" type="SpringArm3D" parent="SpringArmOffset"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-spring_length = 5.0
-
-[node name="Camera3D" type="Camera3D" parent="SpringArmOffset/SpringArm3D"]
-current = true
 
 [node name="PlayerNick" type="Node3D" parent="."]
 
@@ -5050,3 +5041,15 @@ spawn_path = NodePath("../ProjectileSpawnPath")
 
 [node name="PlayerInput" type="Node3D" parent="."]
 script = ExtResource("11_d2uvk")
+
+[node name="SpringArmCharacter" type="Node3D" parent="." node_paths=PackedStringArray("_spring_arm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0644093, -1.19209e-07, -0.035357)
+script = ExtResource("8_d2uvk")
+_spring_arm = NodePath("SpringArm3D")
+metadata/_custom_type_script = "uid://bj7yrijm7bppq"
+
+[node name="SpringArm3D" type="SpringArm3D" parent="SpringArmCharacter"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0.2)
+spring_length = 0.0
+
+[node name="Camera3D" type="Camera3D" parent="SpringArmCharacter/SpringArm3D"]
