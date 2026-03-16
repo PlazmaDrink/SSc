@@ -4996,7 +4996,7 @@ skin = SubResource("Skin_hu16g")
 surface_material_override/0 = SubResource("StandardMaterial3D_kw1ok")
 
 [node name="Face" type="MeshInstance3D" parent="3DGodotRobot/RobotArmature/Skeleton3D"]
-visibility_range_begin = 0.7
+visibility_range_begin = 1.0
 mesh = SubResource("ArrayMesh_fus4a")
 skin = SubResource("Skin_5h6fu")
 surface_material_override/0 = SubResource("StandardMaterial3D_krq4h")
@@ -5043,13 +5043,13 @@ spawn_path = NodePath("../ProjectileSpawnPath")
 script = ExtResource("11_d2uvk")
 
 [node name="SpringArmCharacter" type="Node3D" parent="." node_paths=PackedStringArray("_spring_arm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0644093, -1.19209e-07, -0.035357)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.064, 1.5, -0.035)
 script = ExtResource("8_d2uvk")
 _spring_arm = NodePath("SpringArm3D")
 metadata/_custom_type_script = "uid://bj7yrijm7bppq"
 
 [node name="SpringArm3D" type="SpringArm3D" parent="SpringArmCharacter"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0.2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.2)
 spring_length = 0.0
 
 [node name="Camera3D" type="Camera3D" parent="SpringArmCharacter/SpringArm3D"]

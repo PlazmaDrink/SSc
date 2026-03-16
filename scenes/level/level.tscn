@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dugaivbj1o66n"]
+[gd_scene load_steps=17 format=3 uid="uid://dugaivbj1o66n"]
 
 [ext_resource type="Script" uid="uid://d0dgljwwl463n" path="res://scripts/level.gd" id="1_e1sh7"]
 [ext_resource type="PackedScene" uid="uid://cffjduipbb3s5" path="res://scenes/level/player.tscn" id="1_uvcbi"]
@@ -31,6 +31,13 @@ sky = SubResource("Sky_xv074")
 properties/0/path = NodePath("DirectionalLight3D:position")
 properties/0/spawn = true
 properties/0/replication_mode = 2
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vpf64"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wcngd"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_xv074"]
+size = Vector3(10, 5, 2)
 
 [node name="Level" type="Node3D"]
 script = ExtResource("1_e1sh7")
@@ -71,3 +78,27 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.186473, 1.9674404, 0)
 
 [node name="UI_Manager" parent="." instance=ExtResource("6_vpf64")]
 visible = false
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.35520488, 0.93478847, 0, -0.93478847, -0.35520488, 0, 20.276133, 0)
+light_energy = 4.418
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.7349163, -1.0093737)
+physics_material_override = SubResource("PhysicsMaterial_vpf64")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_wcngd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_xv074")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6900018, 4.4045525)
+physics_material_override = SubResource("PhysicsMaterial_vpf64")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D/StaticBody3D"]
+shape = SubResource("BoxShape3D_wcngd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/StaticBody3D"]
+mesh = SubResource("BoxMesh_xv074")
