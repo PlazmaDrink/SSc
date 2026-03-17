@@ -1,21 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://5511hivetyfu"]
+[gd_scene load_steps=4 format=3 uid="uid://cfpc4edllyps1"]
 
-[ext_resource type="Script" uid="uid://lvygtscmfnil" path="res://UI/Debug/UI_Debug/Script/ui_debug.gd" id="1_11vd1"]
-[ext_resource type="FontFile" uid="uid://diapabmalpcrj" path="res://assets/fonts/Kurland.ttf" id="2_xc17i"]
-[ext_resource type="PackedScene" uid="uid://cb2x40pyijrj5" path="res://UI/Debug/UI_Time_Control/Scene/ui_time_control.tscn" id="3_xc17i"]
-[ext_resource type="PackedScene" uid="uid://cfpc4edllyps1" path="res://UI/Debug/UI_Save_Load_Menu/Scene/UI_Save_Load_Menu.tscn" id="4_xd18r"]
+[ext_resource type="Script" uid="uid://b5ckm5ys1uio7" path="res://UI/Debug/UI_Save_Load_Menu/Script/UI_Save_Load_Menu.gd" id="1_wosj3"]
+[ext_resource type="FontFile" uid="uid://diapabmalpcrj" path="res://assets/fonts/Kurland.ttf" id="2_tvtcw"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_u1sij"]
 color = Color(0, 0, 0, 0)
 
-[node name="UI_Debug" type="Control"]
+[node name="UI_Save_Load_Menu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_11vd1")
+script = ExtResource("1_wosj3")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 0
@@ -38,14 +36,6 @@ grow_vertical = 2
 theme_override_constants/separation = 50
 alignment = 1
 
-[node name="Label" type="Label" parent="ColorRect/MainContainer"]
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 0
-theme_override_fonts/font = ExtResource("2_xc17i")
-theme_override_font_sizes/font_size = 70
-text = "Debug Menu"
-
 [node name="TimeMenu" type="VBoxContainer" parent="ColorRect/MainContainer"]
 layout_direction = 1
 layout_mode = 2
@@ -65,13 +55,13 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 alignment = 1
 
-[node name="TimeDebug" type="Button" parent="ColorRect/MainContainer/TimeMenu/Option1"]
+[node name="Save Game" type="Button" parent="ColorRect/MainContainer/TimeMenu/Option1"]
 layout_mode = 2
 theme_override_colors/font_pressed_color = Color(0, 0.52549, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0.52549, 0, 1)
-theme_override_fonts/font = ExtResource("2_xc17i")
+theme_override_fonts/font = ExtResource("2_tvtcw")
 theme_override_font_sizes/font_size = 35
-text = "Time Control "
+text = "Save Game"
 flat = true
 
 [node name="Option2" type="HBoxContainer" parent="ColorRect/MainContainer/TimeMenu"]
@@ -79,13 +69,13 @@ layout_mode = 2
 size_flags_vertical = 4
 alignment = 1
 
-[node name="Save Load" type="Button" parent="ColorRect/MainContainer/TimeMenu/Option2"]
+[node name="Load Game" type="Button" parent="ColorRect/MainContainer/TimeMenu/Option2"]
 layout_mode = 2
 theme_override_colors/font_pressed_color = Color(0, 0.52549, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0.52549, 0, 1)
-theme_override_fonts/font = ExtResource("2_xc17i")
+theme_override_fonts/font = ExtResource("2_tvtcw")
 theme_override_font_sizes/font_size = 35
-text = "Save Load"
+text = "Load Game"
 flat = true
 
 [node name="HSeparator2" type="HSeparator" parent="ColorRect/MainContainer/TimeMenu"]
@@ -103,19 +93,11 @@ alignment = 1
 layout_mode = 2
 theme_override_colors/font_pressed_color = Color(0.858824, 0, 0, 0.862745)
 theme_override_colors/font_hover_color = Color(0.858807, 4.71681e-06, 1.15514e-06, 0.862745)
-theme_override_fonts/font = ExtResource("2_xc17i")
+theme_override_fonts/font = ExtResource("2_tvtcw")
 theme_override_font_sizes/font_size = 35
 text = "Close menu"
 flat = true
 
-[node name="SubMenus" type="Node" parent="."]
-
-[node name="UI_TimeControl" parent="SubMenus" instance=ExtResource("3_xc17i")]
-visible = false
-
-[node name="UI_Save_Load" parent="SubMenus" instance=ExtResource("4_xd18r")]
-visible = false
-
-[connection signal="pressed" from="ColorRect/MainContainer/TimeMenu/Option1/TimeDebug" to="." method="_on_time_debug_pressed"]
-[connection signal="pressed" from="ColorRect/MainContainer/TimeMenu/Option2/Save Load" to="." method="_on_save_load_pressed"]
+[connection signal="pressed" from="ColorRect/MainContainer/TimeMenu/Option1/Save Game" to="." method="_on_save_game_pressed"]
+[connection signal="pressed" from="ColorRect/MainContainer/TimeMenu/Option2/Load Game" to="." method="_on_load_game_pressed"]
 [connection signal="pressed" from="ColorRect/MainContainer/TimeMenu/Option4/Close" to="." method="_on_close_pressed"]

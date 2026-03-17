@@ -8,7 +8,6 @@ const BOB_FREQUENCY = 2.0
 const BOB_AMPLITUDE = 0.08
 
 func _ready() -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	player.HeadBob.connect(_on_head_bob)
 	
 func _input(event) -> void:

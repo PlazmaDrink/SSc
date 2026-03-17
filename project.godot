@@ -22,6 +22,7 @@ config/icon="res://icon.png"
 Network="*res://scripts/network.gd"
 ItemDatabase="*res://scripts/item_database.gd"
 GlobalTime="*res://globals/Time/Scene/global_time.tscn"
+SaveLoad="*res://globals/SaveLoad/SaveLoad.gd"
 
 [display]
 
@@ -31,6 +32,10 @@ window/size/viewport_height=720
 [dotnet]
 
 project/assembly_name="SSc"
+
+[global_group]
+
+DataToSave=""
 
 [input]
 

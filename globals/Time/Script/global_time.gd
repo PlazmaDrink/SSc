@@ -30,6 +30,21 @@ func _process(delta: float) -> void:
 		#var value = (sin(time - PI/2) + 1.0)/2.0
 		_recalculate_time.rpc()
 
+func on_save_game(saved_data:Array[DataToSaveResource]):
+	var my_data: DataToSaveResource = DataToSaveResource.new()
+	my_data.position = global_position
+	my_data.time = time
+	my_data.scene_path = scene_file_path
+	
+	saved_data.append(my_data)
+
+func on_before_load():
+	get_parent().remove_child(self)
+	queue_free()
+
+func on_load_game(data:DataToSaveResource):
+	time = data.time
+
 @rpc("authority", "call_local")
 func _recalculate_time() -> void:
 	total_minutes = int(time/INGAME_TO_REAL_MINUTE_DURATION) / real_time_multiplier
