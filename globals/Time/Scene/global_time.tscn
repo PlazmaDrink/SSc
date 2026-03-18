@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cqw8qnmveqmar"]
 
-[ext_resource type="Script" uid="uid://hf8rfm34q2nt" path="res://globals/Time/Script/global_time.gd" id="1_ko6be"]
+[ext_resource type="Script" uid="uid://hf8rfm34q2nt" path="res://globals/Time/Script/GLOBAL_TIME.gd" id="1_ko6be"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ko6be"]
 properties/0/path = NodePath(".:current_day")

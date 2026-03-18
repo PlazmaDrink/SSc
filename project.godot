@@ -22,7 +22,7 @@ config/icon="res://icon.png"
 Network="*res://scripts/network.gd"
 ItemDatabase="*res://scripts/item_database.gd"
 GlobalTime="*res://globals/Time/Scene/global_time.tscn"
-SaveLoad="*res://globals/SaveLoad/SaveLoad.gd"
+SaveLoad="*res://globals/SaveLoad/SAVE_LOAD.gd"
 
 [display]
 

@@ -1,6 +1,5 @@
-class_name DataToSaveResource
+class_name DataToSave
 extends Resource
 
 @export var position:Vector3
-@export var time:float
 @export var scene_path:String
