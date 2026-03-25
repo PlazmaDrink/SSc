@@ -13,7 +13,7 @@ config_version=5
 config/name="SSc"
 config/description="This is a foundational template for a 3D multiplayer game, developed in Godot Engine."
 config/tags=PackedStringArray("3d", "network")
-run/main_scene="res://scenes/level/level.tscn"
+run/main_scene="uid://bx7mq8t8hjn7q"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.png"
 
@@ -23,6 +23,8 @@ Network="*res://scripts/network.gd"
 ItemDatabase="*res://scripts/item_database.gd"
 GlobalTime="*res://globals/Time/Scene/global_time.tscn"
 SaveLoad="*res://globals/SaveLoad/SAVE_LOAD.gd"
+SceneManager="*res://globals/SceneManager/Scene/SceneManager.tscn"
+GlobalData="*res://globals/GlobalData/GlobalData.tscn"
 
 [display]
 

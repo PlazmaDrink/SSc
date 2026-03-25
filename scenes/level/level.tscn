@@ -1,10 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://dugaivbj1o66n"]
+[gd_scene load_steps=16 format=3 uid="uid://dugaivbj1o66n"]
 
 [ext_resource type="Script" uid="uid://d0dgljwwl463n" path="res://scripts/level.gd" id="1_e1sh7"]
 [ext_resource type="PackedScene" uid="uid://cffjduipbb3s5" path="res://scenes/level/player.tscn" id="1_uvcbi"]
 [ext_resource type="Script" uid="uid://b7hxqglwotpm5" path="res://scenes/level/environment.gd" id="3_xv074"]
 [ext_resource type="PackedScene" uid="uid://cxwfmkvydqapy" path="res://General/Managers/UI_Manager/Scene/ui_manager.tscn" id="6_vpf64"]
-[ext_resource type="PackedScene" uid="uid://bx7mq8t8hjn7q" path="res://scenes/ui/main_menu_ui.tscn" id="6_x9g3h"]
 [ext_resource type="PackedScene" uid="uid://sn664ywhj318" path="res://scenes/Tests/time_test_block.tscn" id="10_tf2q7"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_r5xs5"]
@@ -69,9 +68,6 @@ shadow_blur = 0.5
 replication_config = SubResource("SceneReplicationConfig_sytrn")
 
 [node name="PlayersContainer" type="Node3D" parent="."]
-
-[node name="MainMenuUI" parent="." instance=ExtResource("6_x9g3h")]
-visible = false
 
 [node name="TimeTestBlock" parent="." instance=ExtResource("10_tf2q7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.186473, 1.9674404, 0)

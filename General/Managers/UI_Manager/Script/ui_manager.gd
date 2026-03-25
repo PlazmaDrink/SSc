@@ -11,6 +11,7 @@ var inventory_visible = false
 var UI_debug_menu_visible = false
 
 func _ready() -> void:
+	show()
 	# This line will hide mouse
 	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	multiplayer_chat_ui.hide()

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://b42uqt1nm7pxf"]
+
+[ext_resource type="Script" uid="uid://c5uk6ndncylau" path="res://globals/GlobalData/GlobalData.gd" id="1_adsxo"]
+[ext_resource type="PackedScene" uid="uid://cffjduipbb3s5" path="res://scenes/level/player.tscn" id="2_k0opn"]
+
+[node name="GlobalData" type="Node"]
+script = ExtResource("1_adsxo")
+player_scene = ExtResource("2_k0opn")
+
+[node name="Players_Container" type="Node3D" parent="."]
