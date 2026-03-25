@@ -12,7 +12,7 @@ var UI_debug_menu_visible = false
 
 func _ready() -> void:
 	# This line will hide mouse
-	# Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	multiplayer_chat_ui.hide()
 	multiplayer_chat_ui.set_process_input(true)
 	
@@ -111,8 +111,8 @@ func _debug_print_inventory():
 # ---------- UI_Time_Menu ----------
 func toggle_UI_debug_menu():
 	if ui_debug.is_menu_visible():
+		ui_debug.hide_menu()
 		return
-		
 	var local_player = get_parent().get_local_player()
 	if not local_player:
 		return

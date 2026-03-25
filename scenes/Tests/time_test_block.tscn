@@ -7,7 +7,7 @@
 [sub_resource type="BoxMesh" id="BoxMesh_l5gki"]
 material = ExtResource("2_fpggi")
 
-[node name="TimeTestBlock" type="Node3D"]
+[node name="TimeTestBlock" type="Node3D" groups=["DataToSave"]]
 script = ExtResource("1_27qd3")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

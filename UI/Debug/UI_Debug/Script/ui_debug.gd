@@ -25,7 +25,7 @@ func is_menu_visible() -> bool:
 	
 func open_UI_debug_menu(player: Character = null):
 	if player:
-		visible = true
+		show_menu()
 
 func _on_time_debug_pressed() -> void:
 	ui_time_control.show_menu()

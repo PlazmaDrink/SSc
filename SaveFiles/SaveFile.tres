@@ -1,17 +1,19 @@
-[gd_resource type="Resource" script_class="SavedGame" load_steps=5 format=3]
+[gd_resource type="Resource" script_class="SavedGame" load_steps=6 format=3]
 
-[ext_resource type="Script" path="res://General/Components/SaveLoadComponent/Script/DataToSave.gd" id="1_w464t"]
-[ext_resource type="Script" path="res://General/Components/SaveLoadComponent/Script/SavedGame.gd" id="2_u3dcm"]
+[ext_resource type="Script" path="res://General/Components/SaveLoadComponent/Script/DataToSave.gd" id="1_u3dcm"]
+[ext_resource type="Script" path="res://scenes/Tests/DataTosave_TimeTestBlock.gd" id="2_pmhtt"]
+[ext_resource type="Script" path="res://General/Components/SaveLoadComponent/Script/SavedGame.gd" id="3_fegd4"]
 
-[sub_resource type="Resource" id="Resource_w464t"]
-script = ExtResource("1_w464t")
+[sub_resource type="Resource" id="Resource_nd4rl"]
+script = ExtResource("1_u3dcm")
 scene_path = "res://globals/Time/Scene/global_time.tscn"
 
-[sub_resource type="Resource" id="Resource_u3dcm"]
-script = ExtResource("1_w464t")
-scene_path = "res://globals/Time/Scene/global_time.tscn"
+[sub_resource type="Resource" id="Resource_k8rhg"]
+script = ExtResource("2_pmhtt")
+position = Vector3(10.186473, 1.9674404, 0)
+scene_path = "res://scenes/Tests/time_test_block.tscn"
 
 [resource]
-script = ExtResource("2_u3dcm")
-time = 501.1384539599976
-saved_data = Array[ExtResource("1_w464t")]([SubResource("Resource_w464t"), SubResource("Resource_u3dcm")])
+script = ExtResource("3_fegd4")
+time = 5.497926999999987
+saved_data = Array[ExtResource("1_u3dcm")]([SubResource("Resource_nd4rl"), SubResource("Resource_k8rhg")])
