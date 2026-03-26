@@ -4,8 +4,8 @@ var current_scene = null
 
 
 var game_scenes_dict = {
-	"MainMenu": "res://scenes/MainMenu/main_menu_ui.tscn",
-	"MainLevel": "res://scenes/level/level.tscn"
+	"MainMenu": "res://scenes/LevelScenes/MainMenu/scene/main_menu_ui.tscn",
+	"MainLevel": "res://scenes/LevelScenes/MainLevel/scene/level.tscn"
 }
 
 func _ready() -> void:

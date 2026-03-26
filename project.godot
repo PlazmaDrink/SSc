@@ -19,12 +19,12 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Network="*res://scripts/network.gd"
-ItemDatabase="*res://scripts/item_database.gd"
-GlobalTime="*res://globals/Time/Scene/global_time.tscn"
+Network="*res://globals/network/network.gd"
+ItemDatabase="*res://scenes/General/Items (Goes with multiplayer template)/item_database.gd"
+GlobalTime="*res://globals/TimeManager/Scene/global_time.tscn"
 SaveLoad="*res://globals/SaveLoad/SAVE_LOAD.gd"
 SceneManager="*res://globals/SceneManager/Scene/SceneManager.tscn"
-GlobalData="*res://globals/GlobalData/GlobalData.tscn"
+GlobalData="*res://globals/GlobalData/Scene/GlobalData.tscn"
 
 [display]
 
