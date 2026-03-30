@@ -27,4 +27,3 @@ func _on_head_bob(time)->void:
 	pos.x = sin(time * BOB_FREQUENCY/2) * BOB_AMPLITUDE
 	pos.z = _spring_arm.position.z
 	_spring_arm.transform.origin = pos
-	print(pos)

@@ -31,7 +31,7 @@ func on_before_load():
 	pass
 
 func on_load_game(data:DataToSave):
-	var scene = data.scene_path
+	var scene = load(data.scene_path) as PackedScene
 	var instance = scene.instantiate()
 	if (data.parent):
 		data.parent.add_child(instance)

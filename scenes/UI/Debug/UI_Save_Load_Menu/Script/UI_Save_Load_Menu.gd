@@ -1,6 +1,8 @@
 extends Control
 class_name UI_Save_Load_Menu
 
+@onready var save_name_input: LineEdit = $ColorRect/MainContainer/TimeMenu/Option1/NewSave_HContainer/SaveNameInput
+
 signal on_Close
 # Called when the node enters the scene tree for the first time.
 
@@ -9,6 +11,7 @@ func _on_close_pressed() -> void:
 	on_Close.emit()
 
 func show_menu():
+	SaveLoad.update_name_to_path_dict()
 	show()
 
 func hide_menu():
@@ -24,6 +27,9 @@ func open_ui_save_load_menu(player: Character = null):
 
 func _on_save_game_pressed() -> void:
 	SaveLoad.save_game()
+
+func _on_new_save_pressed() -> void:
+	SaveLoad.save_game(save_name_input.text)
 
 func _on_load_game_pressed() -> void:
 	SaveLoad.load_game()

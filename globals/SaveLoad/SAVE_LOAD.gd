@@ -1,22 +1,37 @@
 extends Node
 
-const SAVE_LOCATION = "res://SaveFiles/SaveFile.tres"
 const GROUP_NAME = "DataToSave"
 const FUNC_SAVE_GAME = "on_save_game"
 const FUNC_BEFORE_LOAD = "on_before_load"
 const FUNC_LOAD_GAME = "on_load_game"
+const SAVE_FILES_FOLDER_PATH = "res://SaveFiles/"
+const SAVE_FILE_FORMAT = ".tres"
 @onready var level: Node = $"."
 
-func save_game():
-	var saved_game: SavedGame = SavedGame.new()
+var name_to_path_dict = {}
+var save_location:String = ""
+
+func save_game(save_name = "DefaultSaveFile"):
+	# Add save file name and path to local dictionary
+	var temp_key:String = save_name
+	var temp_value = SAVE_FILES_FOLDER_PATH + save_name + SAVE_FILE_FORMAT
+	name_to_path_dict.set(temp_key, temp_value)
+	save_location = temp_value
+	
+	# Collect dataToSave from all items in "DataToSave" group
 	var saved_data:Array[DataToSave] = []
 	get_tree().call_group(GROUP_NAME, FUNC_SAVE_GAME, saved_data)
+	
+	# Create a saveGame file and assign var values
+	var saved_game: SavedGame = SavedGame.new()
 	saved_game.saved_data = saved_data
 	saved_game.time = GlobalTime.time
-	ResourceSaver.save(saved_game, SAVE_LOCATION)
+	
+	#Save the game
+	ResourceSaver.save(saved_game, save_location)
 
-func load_game():
-	var saved_game: SavedGame = load(SAVE_LOCATION) as SavedGame
+func load_game(load_name = "DefaultSaveFile"):
+	var saved_game: SavedGame = load(name_to_path_dict.get(load_name)) as SavedGame
 	get_tree().call_group(GROUP_NAME, FUNC_BEFORE_LOAD)
 	GlobalTime.time = saved_game.time
 	for item in saved_game.saved_data:
@@ -26,3 +41,20 @@ func load_game():
 		
 		if restored_node.has_method(FUNC_LOAD_GAME):
 			restored_node.on_load_game(item)
+
+func update_name_to_path_dict() -> void:
+	if multiplayer.is_server():
+		var dir = DirAccess.open(SAVE_FILES_FOLDER_PATH)
+		if dir == null:
+			print("Failed to open directory")
+			return
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+
+		while file_name != "":
+			name_to_path_dict.set(file_name, SAVE_FILES_FOLDER_PATH + file_name + SAVE_FILE_FORMAT)
+			file_name = dir.get_next()
+
+		dir.list_dir_end()
+		for item in name_to_path_dict:
+			print(item)
