@@ -59,4 +59,4 @@ func update_name_to_path_dict() -> void:
 
 		dir.list_dir_end()
 		for item in name_to_path_dict:
-			print(item)
+			print_debug(item)
