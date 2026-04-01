@@ -1,10 +1,19 @@
-[gd_scene load_steps=16 format=3 uid="uid://dugaivbj1o66n"]
+[gd_scene load_steps=25 format=3 uid="uid://dugaivbj1o66n"]
 
 [ext_resource type="Script" uid="uid://d0dgljwwl463n" path="res://scenes/LevelScenes/MainLevel/script/level.gd" id="1_e1sh7"]
-[ext_resource type="PackedScene" uid="uid://cffjduipbb3s5" path="res://scenes/characters/Player/Scene/player.tscn" id="1_uvcbi"]
+[ext_resource type="ArrayMesh" uid="uid://bxcj5t8mbkkmb" path="res://assets/env_test_stylu/lada/lada.obj" id="3_gqbg4"]
 [ext_resource type="Script" uid="uid://b7hxqglwotpm5" path="res://scenes/LevelScenes/MainLevel/script/environment.gd" id="3_xv074"]
+[ext_resource type="Material" uid="uid://c5fkhs2nco635" path="res://assets/env_test_stylu/lada/lada.tres" id="4_siss4"]
+[ext_resource type="ArrayMesh" uid="uid://fpo73answsf6" path="res://assets/env_test_stylu/lodowka/lodowka_lada.obj" id="5_kni5o"]
+[ext_resource type="Material" uid="uid://dy2q4f5frltrf" path="res://assets/env_test_stylu/lodowka/lodowka.tres" id="6_df7s7"]
 [ext_resource type="PackedScene" uid="uid://cxwfmkvydqapy" path="res://scenes/UI/UI_Manager/Scene/ui_manager.tscn" id="6_vpf64"]
+[ext_resource type="ArrayMesh" uid="uid://giqbjhagd62u" path="res://assets/env_test_stylu/kasa/kasa.obj" id="7_5to0l"]
+[ext_resource type="Material" uid="uid://bt3hppnpcy322" path="res://assets/env_test_stylu/kasa/kasa.tres" id="8_8pciu"]
 [ext_resource type="PackedScene" uid="uid://sn664ywhj318" path="res://scenes/Tests/time_test_block.tscn" id="10_tf2q7"]
+[ext_resource type="ArrayMesh" uid="uid://ccr8nnidvydmk" path="res://assets/env_test_stylu/tlo/tlo.obj" id="11_crfef"]
+[ext_resource type="Material" uid="uid://q5cuaae0lcjm" path="res://assets/env_test_stylu/tlo/tlo.tres" id="12_rf80x"]
+[ext_resource type="ArrayMesh" uid="uid://b2l4if24dlwrk" path="res://assets/env_test_stylu/nogi/nogi.obj" id="13_tlre7"]
+[ext_resource type="Material" uid="uid://c1ddbaroeu3g3" path="res://assets/env_test_stylu/nogi/nogi.tres" id="14_cdnaa"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_r5xs5"]
 size = Vector2(90, 90)
@@ -25,6 +34,10 @@ sky_material = SubResource("ProceduralSkyMaterial_xv074")
 [sub_resource type="Environment" id="Environment_qb4jd"]
 background_mode = 2
 sky = SubResource("Sky_xv074")
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_sytrn"]
 properties/0/path = NodePath("DirectionalLight3D:position")
@@ -40,7 +53,6 @@ size = Vector3(10, 5, 2)
 
 [node name="Level" type="Node3D"]
 script = ExtResource("1_e1sh7")
-player_scene = ExtResource("1_uvcbi")
 
 [node name="Environment" type="Node3D" parent="."]
 script = ExtResource("3_xv074")
@@ -55,12 +67,26 @@ surface_material_override/0 = SubResource("StandardMaterial3D_o02aj")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Floor"]
 shape = SubResource("BoxShape3D_x3h1o")
 
+[node name="Lada" type="MeshInstance3D" parent="Environment/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.229525, 0.7820839, 13.50345)
+mesh = ExtResource("3_gqbg4")
+surface_material_override/0 = ExtResource("4_siss4")
+
+[node name="LodowkaLada" type="MeshInstance3D" parent="Environment/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.021, 13.513)
+mesh = ExtResource("5_kni5o")
+surface_material_override/0 = ExtResource("6_df7s7")
+
+[node name="Kasa" type="MeshInstance3D" parent="Environment/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7734008, 1.4585861, 13.759493)
+mesh = ExtResource("7_5to0l")
+surface_material_override/0 = ExtResource("8_8pciu")
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
 environment = SubResource("Environment_qb4jd")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
 transform = Transform3D(1, 0, 0, 0, 0.9999995, 0, 0, 0, 0.9999995, 0, 4, 0)
-light_energy = 2.0
 shadow_enabled = true
 shadow_blur = 0.5
 
@@ -77,7 +103,6 @@ visible = false
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -0.35520488, 0.93478847, 0, -0.93478847, -0.35520488, 0, 20.276133, 0)
-light_energy = 4.418
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.7349163, -1.0093737)
@@ -98,3 +123,55 @@ shape = SubResource("BoxShape3D_wcngd")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/StaticBody3D"]
 mesh = SubResource("BoxMesh_xv074")
+
+[node name="Tlo" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5171921, 3.2535176, 13.253283)
+mesh = ExtResource("11_crfef")
+surface_material_override/0 = ExtResource("12_rf80x")
+
+[node name="Nogi6" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.389, 0.253, 13.104)
+mesh = ExtResource("13_tlre7")
+skeleton = NodePath("../Nogi7")
+surface_material_override/0 = ExtResource("14_cdnaa")
+
+[node name="Nogi7" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.083, 0.253, 13.104)
+mesh = ExtResource("13_tlre7")
+skeleton = NodePath("../Nogi5")
+surface_material_override/0 = ExtResource("14_cdnaa")
+
+[node name="Nogi5" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.0830674, 0.253, 13.842)
+mesh = ExtResource("13_tlre7")
+skeleton = NodePath("../Nogi4")
+surface_material_override/0 = ExtResource("14_cdnaa")
+
+[node name="Nogi4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.389, 0.253, 13.842)
+mesh = ExtResource("13_tlre7")
+skeleton = NodePath("../Nogi3")
+surface_material_override/0 = ExtResource("14_cdnaa")
+
+[node name="Nogi3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.253, 13.104)
+mesh = ExtResource("13_tlre7")
+skeleton = NodePath("../Nogi8")
+surface_material_override/0 = ExtResource("14_cdnaa")
+
+[node name="Nogi8" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.253, 13.104019)
+mesh = ExtResource("13_tlre7")
+skeleton = NodePath("../Nogi2")
+surface_material_override/0 = ExtResource("14_cdnaa")
+
+[node name="Nogi2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.253, 13.842)
+mesh = ExtResource("13_tlre7")
+skeleton = NodePath("../Nogi")
+surface_material_override/0 = ExtResource("14_cdnaa")
+
+[node name="Nogi" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.253, 13.842)
+mesh = ExtResource("13_tlre7")
+surface_material_override/0 = ExtResource("14_cdnaa")

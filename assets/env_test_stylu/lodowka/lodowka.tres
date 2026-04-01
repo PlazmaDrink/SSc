@@ -1,0 +1,15 @@
+[gd_resource type="StandardMaterial3D" load_steps=5 format=3 uid="uid://dy2q4f5frltrf"]
+
+[ext_resource type="Texture2D" uid="uid://by4qxgry5f011" path="res://assets/env_test_stylu/lodowka/lodowka_BaseColor.png" id="1_nx070"]
+[ext_resource type="Texture2D" uid="uid://hulc32fgaik0" path="res://assets/env_test_stylu/lodowka/lodowka_Metallic.png" id="2_hw25v"]
+[ext_resource type="Texture2D" uid="uid://barex7bmivee0" path="res://assets/env_test_stylu/lodowka/lodowka_Normal.png" id="3_37trg"]
+[ext_resource type="Texture2D" uid="uid://cgvl8028smwoc" path="res://assets/env_test_stylu/lodowka/lodowka_Roughness.png" id="4_to32s"]
+
+[resource]
+albedo_texture = ExtResource("1_nx070")
+metallic = 1.0
+metallic_texture = ExtResource("2_hw25v")
+roughness_texture = ExtResource("4_to32s")
+normal_enabled = true
+normal_texture = ExtResource("3_37trg")
+ao_enabled = true

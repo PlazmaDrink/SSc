@@ -1,0 +1,14 @@
+[gd_resource type="StandardMaterial3D" load_steps=5 format=3 uid="uid://c5fkhs2nco635"]
+
+[ext_resource type="Texture2D" uid="uid://b0mlrn5754bvi" path="res://assets/env_test_stylu/lada/lada_BaseColor.png" id="1_o20vf"]
+[ext_resource type="Texture2D" uid="uid://ciwt5s8p4s4sp" path="res://assets/env_test_stylu/lada/lada_Metallic.png" id="2_oldlc"]
+[ext_resource type="Texture2D" uid="uid://d01hvsn0sn1wv" path="res://assets/env_test_stylu/lada/lada_Normal.png" id="3_hjext"]
+[ext_resource type="Texture2D" uid="uid://d11lxfkd5sc72" path="res://assets/env_test_stylu/lada/lada_Roughness.png" id="4_jbyo0"]
+
+[resource]
+albedo_texture = ExtResource("1_o20vf")
+metallic = 1.0
+metallic_texture = ExtResource("2_oldlc")
+roughness_texture = ExtResource("4_jbyo0")
+normal_enabled = true
+normal_texture = ExtResource("3_hjext")

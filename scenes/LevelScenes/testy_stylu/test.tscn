@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://direatk5cycih"]
+
+[ext_resource type="PackedScene" uid="uid://du8flsyggqei0" path="res://assets/env_test_stylu/test_gdot_import.fbx" id="1_211dw"]
+
+[node name="Test" type="Node3D"]
+
+[node name="test_gdot_import" parent="." instance=ExtResource("1_211dw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7360733, 1.2991033, -1.4686024)

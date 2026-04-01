@@ -1,0 +1,14 @@
+[gd_resource type="StandardMaterial3D" load_steps=5 format=3 uid="uid://bt3hppnpcy322"]
+
+[ext_resource type="Texture2D" uid="uid://dh8h52int2drq" path="res://assets/env_test_stylu/kasa/kasa_BaseColor.png" id="1_lh1we"]
+[ext_resource type="Texture2D" uid="uid://uscq5b6gbqyi" path="res://assets/env_test_stylu/kasa/kasa_Metallic.png" id="2_02bt6"]
+[ext_resource type="Texture2D" uid="uid://lrwcpcqvtxy8" path="res://assets/env_test_stylu/kasa/kasa_Normal.png" id="3_jxa1w"]
+[ext_resource type="Texture2D" uid="uid://iw6w80v50q2b" path="res://assets/env_test_stylu/kasa/kasa_Roughness.png" id="4_mieft"]
+
+[resource]
+albedo_texture = ExtResource("1_lh1we")
+metallic = 1.0
+metallic_texture = ExtResource("2_02bt6")
+roughness_texture = ExtResource("4_mieft")
+normal_enabled = true
+normal_texture = ExtResource("3_jxa1w")
