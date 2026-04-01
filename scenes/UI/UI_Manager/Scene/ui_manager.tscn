@@ -36,3 +36,5 @@ offset_bottom = 434.0
 [node name="UI_Debug" parent="." instance=ExtResource("6_65b07")]
 visible = false
 layout_mode = 1
+
+[node name="ContainerForTemp" type="Node" parent="."]

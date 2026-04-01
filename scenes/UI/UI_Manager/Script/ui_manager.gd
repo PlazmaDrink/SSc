@@ -5,6 +5,9 @@ extends Control
 @onready var inventory_ui: InventoryUI = $InventoryUI
 @onready var multiplayer_chat_ui: MultiplayerChatUI = $MultiplayerChatUI
 @onready var ui_debug: UI_Debug = $UI_Debug
+@onready var container_for_temp: Node = $ContainerForTemp
+const POP_UP_MESSAGE = preload("uid://cmi5io0cl7ms1")
+
 
 var chat_visible = false
 var inventory_visible = false
@@ -122,6 +125,17 @@ func toggle_UI_debug_menu():
 		ui_debug.open_UI_debug_menu(local_player)
 	else:
 		ui_debug.hide_menu()
+#func is_UI_Debug_Menu_visible() -> bool:
+	#return UI_debug_menu_visible
+# ---------- UI_Time_Menu ----------
 
-func is_UI_Debug_Menu_visible() -> bool:
-	return UI_debug_menu_visible
+# ---------- Pop Up Message ----------
+func togle_pop_up_message(topLabel:String, messageLabel:String):
+	var local_player = get_parent().get_local_player()
+	if not local_player:
+		return
+	var pop_up_instance
+	pop_up_instance = POP_UP_MESSAGE.instantiate()
+	container_for_temp.add_child(pop_up_instance)
+	pop_up_instance.update_pop_up_message(topLabel, messageLabel)
+# ---------- Pop Up Message ----------

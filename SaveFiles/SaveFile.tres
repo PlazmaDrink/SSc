@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="SavedGame" load_steps=7 format=3]
+[gd_resource type="Resource" script_class="SavedGame" load_steps=7 format=3 uid="uid://d0jmq8mtr6wn1"]
 
 [ext_resource type="Script" uid="uid://csqeytjnduddh" path="res://scenes/General/Components/SaveLoadComponent/Script/DataToSave.gd" id="1_pmhtt"]
 [ext_resource type="Material" uid="uid://b0sygn7q8ee68" path="res://assets/Material/new.tres" id="2_fegd4"]

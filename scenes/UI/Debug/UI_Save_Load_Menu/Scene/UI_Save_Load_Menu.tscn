@@ -95,6 +95,9 @@ theme_override_font_sizes/font_size = 35
 text = "Load Game"
 flat = true
 
+[node name="MenuButton" type="MenuButton" parent="ColorRect/MainContainer/TimeMenu/Option2"]
+layout_mode = 2
+
 [node name="HSeparator2" type="HSeparator" parent="ColorRect/MainContainer/TimeMenu"]
 layout_mode = 2
 theme_override_constants/separation = 30
@@ -115,7 +118,78 @@ theme_override_font_sizes/font_size = 35
 text = "Close menu"
 flat = true
 
+[node name="LoadGameListContainer" type="VBoxContainer" parent="ColorRect"]
+visible = false
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -257.0
+offset_bottom = 257.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="LoadGameList" type="VBoxContainer" parent="ColorRect/LoadGameListContainer"]
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="HSeparator1" type="HSeparator" parent="ColorRect/LoadGameListContainer/LoadGameList"]
+layout_mode = 2
+theme_override_constants/separation = 10
+theme_override_styles/separator = SubResource("StyleBoxLine_u1sij")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ColorRect/LoadGameListContainer/LoadGameList"]
+custom_minimum_size = Vector2(350, 350)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/LoadGameListContainer/LoadGameList/ScrollContainer"]
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="ColorRect/LoadGameListContainer/LoadGameList"]
+layout_mode = 2
+theme_override_constants/separation = 30
+theme_override_styles/separator = SubResource("StyleBoxLine_u1sij")
+
+[node name="Option4" type="HBoxContainer" parent="ColorRect/LoadGameListContainer/LoadGameList"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Back" type="Button" parent="ColorRect/LoadGameListContainer/LoadGameList/Option4"]
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0.858824, 0, 0, 0.862745)
+theme_override_colors/font_hover_color = Color(0.858807, 4.71681e-06, 1.15514e-06, 0.862745)
+theme_override_fonts/font = ExtResource("2_tvtcw")
+theme_override_font_sizes/font_size = 35
+text = "Back
+"
+flat = true
+
+[node name="VSeparator" type="VSeparator" parent="ColorRect/LoadGameListContainer/LoadGameList/Option4"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="Load" type="Button" parent="ColorRect/LoadGameListContainer/LoadGameList/Option4"]
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0.858824, 0, 0, 0.862745)
+theme_override_colors/font_hover_color = Color(0.858807, 4.71681e-06, 1.15514e-06, 0.862745)
+theme_override_fonts/font = ExtResource("2_tvtcw")
+theme_override_font_sizes/font_size = 35
+text = "Load
+"
+flat = true
+
 [connection signal="pressed" from="ColorRect/MainContainer/TimeMenu/Option1/QuickSave" to="." method="_on_save_game_pressed"]
 [connection signal="pressed" from="ColorRect/MainContainer/TimeMenu/Option1/NewSave_HContainer/NewSave" to="." method="_on_new_save_pressed"]
 [connection signal="pressed" from="ColorRect/MainContainer/TimeMenu/Option2/Load Game" to="." method="_on_load_game_pressed"]
 [connection signal="pressed" from="ColorRect/MainContainer/TimeMenu/Option4/Close" to="." method="_on_close_pressed"]
+[connection signal="pressed" from="ColorRect/LoadGameListContainer/LoadGameList/Option4/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="ColorRect/LoadGameListContainer/LoadGameList/Option4/Load" to="." method="_on_load_pressed"]

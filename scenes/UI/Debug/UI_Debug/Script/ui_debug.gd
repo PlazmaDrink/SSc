@@ -9,6 +9,7 @@ func _ready() -> void:
 	ui_time_control.hide_menu()
 	ui_time_control.on_Close.connect(_on_submenu_close)
 	ui_save_load.on_Close.connect(_on_submenu_close)
+	ui_save_load.on_Pop_up_request.connect(_on_pop_up)
 	hide_menu()
 
 func _on_close_pressed() -> void:
@@ -37,3 +38,6 @@ func _on_save_load_pressed() -> void:
 
 func _on_submenu_close()-> void:
 	show_menu()
+
+func _on_pop_up(topLabel, messageLabel)->void:
+	get_parent().togle_pop_up_message(topLabel,messageLabel)

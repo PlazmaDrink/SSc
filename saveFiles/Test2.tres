@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="SavedGame" load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scenes/General/Components/SaveLoadComponent/Script/DataToSave.gd" id="1_8pvvx"]
+[ext_resource type="Material" path="res://assets/Material/new.tres" id="2_ehvhb"]
+[ext_resource type="Script" path="res://scenes/Tests/DataTosave_TimeTestBlock.gd" id="3_d7l5u"]
+[ext_resource type="Script" path="res://scenes/General/Components/SaveLoadComponent/Script/SavedGame.gd" id="4_fvxnl"]
+
+[sub_resource type="Resource" id="Resource_ei8xl"]
+script = ExtResource("1_8pvvx")
+scene_path = "res://globals/TimeManager/Scene/global_time.tscn"
+
+[sub_resource type="Resource" id="Resource_iqb0t"]
+script = ExtResource("1_8pvvx")
+scene_path = "res://globals/TimeManager/Scene/global_time.tscn"
+
+[sub_resource type="Resource" id="Resource_uo11i"]
+script = ExtResource("3_d7l5u")
+material = ExtResource("2_ehvhb")
+scene_path = "res://scenes/Tests/time_test_block.tscn"
+
+[resource]
+script = ExtResource("4_fvxnl")
+time = 519.2344756528215
+saved_data = Array[ExtResource("1_8pvvx")]([SubResource("Resource_ei8xl"), SubResource("Resource_iqb0t"), SubResource("Resource_uo11i")])
