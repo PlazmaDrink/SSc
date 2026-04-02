@@ -11,4 +11,5 @@ extends Resource
 
 @export var position:Vector3
 @export var scene_path:String
-var parent:Node
+@export var parent_path:String
+@export var index: int

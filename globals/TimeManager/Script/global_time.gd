@@ -34,9 +34,8 @@ func on_save_game(saved_data:Array[DataToSave]):
 	
 	saved_data.append(my_data)
 
+#on_before_load is not implemented as there is no need to delete this node - its a global signleton
 func on_before_load():
-	#get_parent().remove_child(self)
-	#queue_free()
 	pass
 
 func on_load_game(data:DataToSave):

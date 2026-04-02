@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="SavedGame" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scenes/General/Components/SaveLoadComponent/Script/DataToSave.gd" id="1_rsy4n"]
+[ext_resource type="Script" path="res://scenes/Tests/DataTosave_TimeTestBlock.gd" id="2_f1q4b"]
+[ext_resource type="Script" path="res://scenes/General/Components/SaveLoadComponent/Script/SavedGame.gd" id="3_17owb"]
+
+[sub_resource type="Resource" id="Resource_flj6k"]
+script = ExtResource("1_rsy4n")
+scene_path = "res://globals/TimeManager/Scene/global_time.tscn"
+
+[sub_resource type="Resource" id="Resource_lkdfx"]
+script = ExtResource("2_f1q4b")
+position = Vector3(10.186473, 1.9674404, 0)
+scene_path = "res://scenes/Tests/time_test_block.tscn"
+
+[resource]
+script = ExtResource("3_17owb")
+time = 4.591909999999989
+saved_data = Array[ExtResource("1_rsy4n")]([SubResource("Resource_flj6k"), SubResource("Resource_lkdfx")])

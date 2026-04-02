@@ -39,8 +39,10 @@ func load_game(load_name = "DefaultSaveFile"):
 		for item in saved_game.saved_data:
 			var scene = load(item.scene_path) as PackedScene
 			var restored_node = scene.instantiate()
-			level.add_child(restored_node)
-			
+			if(item.parent_path):
+				get_node(item.parent_path).add_child(restored_node)
+				if(item.index):
+					get_node(item.parent_path).move_child(restored_node, item.index)
 			if restored_node.has_method(FUNC_LOAD_GAME):
 				restored_node.on_load_game(item)	
 

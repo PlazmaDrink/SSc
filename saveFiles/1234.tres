@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="SavedGame" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scenes/General/Components/SaveLoadComponent/Script/DataToSave.gd" id="1_tg0ea"]
+[ext_resource type="Script" path="res://scenes/Tests/DataTosave_TimeTestBlock.gd" id="2_yke87"]
+[ext_resource type="Script" path="res://scenes/General/Components/SaveLoadComponent/Script/SavedGame.gd" id="3_ygxmb"]
+
+[sub_resource type="Resource" id="Resource_tg0ea"]
+script = ExtResource("1_tg0ea")
+scene_path = "res://globals/TimeManager/Scene/global_time.tscn"
+
+[sub_resource type="Resource" id="Resource_yke87"]
+script = ExtResource("2_yke87")
+position = Vector3(10.186473, 1.9674404, 0)
+scene_path = "res://scenes/Tests/time_test_block.tscn"
+parent_path = "/root/Level"
+index = 2
+
+[resource]
+script = ExtResource("3_ygxmb")
+time = 12.295510666666859
+saved_data = Array[ExtResource("1_tg0ea")]([SubResource("Resource_tg0ea"), SubResource("Resource_yke87")])

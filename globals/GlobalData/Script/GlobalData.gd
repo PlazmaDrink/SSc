@@ -62,3 +62,4 @@ func _remove_player(id):
 	var player_node = players_container.get_node(str(id))
 	if player_node:
 		player_node.queue_free()
+	
