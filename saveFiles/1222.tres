@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="SavedGame" load_steps=6 format=3]
 
-[ext_resource type="Script" path="res://scenes/General/Components/SaveLoadComponent/Script/DataToSave.gd" id="1_oqijm"]
-[ext_resource type="Script" path="res://scenes/Tests/DataTosave_TimeTestBlock.gd" id="2_x5n44"]
-[ext_resource type="Script" path="res://scenes/General/Components/SaveLoadComponent/Script/SavedGame.gd" id="3_qw0hh"]
+[ext_resource type="Script" uid="uid://csqeytjnduddh" path="res://scenes/General/Components/SaveLoadComponent/Script/DataToSave.gd" id="1_oqijm"]
+[ext_resource type="Script" uid="uid://bc7cbp1leuoyd" path="res://scenes/Tests/DataTosave_TimeTestBlock.gd" id="2_x5n44"]
+[ext_resource type="Script" uid="uid://dthkaojjpjpux" path="res://scenes/General/Components/SaveLoadComponent/Script/SavedGame.gd" id="3_qw0hh"]
 
 [sub_resource type="Resource" id="Resource_0rale"]
 script = ExtResource("1_oqijm")

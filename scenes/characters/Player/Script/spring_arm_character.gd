@@ -2,11 +2,14 @@ extends Node3D
 
 @onready var player: Character = $".."
 @onready var camera_3d: Camera3D = $SpringArm3D/Camera3D
+@onready var ray_cast_3d: RayCast3D = $SpringArm3D/Camera3D/RayCast3D
 
 @export_category("Objects")
 @export var _spring_arm: SpringArm3D = null
 
 const MOUSE_SENSIBILITY: float = 0.005
+
+var rayCast: RayCast3D = null
 
 #bob variables
 const BOB_FREQUENCY = 2.0
@@ -20,7 +23,12 @@ func _input(event) -> void:
 		rotate_y(-event.relative.x * MOUSE_SENSIBILITY)
 		_spring_arm.rotate_x(-event.relative.y * MOUSE_SENSIBILITY)
 		_spring_arm.rotation.x = clamp(_spring_arm.rotation.x, deg_to_rad(-40), deg_to_rad(60))
-
+	if ray_cast_3d.is_colliding():
+		var target_collider = ray_cast_3d.get_collider() as Node3D;
+		var container = target_collider.get_node_or_null("ComponentContainer")
+		if container:
+			container.send_message_to_child("InteractableComponent", "onRayTraceEnter")
+			print_debug("Działa")
 func _on_head_bob(time)->void:
 	var pos = Vector3.ZERO
 	pos.y = sin(time * BOB_FREQUENCY) * BOB_AMPLITUDE

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://od014t1fy44i"]
+
+[ext_resource type="Script" uid="uid://bnpi57wbrwswo" path="res://scenes/General/Components/ComponentContainer/Script/component_container.gd" id="1_d783l"]
+
+[node name="ComponentContainer" type="Node"]
+script = ExtResource("1_d783l")

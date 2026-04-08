@@ -1,8 +1,8 @@
 [gd_scene load_steps=16 format=3 uid="uid://dugaivbj1o66n"]
 
 [ext_resource type="Script" uid="uid://d0dgljwwl463n" path="res://scenes/LevelScenes/MainLevel/script/level.gd" id="1_e1sh7"]
-[ext_resource type="PackedScene" uid="uid://cffjduipbb3s5" path="res://scenes/characters/Player/Scene/player.tscn" id="1_uvcbi"]
 [ext_resource type="Script" uid="uid://b7hxqglwotpm5" path="res://scenes/LevelScenes/MainLevel/script/environment.gd" id="3_xv074"]
+[ext_resource type="PackedScene" uid="uid://x0fgn0okf41d" path="res://scenes/Tests/test_outline.tscn" id="5_llr3u"]
 [ext_resource type="PackedScene" uid="uid://cxwfmkvydqapy" path="res://scenes/UI/UI_Manager/Scene/ui_manager.tscn" id="6_vpf64"]
 [ext_resource type="PackedScene" uid="uid://sn664ywhj318" path="res://scenes/Tests/time_test_block.tscn" id="10_tf2q7"]
 
@@ -34,13 +34,13 @@ properties/0/replication_mode = 2
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vpf64"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wcngd"]
+size = Vector3(10, 5, 2)
 
 [sub_resource type="BoxMesh" id="BoxMesh_xv074"]
 size = Vector3(10, 5, 2)
 
 [node name="Level" type="Node3D"]
 script = ExtResource("1_e1sh7")
-player_scene = ExtResource("1_uvcbi")
 
 [node name="Environment" type="Node3D" parent="."]
 script = ExtResource("3_xv074")
@@ -49,6 +49,7 @@ script = ExtResource("3_xv074")
 collision_layer = 2
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.07999182, 0, 0.06747484)
 mesh = SubResource("PlaneMesh_r5xs5")
 surface_material_override/0 = SubResource("StandardMaterial3D_o02aj")
 
@@ -81,6 +82,8 @@ light_energy = 4.418
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.7349163, -1.0093737)
+collision_layer = 2
+collision_mask = 3
 physics_material_override = SubResource("PhysicsMaterial_vpf64")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
@@ -89,12 +92,19 @@ shape = SubResource("BoxShape3D_wcngd")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
 mesh = SubResource("BoxMesh_xv074")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6900018, 4.4045525)
+[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.044914484, 3.3951788)
+collision_layer = 2
+collision_mask = 3
 physics_material_override = SubResource("PhysicsMaterial_vpf64")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
 shape = SubResource("BoxShape3D_wcngd")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/StaticBody3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2"]
+layers = 3
 mesh = SubResource("BoxMesh_xv074")
+skeleton = NodePath("../../StaticBody3D2")
+
+[node name="TimeTestBlock2" parent="." instance=ExtResource("5_llr3u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4574652, -6.078645)

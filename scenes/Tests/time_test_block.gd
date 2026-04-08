@@ -10,7 +10,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	print(get_index())
+	pass
 	
 func _on_time_component_action_finished() -> void:
 	mesh_instance_3d.material_override = NEW
@@ -35,5 +35,4 @@ func on_load_game(data:DataToSave_TimeTestBlock):
 	position = data.position
 	if not is_multiplayer_authority(): return
 	mesh_instance_3d.material_override = data.material
-	
 #=====================================================================#
