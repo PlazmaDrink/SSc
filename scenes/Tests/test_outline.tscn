@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://od014t1fy44i" path="res://scenes/General/Components/ComponentContainer/Scene/ComponentContainer.tscn" id="4_2hwpd"]
 [ext_resource type="PackedScene" uid="uid://botwm1ppo741l" path="res://scenes/General/Components/InteractableComponent/Scene/InteractableComponent.tscn" id="5_2hwpd"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_ybtej"]
+
 [sub_resource type="BoxMesh" id="BoxMesh_l5gki"]
 material = ExtResource("2_pqepl")
 
@@ -14,21 +16,20 @@ material = ExtResource("2_pqepl")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gfg01"]
 next_pass = SubResource("ShaderMaterial_2hwpd")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ybtej"]
-
 [node name="TimeTestBlock" type="Node3D" groups=["DataToSave"]]
-script = ExtResource("1_qsjuf")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("BoxMesh_l5gki")
-surface_material_override/0 = SubResource("StandardMaterial3D_gfg01")
-
-[node name="Area3D" type="Area3D" parent="MeshInstance3D"]
+[node name="Area3D" type="Area3D" parent="."]
 collision_layer = 2
 collision_mask = 3
+script = ExtResource("1_qsjuf")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("BoxShape3D_ybtej")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+mesh = SubResource("BoxMesh_l5gki")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_gfg01")
 
 [node name="ComponentContainer" parent="." instance=ExtResource("4_2hwpd")]
 
@@ -37,5 +38,5 @@ shape = SubResource("BoxShape3D_ybtej")
 [node name="InteractableComponent" parent="ComponentContainer" instance=ExtResource("5_2hwpd")]
 
 [connection signal="ActionFinished" from="ComponentContainer/TimeComponent" to="." method="_on_time_component_action_finished"]
-[connection signal="OnRayTraceEnter" from="ComponentContainer/InteractableComponent" to="." method="_on_interactable_component_on_ray_trace_enter"]
-[connection signal="OnRayTraceExit" from="ComponentContainer/InteractableComponent" to="." method="_on_interactable_component_on_ray_trace_exit"]
+[connection signal="OnRayTraceEnter" from="ComponentContainer/InteractableComponent" to="Area3D" method="_on_interactable_component_on_ray_trace_enter"]
+[connection signal="OnRayTraceExit" from="ComponentContainer/InteractableComponent" to="Area3D" method="_on_interactable_component_on_ray_trace_exit"]

@@ -25,10 +25,9 @@ func _input(event) -> void:
 		_spring_arm.rotation.x = clamp(_spring_arm.rotation.x, deg_to_rad(-40), deg_to_rad(60))
 	if ray_cast_3d.is_colliding():
 		var target_collider = ray_cast_3d.get_collider() as Node3D;
-		var container = target_collider.get_node_or_null("ComponentContainer")
-		if container:
-			container.send_message_to_child("InteractableComponent", "onRayTraceEnter")
-			print_debug("Działa")
+		if target_collider:
+			target_collider.component_container.send_message_to_child("InteractableComponent", "onRayTraceEnter")
+			#print_debug(target_collider.name)
 func _on_head_bob(time)->void:
 	var pos = Vector3.ZERO
 	pos.y = sin(time * BOB_FREQUENCY) * BOB_AMPLITUDE

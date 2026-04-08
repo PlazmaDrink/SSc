@@ -1,6 +1,8 @@
 extends Node3D
 
+@onready var component_container: Node = $"../ComponentContainer"
 @onready var mesh_instance_3d: MeshInstance3D = $MeshInstance3D
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
