@@ -1,23 +1,16 @@
-[gd_scene load_steps=27 format=3 uid="uid://dugaivbj1o66n"]
+[gd_scene load_steps=22 format=3 uid="uid://dugaivbj1o66n"]
 
 [ext_resource type="Script" uid="uid://d0dgljwwl463n" path="res://scenes/LevelScenes/MainLevel/script/level.gd" id="1_e1sh7"]
-[ext_resource type="ArrayMesh" uid="uid://bxcj5t8mbkkmb" path="res://assets/env_test_stylu/lada/lada.obj" id="3_gqbg4"]
 [ext_resource type="VoxelGIData" uid="uid://dlg0ckm5aiplx" path="res://scenes/LevelScenes/MainLevel/scene/level.VoxelGI_data.res" id="3_siss4"]
 [ext_resource type="Script" uid="uid://b7hxqglwotpm5" path="res://scenes/LevelScenes/MainLevel/script/environment.gd" id="3_xv074"]
-[ext_resource type="Material" uid="uid://c5fkhs2nco635" path="res://assets/env_test_stylu/lada/lada.tres" id="4_siss4"]
-[ext_resource type="ArrayMesh" uid="uid://fpo73answsf6" path="res://assets/env_test_stylu/lodowka/lodowka_lada.obj" id="5_kni5o"]
-[ext_resource type="Material" uid="uid://dy2q4f5frltrf" path="res://assets/env_test_stylu/lodowka/lodowka.tres" id="6_df7s7"]
+[ext_resource type="PackedScene" uid="uid://dghfe5d7kplqs" path="res://assets/env_test_stylu/kasa/kasa.fbx" id="4_0p1ev"]
+[ext_resource type="PackedScene" uid="uid://bfx04sysedni7" path="res://assets/env_test_stylu/noga/noga.glb" id="5_8o8gm"]
+[ext_resource type="PackedScene" uid="uid://brx0oasoiyp3r" path="res://assets/env_test_stylu/tlo/tlo.glb" id="6_qqfr2"]
 [ext_resource type="PackedScene" uid="uid://cxwfmkvydqapy" path="res://scenes/UI/UI_Manager/Scene/ui_manager.tscn" id="6_vpf64"]
-[ext_resource type="ArrayMesh" uid="uid://giqbjhagd62u" path="res://assets/env_test_stylu/kasa/kasa.obj" id="7_5to0l"]
-[ext_resource type="Material" uid="uid://bt3hppnpcy322" path="res://assets/env_test_stylu/kasa/kasa.tres" id="8_8pciu"]
+[ext_resource type="PackedScene" uid="uid://dxhg8mcs3t6u7" path="res://assets/env_test_stylu/lada/lada.fbx" id="9_gqbg4"]
+[ext_resource type="PackedScene" uid="uid://d1gntle3q5af" path="res://assets/env_test_stylu/butelka/butelka.glb" id="10_siss4"]
 [ext_resource type="PackedScene" uid="uid://sn664ywhj318" path="res://scenes/Tests/time_test_block.tscn" id="10_tf2q7"]
-[ext_resource type="Material" uid="uid://q5cuaae0lcjm" path="res://assets/env_test_stylu/tlo/tlo.tres" id="12_rf80x"]
-[ext_resource type="ArrayMesh" uid="uid://b2l4if24dlwrk" path="res://assets/env_test_stylu/nogi/nogi.obj" id="13_tlre7"]
-[ext_resource type="Material" uid="uid://c1ddbaroeu3g3" path="res://assets/env_test_stylu/nogi/nogi.tres" id="14_cdnaa"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_kni5o"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_df7s7"]
+[ext_resource type="PackedScene" uid="uid://cv0d3qw558n3d" path="res://assets/env_test_stylu/lodowka/lodówka.glb" id="11_kni5o"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_r5xs5"]
 size = Vector2(90, 90)
@@ -68,104 +61,28 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 1.52
 [node name="VoxelGI" type="VoxelGI" parent="Environment/test-stylistyki"]
 data = ExtResource("3_siss4")
 
-[node name="Nogi6" type="MeshInstance3D" parent="Environment/test-stylistyki"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13446796, 0.253, -0.2699051)
-mesh = ExtResource("13_tlre7")
-skeleton = NodePath("../Nogi7")
-surface_material_override/0 = ExtResource("14_cdnaa")
+[node name="OmniLight3D4" type="OmniLight3D" parent="Environment/test-stylistyki"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4730866, 1.211158, -1.9111347)
+light_energy = 0.338
+shadow_enabled = true
 
-[node name="Nogi7" type="MeshInstance3D" parent="Environment/test-stylistyki"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5595319, 0.253, -0.2699051)
-mesh = ExtResource("13_tlre7")
-skeleton = NodePath("../Nogi5")
-surface_material_override/0 = ExtResource("14_cdnaa")
+[node name="OmniLight3D8" type="OmniLight3D" parent="Environment/test-stylistyki"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4730866, 1.3278381, -0.07644081)
+light_energy = 0.338
+shadow_enabled = true
 
-[node name="Nogi5" type="MeshInstance3D" parent="Environment/test-stylistyki"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5595994, 0.253, 0.46809483)
-mesh = ExtResource("13_tlre7")
-skeleton = NodePath("../Nogi4")
-surface_material_override/0 = ExtResource("14_cdnaa")
+[node name="OmniLight3D5" type="OmniLight3D" parent="Environment/test-stylistyki"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06542373, 1.211158, -1.9111347)
+light_energy = 0.338
+shadow_enabled = true
 
-[node name="Nogi4" type="MeshInstance3D" parent="Environment/test-stylistyki"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13446796, 0.253, 0.46809483)
-mesh = ExtResource("13_tlre7")
-skeleton = NodePath("../Nogi3")
-surface_material_override/0 = ExtResource("14_cdnaa")
+[node name="OmniLight3D6" type="OmniLight3D" parent="Environment/test-stylistyki"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4730866, 1.211158, 1.8768644)
+light_energy = 0.338
+shadow_enabled = true
 
-[node name="Nogi3" type="MeshInstance3D" parent="Environment/test-stylistyki"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.523468, 0.253, -0.2699051)
-mesh = ExtResource("13_tlre7")
-skeleton = NodePath("../Nogi8")
-surface_material_override/0 = ExtResource("14_cdnaa")
-
-[node name="Nogi8" type="MeshInstance3D" parent="Environment/test-stylistyki"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.523468, 0.253, -0.26988602)
-mesh = ExtResource("13_tlre7")
-skeleton = NodePath("../Nogi2")
-surface_material_override/0 = ExtResource("14_cdnaa")
-
-[node name="Nogi2" type="MeshInstance3D" parent="Environment/test-stylistyki"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.523468, 0.253, 0.46809483)
-mesh = ExtResource("13_tlre7")
-skeleton = NodePath("../Nogi")
-surface_material_override/0 = ExtResource("14_cdnaa")
-
-[node name="Nogi" type="MeshInstance3D" parent="Environment/test-stylistyki"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.523468, 0.253, 0.46809483)
-mesh = ExtResource("13_tlre7")
-skeleton = NodePath("../../..")
-surface_material_override/0 = ExtResource("14_cdnaa")
-
-[node name="LodowkaLada" type="MeshInstance3D" parent="Environment/test-stylistyki"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.523468, 1.021, 0.13909435)
-mesh = ExtResource("5_kni5o")
-skeleton = NodePath("../../Floor")
-surface_material_override/0 = ExtResource("6_df7s7")
-
-[node name="Lada" type="MeshInstance3D" parent="Environment/test-stylistyki"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7060571, 0.7820839, 0.12954521)
-mesh = ExtResource("3_gqbg4")
-skeleton = NodePath("../../Floor")
-surface_material_override/0 = ExtResource("4_siss4")
-
-[node name="Kasa" type="MeshInstance3D" parent="Environment/test-stylistyki"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2499328, 1.4585861, 0.3855877)
-mesh = ExtResource("7_5to0l")
-skeleton = NodePath("../../Floor")
-surface_material_override/0 = ExtResource("8_8pciu")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/test-stylistyki"]
-transform = Transform3D(-4.371139e-09, -7.3653107, 0, 0.1, -3.2194797e-07, 0, 0, 0, 5.5004535, -0.5492084, 0.10807389, 0)
-material_override = ExtResource("12_rf80x")
-mesh = SubResource("BoxMesh_kni5o")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Environment/test-stylistyki"]
-transform = Transform3D(0.1, 0, 0, 0, 4.072626, 0, 0, 0, 5.5107656, 3.083699, 2.1546702, 0)
-material_override = ExtResource("12_rf80x")
-mesh = SubResource("BoxMesh_df7s7")
-
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="Environment/test-stylistyki"]
-transform = Transform3D(-4.371139e-09, -0.013292074, 7.2337313, -8.6736174e-19, 4.0726047, 0.023609284, -0.1, 5.81015e-10, -3.1619643e-07, -0.5554501, 2.142793, -2.6940515)
-material_override = ExtResource("12_rf80x")
-mesh = SubResource("BoxMesh_df7s7")
-
-[node name="MeshInstance3D5" type="MeshInstance3D" parent="Environment/test-stylistyki"]
-transform = Transform3D(-4.371139e-09, -0.013292074, 5.6374645, -8.6736174e-19, 4.0726047, 0.018399425, -0.1, 5.81015e-10, -2.464214e-07, -1.3351744, 2.140248, 2.6977856)
-material_override = ExtResource("12_rf80x")
-mesh = SubResource("BoxMesh_df7s7")
-
-[node name="MeshInstance3D6" type="MeshInstance3D" parent="Environment/test-stylistyki"]
-transform = Transform3D(-0.00034906514, 2.367712e-07, 7.233726, 0.09999939, -2.3594612e-07, 0.025250569, 4.386397e-09, 5.3978515, -3.161962e-07, -0.5626104, 4.1940985, 0.019558351)
-material_override = ExtResource("12_rf80x")
-mesh = SubResource("BoxMesh_df7s7")
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Environment/test-stylistyki"]
-transform = Transform3D(0.1, 0, 0, 0, 4.072626, 0, 0, 0, 5.5107656, -4.1776075, 2.1546702, 7.898186e-14)
-material_override = ExtResource("12_rf80x")
-mesh = SubResource("BoxMesh_df7s7")
-
-[node name="OmniLight3D" type="OmniLight3D" parent="Environment/test-stylistyki"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2243032, 0)
+[node name="OmniLight3D7" type="OmniLight3D" parent="Environment/test-stylistyki"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06542373, 1.211158, 1.8768644)
 light_energy = 0.338
 shadow_enabled = true
 
@@ -173,22 +90,98 @@ shadow_enabled = true
 collision_layer = 2
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Floor"]
+transform = Transform3D(0.9999998, 0.00054097344, -0.00012975495, -0.0005409808, 0.99999976, -4.9352282e-05, 0.0001297243, 4.9432754e-05, 1, 0, 0, 0)
 mesh = SubResource("PlaneMesh_r5xs5")
 surface_material_override/0 = SubResource("StandardMaterial3D_o02aj")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Floor"]
 shape = SubResource("BoxShape3D_x3h1o")
 
+[node name="kasa" parent="Environment/Floor" instance=ExtResource("4_0p1ev")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3300862, 1.2061156, 13.446765)
+
+[node name="noga2" parent="Environment/Floor" instance=ExtResource("5_8o8gm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9824514, 0.118528314, 13.727689)
+
+[node name="noga3" parent="Environment/Floor" instance=ExtResource("5_8o8gm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9824514, 0.118528314, 13.014362)
+
+[node name="noga4" parent="Environment/Floor" instance=ExtResource("5_8o8gm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.39421427, 0.118528314, 13.727689)
+
+[node name="noga5" parent="Environment/Floor" instance=ExtResource("5_8o8gm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.39421427, 0.118528314, 13.014362)
+
+[node name="noga6" parent="Environment/Floor" instance=ExtResource("5_8o8gm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.10424912, 0.118528314, 13.727689)
+
+[node name="noga7" parent="Environment/Floor" instance=ExtResource("5_8o8gm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.10424912, 0.118528314, 13.014362)
+
+[node name="noga8" parent="Environment/Floor" instance=ExtResource("5_8o8gm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0348825, 0.118528314, 13.727689)
+
+[node name="noga9" parent="Environment/Floor" instance=ExtResource("5_8o8gm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0348825, 0.118528314, 13.014362)
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
 environment = SubResource("Environment_qb4jd")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
-transform = Transform3D(-0.7153636, 0, -0.69875205, 0, 0.9999995, 0, 0.6987524, 0, -0.71536326, 0, 4, 0)
+transform = Transform3D(0.9941246, 0, -0.10824245, 0, 1, 0, 0.10824245, 0, 0.9941246, 0, 0, 0)
 shadow_enabled = true
 shadow_blur = 0.5
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Environment"]
 replication_config = SubResource("SceneReplicationConfig_sytrn")
+
+[node name="tlo2" parent="Environment" instance=ExtResource("6_qqfr2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4504488, 2.5036395, 10.16884)
+
+[node name="tlo6" parent="Environment" instance=ExtResource("6_qqfr2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5095825, 2.5036395, 10.16884)
+
+[node name="tlo3" parent="Environment" instance=ExtResource("6_qqfr2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4504488, 2.5036395, 19.666977)
+
+[node name="tlo17" parent="Environment" instance=ExtResource("6_qqfr2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.285693, 2.5036395, 19.666977)
+
+[node name="tlo4" parent="Environment" instance=ExtResource("6_qqfr2")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 4.7538285, 2.5036395, 12.444913)
+
+[node name="tlo8" parent="Environment" instance=ExtResource("6_qqfr2")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -4.258099, 2.5036395, 12.444913)
+
+[node name="tlo9" parent="Environment" instance=ExtResource("6_qqfr2")]
+transform = Transform3D(-4.3711385e-08, 1, 4.371139e-08, 0, -4.371139e-08, 1, 1, 4.371139e-08, 0, -1.7912381, -0.23174226, 12.444913)
+
+[node name="tlo10" parent="Environment" instance=ExtResource("6_qqfr2")]
+transform = Transform3D(-4.3711385e-08, 1, 4.371139e-08, 0, -4.371139e-08, 1, 1, 4.371139e-08, 0, 3.1586225, -0.23174249, 12.444913)
+
+[node name="tlo11" parent="Environment" instance=ExtResource("6_qqfr2")]
+transform = Transform3D(-4.3711385e-08, 1, 4.371139e-08, 0, -4.371139e-08, 1, 1, 4.371139e-08, 0, -1.7912383, -0.23174226, 17.394278)
+
+[node name="tlo12" parent="Environment" instance=ExtResource("6_qqfr2")]
+transform = Transform3D(-4.3711385e-08, 1, 4.371139e-08, 0, -4.371139e-08, 1, 1, 4.371139e-08, 0, 3.1586223, -0.23174249, 17.394278)
+
+[node name="tlo5" parent="Environment" instance=ExtResource("6_qqfr2")]
+transform = Transform3D(-4.3711385e-08, 1, 4.371139e-08, 0, -4.371139e-08, 1, 1, 4.371139e-08, 0, -2.4091642, 5.2047625, 12.444913)
+
+[node name="tlo7" parent="Environment" instance=ExtResource("6_qqfr2")]
+transform = Transform3D(-4.3711385e-08, 1, 4.371139e-08, 0, -4.371139e-08, 1, 1, 4.371139e-08, 0, 2.5507994, 5.2047625, 12.444913)
+
+[node name="tlo13" parent="Environment" instance=ExtResource("6_qqfr2")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 4.753828, 2.5036395, 17.367977)
+
+[node name="tlo14" parent="Environment" instance=ExtResource("6_qqfr2")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -4.2580996, 2.5036395, 17.367977)
+
+[node name="tlo15" parent="Environment" instance=ExtResource("6_qqfr2")]
+transform = Transform3D(-4.3711385e-08, 1, 4.371139e-08, 0, -4.371139e-08, 1, 1, 4.371139e-08, 0, -2.4091644, 5.2047625, 17.367977)
+
+[node name="tlo16" parent="Environment" instance=ExtResource("6_qqfr2")]
+transform = Transform3D(-4.3711385e-08, 1, 4.371139e-08, 0, -4.371139e-08, 1, 1, 4.371139e-08, 0, 2.5507991, 5.2047625, 17.367977)
 
 [node name="PlayersContainer" type="Node3D" parent="."]
 
@@ -217,3 +210,15 @@ shape = SubResource("BoxShape3D_wcngd")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/StaticBody3D"]
 mesh = SubResource("BoxMesh_xv074")
+
+[node name="lada" parent="." instance=ExtResource("9_gqbg4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1521444, 0.64968795, 13.360916)
+
+[node name="butelka2" parent="." instance=ExtResource("10_siss4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.70417565, 1.13988, 13.317917)
+
+[node name="butelka3" parent="." instance=ExtResource("10_siss4")]
+transform = Transform3D(-0.7203091, 0, 0.6936533, 0, 1, 0, -0.6936533, 0, -0.7203091, 0.7530155, 1.13988, 13.653308)
+
+[node name="lodówka" parent="." instance=ExtResource("11_kni5o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.064321, 0.8830281, 13.36537)
