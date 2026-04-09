@@ -38,6 +38,7 @@ project/assembly_name="SSc"
 [global_group]
 
 DataToSave=""
+iInteractable="Objects that can be interacted by Player"
 
 [input]
 
