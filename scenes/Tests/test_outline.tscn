@@ -1,10 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://x0fgn0okf41d"]
+[gd_scene load_steps=9 format=3 uid="uid://x0fgn0okf41d"]
 
 [ext_resource type="Script" uid="uid://b1orsou17g3em" path="res://scenes/Tests/test_outline.gd" id="1_qsjuf"]
 [ext_resource type="PackedScene" uid="uid://c01xn2plqcvv1" path="res://scenes/General/Components/Time_Component/Scene/time_component.tscn" id="3_2hwpd"]
 [ext_resource type="PackedScene" uid="uid://od014t1fy44i" path="res://scenes/General/Components/ComponentContainer/Scene/ComponentContainer.tscn" id="4_2hwpd"]
 [ext_resource type="PackedScene" uid="uid://botwm1ppo741l" path="res://scenes/General/Components/InteractableComponent/Scene/InteractableComponent.tscn" id="5_2hwpd"]
-[ext_resource type="Material" uid="uid://d1hbc5mvwhs5" path="res://assets/Materials/OutlineShaderMaterial.tres" id="5_gfg01"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ybtej"]
 
@@ -35,7 +34,5 @@ surface_material_override/0 = SubResource("StandardMaterial3D_gfg01")
 [node name="TimeComponent" parent="ComponentContainer" instance=ExtResource("3_2hwpd")]
 
 [node name="InteractableComponent" parent="ComponentContainer" instance=ExtResource("5_2hwpd")]
-outlineMaterial = ExtResource("5_gfg01")
 
 [connection signal="ActionFinished" from="ComponentContainer/TimeComponent" to="." method="_on_time_component_action_finished"]
-[connection signal="OnRayTraceEnter" from="ComponentContainer/InteractableComponent" to="Area3D" method="_on_interactable_component_on_ray_trace_enter"]
