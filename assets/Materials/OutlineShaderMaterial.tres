@@ -3,7 +3,8 @@
 [ext_resource type="Shader" uid="uid://2nhcv1ne75jp" path="res://assets/Materials/shaders/outline.gdshader" id="1_8lsiu"]
 
 [resource]
+resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("1_8lsiu")
 shader_parameter/outline_colour = Color(0, 0, 0, 1)
-shader_parameter/outline_width = 3.0
+shader_parameter/outline_width = 2.0

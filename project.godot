@@ -38,7 +38,7 @@ project/assembly_name="SSc"
 [global_group]
 
 DataToSave="Objects that have parameters to save and load. Node Must implement \"on_save_game()\", \"on_before_load()\" and \"on_load_game()\" functions!"
-iInteractable="Objects that can be interacted by Player. Node MUST implement \"raytrace_enter()\" and \"raytrace_exit()\" functions!"
+iInteractable="Objects that can be interacted by Player. Node MUST have ComponentContainer->InteractableComponent"
 
 [input]
 

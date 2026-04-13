@@ -9,13 +9,6 @@ extends Node3D
 
 const MOUSE_SENSIBILITY: float = 0.005
 
-var rayCast: RayCast3D = null
-##Tracks if raycast hit anything. Required to track when raycast stops heating current object
-var rayCastCollisionState: bool = false
-
-##Temporal storage for raycast target collider. Sends a message to object, when raycast exits collision
-var target_collider
-
 #bob variables
 const BOB_FREQUENCY = 2.0
 const BOB_AMPLITUDE = 0.08
@@ -28,18 +21,6 @@ func _input(event) -> void:
 		rotate_y(-event.relative.x * MOUSE_SENSIBILITY)
 		_spring_arm.rotate_x(-event.relative.y * MOUSE_SENSIBILITY)
 		_spring_arm.rotation.x = clamp(_spring_arm.rotation.x, deg_to_rad(-40), deg_to_rad(60))
-	#=======================Raytrace Logic START=======================
-	if ray_cast_3d.is_colliding():
-		if ray_cast_3d.get_collider().is_in_group("iInteractable"):
-			rayCastCollisionState = true
-			target_collider = ray_cast_3d.get_collider()
-			target_collider.raytrace_enter()
-	else:
-		if rayCastCollisionState:
-			target_collider.raytrace_exit()
-			target_collider = null
-			rayCastCollisionState = false
-	#=======================Raytrace Logic END=======================
 
 func _on_head_bob(time)->void:
 	var pos = Vector3.ZERO

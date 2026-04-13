@@ -1,8 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://dugaivbj1o66n"]
+[gd_scene load_steps=18 format=3 uid="uid://dugaivbj1o66n"]
 
 [ext_resource type="Script" uid="uid://d0dgljwwl463n" path="res://scenes/LevelScenes/MainLevel/script/level.gd" id="1_e1sh7"]
 [ext_resource type="Script" uid="uid://b7hxqglwotpm5" path="res://scenes/LevelScenes/MainLevel/script/environment.gd" id="3_xv074"]
 [ext_resource type="PackedScene" uid="uid://x0fgn0okf41d" path="res://scenes/Tests/test_outline.tscn" id="5_llr3u"]
+[ext_resource type="PackedScene" uid="uid://blx04n88ctcmy" path="res://scenes/Tests/ball_outline_test.tscn" id="6_s6177"]
 [ext_resource type="PackedScene" uid="uid://cxwfmkvydqapy" path="res://scenes/UI/UI_Manager/Scene/ui_manager.tscn" id="6_vpf64"]
 [ext_resource type="PackedScene" uid="uid://sn664ywhj318" path="res://scenes/Tests/time_test_block.tscn" id="10_tf2q7"]
 
@@ -111,3 +112,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_086mn")
 
 [node name="TimeTestBlock2" parent="." instance=ExtResource("5_llr3u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4574652, -6.078645)
+
+[node name="Ball_Outline_Test" parent="." instance=ExtResource("6_s6177")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.012225, 3.0197444, -4.8178844)
