@@ -5042,7 +5042,7 @@ spawn_path = NodePath("../ProjectileSpawnPath")
 [node name="PlayerInput" type="Node3D" parent="."]
 script = ExtResource("10_xj4b2")
 
-[node name="SpringArmCharacter" type="Node3D" parent="." node_paths=PackedStringArray("_spring_arm")]
+[node name="SpringArmCharacter" type="Node3D" parent="." node_paths=PackedStringArray("_spring_arm") groups=["DataToSave"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.064, 1.5, -0.035)
 script = ExtResource("11_q41dq")
 _spring_arm = NodePath("SpringArm3D")
