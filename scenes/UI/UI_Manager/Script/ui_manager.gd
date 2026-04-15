@@ -6,6 +6,7 @@ extends Control
 @onready var multiplayer_chat_ui: MultiplayerChatUI = $MultiplayerChatUI
 @onready var ui_debug: UI_Debug = $UI_Debug
 @onready var container_for_temp: Node = $ContainerForTemp
+@onready var survival_bars: Control = $SurvivalBars
 const POP_UP_MESSAGE = preload("uid://cmi5io0cl7ms1")
 
 

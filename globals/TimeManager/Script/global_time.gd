@@ -11,7 +11,9 @@ const INGAME_TO_REAL_MINUTE_DURATION = (2*PI) / MIN_PER_HOUR
 var past_min: float = -1.0
 var total_minutes = int(time/INGAME_TO_REAL_MINUTE_DURATION)
 var total_day = int (total_minutes/ MIN_PER_DAY)
+
 @export var current_day = total_minutes % MIN_PER_DAY
+
 var current_hour = int(current_day/MIN_PER_HOUR)
 var current_min = int(current_day % MIN_PER_HOUR)
 
@@ -34,7 +36,7 @@ func on_save_game(saved_data:Array[DataToSave]):
 	
 	saved_data.append(my_data)
 
-#on_before_load is not implemented as there is no need to delete this node - its a global signleton
+#on_before_load and on_load_game is not implemented as there is no need to delete this node - its a global signleton
 func on_before_load():
 	pass
 

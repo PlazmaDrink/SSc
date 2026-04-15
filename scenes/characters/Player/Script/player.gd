@@ -8,6 +8,7 @@ const JUMP_VELOCITY = 10
 enum SkinColor { BLUE, YELLOW, GREEN, RED }
 
 @onready var nickname: Label3D = $PlayerNick/Nickname
+@onready var component_container: Node = $ComponentContainer
 
 var player_inventory: PlayerInventory
 
@@ -340,3 +341,6 @@ func _add_starting_items():
 		player_inventory.add_item(sword, 1)
 	if potion:
 		player_inventory.add_item(potion, 3)
+
+func getComponentContainer()->Node:
+	return component_container

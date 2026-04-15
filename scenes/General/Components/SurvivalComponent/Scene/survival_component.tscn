@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6blihku1vtlt"]
+
+[ext_resource type="Script" uid="uid://bae04f0fxiflo" path="res://scenes/General/Components/SurvivalComponent/Script/survival_component.gd" id="1_dt5xx"]
+
+[node name="SurvivalComponent" type="Node"]
+script = ExtResource("1_dt5xx")
