@@ -20,3 +20,7 @@ func get_component(componentName:String)->Node:
 		if item.name == componentName:
 			return item
 	return null
+
+func get_main_node()->Variant:
+	return get_parent()
+	

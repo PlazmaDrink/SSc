@@ -1,13 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://c0v8f83flada2"]
+[gd_scene load_steps=3 format=3 uid="uid://c0v8f83flada2"]
 
 [ext_resource type="Script" uid="uid://b3t1xccoi82ur" path="res://scenes/UI/SurvivalBars/Script/UI_SurvivalBars.gd" id="1_pumw8"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pmqyg"]
-bg_color = Color(0.26411477, 0.71321, 9.62615e-07, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_djqof"]
 content_margin_left = 0.0
@@ -19,20 +12,6 @@ grow_begin = 0.0
 grow_end = 0.0
 thickness = 0
 vertical = true
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_djqof"]
-bg_color = Color(0.26479155, 0.7131886, 1, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yg3lw"]
-bg_color = Color(0.84809285, 0.31344265, 1, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
 
 [node name="SurvivalBars" type="Control"]
 layout_mode = 3
@@ -46,15 +25,12 @@ script = ExtResource("1_pumw8")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -400.0
+offset_left = -100.0
 offset_bottom = 200.0
 grow_horizontal = 2
-grow_vertical = 2
 color = Color(0.13333334, 0.13333334, 0.13333334, 0.5921569)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ColorRect"]
@@ -62,9 +38,9 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -199.0
-offset_right = 199.0
-offset_bottom = 75.0
+offset_left = -50.0
+offset_right = 50.0
+offset_bottom = 198.0
 grow_horizontal = 2
 
 [node name="Hunger" type="Label" parent="ColorRect/VBoxContainer"]
@@ -74,9 +50,8 @@ text = "Hunger"
 
 [node name="HungerBar" type="ProgressBar" parent="ColorRect/VBoxContainer"]
 layout_mode = 2
-theme_override_styles/fill = SubResource("StyleBoxFlat_pmqyg")
 step = 0.1
-value = 50.0
+value = 100.0
 
 [node name="VSeparator2" type="VSeparator" parent="ColorRect/VBoxContainer"]
 custom_minimum_size = Vector2(0, 10)
@@ -90,9 +65,8 @@ text = "Thirst"
 
 [node name="ThirstBar" type="ProgressBar" parent="ColorRect/VBoxContainer"]
 layout_mode = 2
-theme_override_styles/fill = SubResource("StyleBoxFlat_djqof")
 step = 0.1
-value = 50.0
+value = 100.0
 
 [node name="VSeparator3" type="VSeparator" parent="ColorRect/VBoxContainer"]
 custom_minimum_size = Vector2(0, 10)
@@ -106,6 +80,5 @@ text = "Sleep"
 
 [node name="SleepBar" type="ProgressBar" parent="ColorRect/VBoxContainer"]
 layout_mode = 2
-theme_override_styles/fill = SubResource("StyleBoxFlat_yg3lw")
 step = 0.1
-value = 50.0
+value = 100.0

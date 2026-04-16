@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=4 uid="uid://cffjduipbb3s5"]
+[gd_scene load_steps=54 format=4 uid="uid://cffjduipbb3s5"]
 
 [ext_resource type="Script" uid="uid://c2si8gkbnde0c" path="res://scenes/characters/Player/Script/player.gd" id="1_tr1su"]
 [ext_resource type="Texture2D" uid="uid://fpmmv2oxjcdv" path="res://assets/characters/player/GodotRobotPaletteSwap/GodotPalette.png" id="2_1uix6"]
@@ -14,6 +14,8 @@
 [ext_resource type="Script" uid="uid://dnw0depfpbi4" path="res://scenes/characters/Player/Script/player_ray_cast_3d.gd" id="12_1uix6"]
 [ext_resource type="PackedScene" uid="uid://od014t1fy44i" path="res://scenes/General/Components/ComponentContainer/Scene/ComponentContainer.tscn" id="13_os3ai"]
 [ext_resource type="PackedScene" uid="uid://b6blihku1vtlt" path="res://scenes/General/Components/SurvivalComponent/Scene/survival_component.tscn" id="14_n0esu"]
+[ext_resource type="PackedScene" uid="uid://dmk2m8iulciae" path="res://scenes/General/Components/SaveLoadComponent/Scene/SaveLoadComponent.tscn" id="15_mky50"]
+[ext_resource type="Script" uid="uid://csqeytjnduddh" path="res://scenes/General/Components/SaveLoadComponent/Script/DataToSave.gd" id="16_ydo37"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mx45w"]
 radius = 0.35796
@@ -5067,3 +5069,7 @@ script = ExtResource("12_1uix6")
 [node name="ComponentContainer" parent="." instance=ExtResource("13_os3ai")]
 
 [node name="SurvivalComponent" parent="ComponentContainer" instance=ExtResource("14_n0esu")]
+
+[node name="SaveLoadComponent" parent="ComponentContainer" node_paths=PackedStringArray("common_node_to_save_from") groups=["DataToSave"] instance=ExtResource("15_mky50")]
+resource_type = ExtResource("16_ydo37")
+common_node_to_save_from = NodePath("../..")

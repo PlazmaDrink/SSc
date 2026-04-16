@@ -44,7 +44,7 @@ func load_game(load_name = "DefaultSaveFile"):
 				if(item.index):
 					get_node(item.parent_path).move_child(restored_node, item.index)
 			if restored_node.has_method(FUNC_LOAD_GAME):
-				restored_node.on_load_game(item)	
+				restored_node.on_load_game(item)
 
 func update_name_to_path_dict() -> void:
 	if multiplayer.is_server():
