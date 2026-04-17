@@ -10,7 +10,7 @@ properties/1/path = NodePath(".:time")
 properties/1/spawn = true
 properties/1/replication_mode = 1
 
-[node name="GlobalTime" type="Node3D" groups=["DataToSave"]]
+[node name="GlobalTime" type="Node3D"]
 script = ExtResource("1_ko6be")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]

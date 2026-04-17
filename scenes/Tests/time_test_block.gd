@@ -2,6 +2,7 @@ extends Node3D
 
 @onready var mesh_instance_3d: MeshInstance3D = $MeshInstance3D
 const NEW = preload("uid://b0sygn7q8ee68")
+@onready var component_container: Node = $ComponentContainer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

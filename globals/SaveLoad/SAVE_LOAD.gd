@@ -26,6 +26,7 @@ func save_game(save_name = "DefaultSaveFile"):
 		# Create a saveGame file and assign var values
 		var saved_game: SavedGame = SavedGame.new()
 		saved_game.saved_data = saved_data
+		##TODO: time value must be saved from GlobalTime scene
 		saved_game.time = GlobalTime.time
 		
 		#Save the game
@@ -43,8 +44,7 @@ func load_game(load_name = "DefaultSaveFile"):
 				get_node(item.parent_path).add_child(restored_node)
 				if(item.index):
 					get_node(item.parent_path).move_child(restored_node, item.index)
-			if restored_node.has_method(FUNC_LOAD_GAME):
-				restored_node.on_load_game(item)
+			restored_node.component_container.get_component("SaveLoadComponent").on_load_game(item)
 
 func update_name_to_path_dict() -> void:
 	if multiplayer.is_server():

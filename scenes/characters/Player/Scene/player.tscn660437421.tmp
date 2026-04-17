@@ -5070,6 +5070,5 @@ script = ExtResource("12_1uix6")
 
 [node name="SurvivalComponent" parent="ComponentContainer" instance=ExtResource("14_n0esu")]
 
-[node name="SaveLoadComponent" parent="ComponentContainer" node_paths=PackedStringArray("root_node_to_save_from") groups=["DataToSave"] instance=ExtResource("15_mky50")]
+[node name="SaveLoadComponent" parent="ComponentContainer" groups=["DataToSave"] instance=ExtResource("15_mky50")]
 resource_type = ExtResource("16_ydo37")
-root_node_to_save_from = NodePath("../..")

@@ -29,9 +29,9 @@ shape = SubResource("BoxShape3D_ybtej")
 
 [node name="TimeComponent" parent="ComponentContainer" instance=ExtResource("2_ybtej")]
 
-[node name="SaveLoadComponent" parent="ComponentContainer" node_paths=PackedStringArray("common_node_to_save_from", "custom_node_to_save_from") groups=["DataToSave"] instance=ExtResource("5_7argl")]
+[node name="SaveLoadComponent" parent="ComponentContainer" node_paths=PackedStringArray("root_node_to_save_from", "custom_node_to_save_from") groups=["DataToSave"] instance=ExtResource("5_7argl")]
 resource_type = ExtResource("6_paypt")
-common_node_to_save_from = NodePath("../..")
+root_node_to_save_from = NodePath("../..")
 custom_node_to_save_from = NodePath("../../MeshInstance3D")
 
 [connection signal="ActionFinished" from="ComponentContainer/TimeComponent" to="." method="_on_time_component_action_finished"]

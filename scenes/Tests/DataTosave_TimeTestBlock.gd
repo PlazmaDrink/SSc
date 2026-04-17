@@ -14,6 +14,6 @@ func load_properties()->void:
 	super.load_properties()
 	ref_custom_node.material_override = material
 
-func set_ref_node(inCommonNode, inCustomNode = null)->void:
-	super.set_ref_node(inCommonNode)
+func set_ref_nodes(inCommonNode, inCustomNode = null)->void:
+	super.set_ref_nodes(inCommonNode)
 	ref_custom_node = inCustomNode

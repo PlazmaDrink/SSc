@@ -8,9 +8,10 @@ var playersSurvivalComponent: Node
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if is_multiplayer_authority():
-		var temp:Array = get_tree().get_nodes_in_group("Player")
-		playersSurvivalComponent = temp[0].getComponentContainer().get_component("SurvivalComponent")
-		playersSurvivalComponent.value_changed.connect(on_new_bar_value)
+		pass
+		#var temp:Array = get_tree().get_nodes_in_group("Player")
+		#playersSurvivalComponent = temp[0].getComponentContainer().get_component("SurvivalComponent")
+		#playersSurvivalComponent.value_changed.connect(on_new_bar_value)
 
 func on_new_bar_value(survivalProperty:SurvivalProperty)->void:
 	if survivalProperty.property_name == "hunger":

@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://b1orsou17g3em" path="res://scenes/Tests/test_outline.gd" id="6_qqfr2"]
 [ext_resource type="PackedScene" uid="uid://blx04n88ctcmy" path="res://scenes/Tests/ball_outline_test.tscn" id="6_s6177"]
 [ext_resource type="PackedScene" uid="uid://cxwfmkvydqapy" path="res://scenes/UI/UI_Manager/Scene/ui_manager.tscn" id="6_vpf64"]
-[ext_resource type="ArrayMesh" uid="uid://174q1umwpkt2" path="res://assets/kasa/kasa_Mesh_001.res" id="7_gqbg4"]
+[ext_resource type="ArrayMesh" uid="uid://b743gdlgnws8l" path="res://assets/kasa/kasa_Mesh_001.res" id="7_gqbg4"]
 [ext_resource type="Texture2D" uid="uid://bm5lrom2wcjhk" path="res://assets/kasa/kasa_kasa_BaseColor.png" id="8_siss4"]
 [ext_resource type="PackedScene" uid="uid://od014t1fy44i" path="res://scenes/General/Components/ComponentContainer/Scene/ComponentContainer.tscn" id="9_kni5o"]
 [ext_resource type="PackedScene" uid="uid://c01xn2plqcvv1" path="res://scenes/General/Components/Time_Component/Scene/time_component.tscn" id="10_df7s7"]
@@ -54,7 +54,7 @@ size = Vector3(10, 5, 2)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_crfef"]
 albedo_texture = ExtResource("8_siss4")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rf80x"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qqfr2"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("12_8pciu")
@@ -89,8 +89,6 @@ shadow_blur = 0.5
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Environment"]
 replication_config = SubResource("SceneReplicationConfig_sytrn")
-
-[node name="PlayersContainer" type="Node3D" parent="."]
 
 [node name="TimeTestBlock" parent="." instance=ExtResource("10_tf2q7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.186473, 1.9674404, 0)
@@ -158,7 +156,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_crfef")
 
 [node name="InteractableComponent" parent="Kasa/ComponentContainer" node_paths=PackedStringArray("meshToOutline") instance=ExtResource("11_5to0l")]
 meshToOutline = NodePath("../../StaticBody3D/MeshInstance3D")
-outlineMaterial = SubResource("ShaderMaterial_rf80x")
+outlineMaterial = SubResource("ShaderMaterial_qqfr2")
 OutlineColor = Color(0.31241986, 0.9999996, 0.8632624, 1)
 OutlineWidth = 5.0
 
