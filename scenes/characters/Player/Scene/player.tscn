@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://od014t1fy44i" path="res://scenes/General/Components/ComponentContainer/Scene/ComponentContainer.tscn" id="13_os3ai"]
 [ext_resource type="PackedScene" uid="uid://b6blihku1vtlt" path="res://scenes/General/Components/SurvivalComponent/Scene/survival_component.tscn" id="14_n0esu"]
 [ext_resource type="PackedScene" uid="uid://dmk2m8iulciae" path="res://scenes/General/Components/SaveLoadComponent/Scene/SaveLoadComponent.tscn" id="15_mky50"]
-[ext_resource type="Script" uid="uid://csqeytjnduddh" path="res://scenes/General/Components/SaveLoadComponent/Script/DataToSave.gd" id="16_ydo37"]
+[ext_resource type="Script" uid="uid://dlngeh5hothvl" path="res://scenes/characters/Player/Script/DataToSave_Player.gd" id="16_ydo37"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mx45w"]
 radius = 0.35796
