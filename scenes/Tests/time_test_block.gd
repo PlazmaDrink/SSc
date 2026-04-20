@@ -14,7 +14,7 @@ func _process(delta: float) -> void:
 	pass
 	
 func _on_time_component_action_finished() -> void:
-	mesh_instance_3d.material_override = NEW
+	mesh_instance_3d.set_material_override(NEW)
 
 #========================SAVE/LOAD SYSTEM============================#
 #func on_save_game(saved_data:Array[DataToSave]):

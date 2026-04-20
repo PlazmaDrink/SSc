@@ -90,9 +90,6 @@ shadow_blur = 0.5
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Environment"]
 replication_config = SubResource("SceneReplicationConfig_sytrn")
 
-[node name="TimeTestBlock" parent="." instance=ExtResource("10_tf2q7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.186473, 1.9674404, 0)
-
 [node name="UI_Manager" parent="." instance=ExtResource("6_vpf64")]
 visible = false
 
@@ -162,5 +159,8 @@ OutlineWidth = 5.0
 
 [node name="Ball_Outline_Test" parent="." instance=ExtResource("6_s6177")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.012225, 3.0197444, -4.8178844)
+
+[node name="TimeTestBlock" parent="." instance=ExtResource("10_tf2q7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.96162, 3.4010892, 0)
 
 [connection signal="ActionFinished" from="Kasa/ComponentContainer/TimeComponent" to="Kasa" method="_on_time_component_action_finished"]
