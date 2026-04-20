@@ -1,8 +1,9 @@
-extends Node
+extends Node3D
 
 ##The purpose of this script is to hold the information crutial to be passed between the scenes
 
 @onready var players_container: Node3D = $Players_Container
+@onready var component_container: Node = $ComponentContainer
 
 @export var player_scene: PackedScene
 
@@ -17,7 +18,8 @@ func _ready() -> void:
 	if not multiplayer.is_server():
 		return
 		
-	Network.connect("player_connected", Callable(self, "_on_player_connected"))
+	#Network.connect("player_connected", Callable(self, "_on_player_connected"))
+	Network.player_connected.connect(_on_player_connected)
 	multiplayer.peer_disconnected.connect(_remove_player)
 
 func _on_host_pressed(inNickname:String, inSkin:String)-> void:

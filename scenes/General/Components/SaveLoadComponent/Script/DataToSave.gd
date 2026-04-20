@@ -15,15 +15,17 @@ var ref_root_node:Node
 @export var scene_path:String
 @export var parent_path:String
 @export var index: int
+@export var isDestroyedOnPreload:bool
 
 func save_properties()->void:
 	position = ref_root_node.position
 	scene_path = ref_root_node.scene_file_path
 	parent_path = ref_root_node.get_parent().get_path()
 	index = ref_root_node.get_index()
-
+	isDestroyedOnPreload = ref_root_node.component_container.get_component("SaveLoadComponent").isDestroyedOnPreload
+	
 func load_properties()->void:
 	ref_root_node.position = position
 
-func set_ref_nodes(inCommonNode, inCustomNode = null)->void:
-	ref_root_node = inCommonNode
+func set_ref_nodes(inRootNode, inCustomNode = null)->void:
+	ref_root_node = inRootNode

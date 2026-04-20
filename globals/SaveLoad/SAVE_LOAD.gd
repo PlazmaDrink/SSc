@@ -38,6 +38,8 @@ func load_game(load_name = "DefaultSaveFile"):
 		get_tree().call_group(GROUP_NAME, FUNC_BEFORE_LOAD)
 		GlobalTime.time = saved_game.time
 		for item in saved_game.saved_data:
+			if !item.isDestroyedOnPreload:
+				item.ref_root_node.component_container.get_component("SaveLoadComponent").on_load_game(item)
 			var scene = load(item.scene_path) as PackedScene
 			var restored_node = scene.instantiate()
 			if(item.parent_path):
