@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://sn664ywhj318"]
+[gd_scene load_steps=10 format=3 uid="uid://sn664ywhj318"]
 
 [ext_resource type="Script" uid="uid://bf82rrhbhlg2n" path="res://scenes/Tests/time_test_block.gd" id="1_27qd3"]
 [ext_resource type="Material" uid="uid://dxwb7cgjq6qqs" path="res://assets/Materials/Material/old.tres" id="2_fpggi"]
@@ -11,6 +11,10 @@
 material = ExtResource("2_fpggi")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ybtej"]
+
+[sub_resource type="Resource" id="Resource_paypt"]
+script = ExtResource("6_paypt")
+metadata/_custom_type_script = "uid://bc7cbp1leuoyd"
 
 [node name="TimeTestBlock" type="Node3D"]
 script = ExtResource("1_27qd3")
@@ -30,7 +34,7 @@ shape = SubResource("BoxShape3D_ybtej")
 [node name="TimeComponent" parent="ComponentContainer" instance=ExtResource("2_ybtej")]
 
 [node name="SaveLoadComponent" parent="ComponentContainer" node_paths=PackedStringArray("root_node_to_save_from", "custom_node_to_save_from") groups=["DataToSave"] instance=ExtResource("5_7argl")]
-resource_type = ExtResource("6_paypt")
+resource_type = SubResource("Resource_paypt")
 root_node_to_save_from = NodePath("../..")
 custom_node_to_save_from = NodePath("../../MeshInstance3D")
 
