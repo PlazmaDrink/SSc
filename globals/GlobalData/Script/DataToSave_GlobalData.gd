@@ -1,6 +1,6 @@
 class_name DataToSave_GlobalData
 
-extends DataToSave
+extends DataToSave_Custom
 const PRELOAD_CUSTOM = preload("uid://c2di55v3108hj")
 
 @export var peer_id: Array = []
@@ -9,11 +9,11 @@ const PRELOAD_CUSTOM = preload("uid://c2di55v3108hj")
 func _init() -> void:
 	Network.player_connected.connect(_on_player_connected)
 
-func save_properties()->void:
-	super.save_properties()
+func save_properties(root:Node, custom:Node = null, isGlobal = false)->void:
+	super.save_properties(root, custom, isGlobal)
 
-func load_properties()->void:
-	super.load_properties()
+func load_properties(root:Node = null, custom:Node = null)->void:
+	pass
 
 func _on_player_connected(inPeer_id, inPlayer_info):
 	if player_info.find(inPlayer_info) == -1:

@@ -1,25 +1,20 @@
 class_name DataToSave_TimeTestBlock
 
-extends DataToSave
+extends DataToSave_Custom
 
 const PRELOAD_CUSTOM = preload("uid://bc7cbp1leuoyd")
 
-@export var ref_custom_node:Variant
 @export var material: Material
 
-func save_properties()->void:
-	super.save_properties()
-	material = ref_custom_node.mesh.get_material()
+func save_properties(root:Node, custom:Node = null, isGlobal = false)->void:
+	super.save_properties(root, custom, isGlobal)
+	material = custom.mesh.get_material()
 	
-func load_properties()->void:
+func load_properties(root_node:Node = null, custom_node:Node = null)->void:
 	if isGlobal:
 		return
-	super.load_properties()
-	ref_custom_node.set_material_override(material)
-
-func set_ref_nodes(inCommonNode, inCustomNode = null)->void:
-	super.set_ref_nodes(inCommonNode)
-	ref_custom_node = inCustomNode
+	super.load_properties(root_node)
+	custom_node.set_material_override(material)
 
 func get_preload()->Resource:
 	return PRELOAD_CUSTOM

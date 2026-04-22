@@ -21,7 +21,7 @@ func save_game(save_name = "DefaultSaveFile"):
 		save_location = temp_value
 		
 		# Collect dataToSave from all items in "DataToSave" group
-		var saved_data_globals:Array[DataToSave] = []
+		var saved_data_globals:Array[DataToSave_Custom] = []
 		var saved_data:Array[DataToSave] = []
 		get_tree().call_group(GROUP_NAME, FUNC_SAVE_GAME, saved_data_globals, saved_data)
 		
@@ -62,6 +62,6 @@ func update_name_to_path_dict() -> void:
 
 		dir.list_dir_end()
 
-func _update_globals(savedData: Array[DataToSave]):
+func _update_globals(savedData: Array[DataToSave_Custom]):
 	for item in savedData:
 		item.load_properties()

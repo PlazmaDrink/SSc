@@ -14,6 +14,7 @@ material = ExtResource("2_fpggi")
 
 [sub_resource type="Resource" id="Resource_paypt"]
 script = ExtResource("6_paypt")
+ref_custom_node = null
 metadata/_custom_type_script = "uid://bc7cbp1leuoyd"
 
 [node name="TimeTestBlock" type="Node3D"]
@@ -37,6 +38,5 @@ shape = SubResource("BoxShape3D_ybtej")
 resource_type = SubResource("Resource_paypt")
 root_node_to_save_from = NodePath("../..")
 custom_node_to_save_from = NodePath("../../MeshInstance3D")
-isGlobal = null
 
 [connection signal="ActionFinished" from="ComponentContainer/TimeComponent" to="." method="_on_time_component_action_finished"]

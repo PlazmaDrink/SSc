@@ -10,26 +10,22 @@ extends Resource
 # All vars have to be @export
 const PRELOAD = preload("uid://csqeytjnduddh")
 
-@export var ref_root_node:Variant
-
 @export var position:Vector3
 @export var scene_path:String
 @export var parent_path:String
 @export var index: int
 @export var isGlobal:bool
 
-func save_properties()->void:
-	if ref_root_node:
-		position = ref_root_node.position
-		scene_path = ref_root_node.scene_file_path
-		parent_path = ref_root_node.get_parent().get_path()
-		index = ref_root_node.get_index()
+func save_properties(root:Node, custom:Node = null, isGlobal = false)->void:
+	if !isGlobal:
+		self.position = root.position
+		self.scene_path = root.scene_file_path
+		self.parent_path = root.get_parent().get_path()
+		self.index = root.get_index()
+		self.isGlobal = isGlobal
 
-func load_properties()->void:
-	ref_root_node.position = position
-
-func set_ref_nodes(inRootNode, inCustomNode = null)->void:
-	ref_root_node = inRootNode
+func load_properties(root:Node, custom:Node = null)->void:
+	root.position = position
 
 func get_preload()->Resource:
 	return PRELOAD
