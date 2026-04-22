@@ -4,12 +4,12 @@ extends DataToSave
 
 const PRELOAD_CUSTOM = preload("uid://bc7cbp1leuoyd")
 
-var ref_custom_node:MeshInstance3D
+@export var ref_custom_node:Variant
 @export var material: Material
 
 func save_properties()->void:
 	super.save_properties()
-	material = ref_custom_node.get_material_override()
+	material = ref_custom_node.mesh.get_material()
 	
 func load_properties()->void:
 	if isGlobal:

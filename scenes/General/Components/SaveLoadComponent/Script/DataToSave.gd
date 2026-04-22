@@ -10,7 +10,7 @@ extends Resource
 # All vars have to be @export
 const PRELOAD = preload("uid://csqeytjnduddh")
 
-var ref_root_node:Node
+@export var ref_root_node:Variant
 
 @export var position:Vector3
 @export var scene_path:String

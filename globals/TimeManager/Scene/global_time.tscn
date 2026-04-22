@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://cqw8qnmveqmar"]
+[gd_scene load_steps=10 format=3 uid="uid://cqw8qnmveqmar"]
 
 [ext_resource type="Script" uid="uid://hf8rfm34q2nt" path="res://globals/TimeManager/Script/global_time.gd" id="1_ko6be"]
 [ext_resource type="PackedScene" uid="uid://od014t1fy44i" path="res://scenes/General/Components/ComponentContainer/Scene/ComponentContainer.tscn" id="2_vdjiu"]
 [ext_resource type="PackedScene" uid="uid://dmk2m8iulciae" path="res://scenes/General/Components/SaveLoadComponent/Scene/SaveLoadComponent.tscn" id="3_tsap3"]
 [ext_resource type="Script" uid="uid://c2di55v3108hj" path="res://globals/TimeManager/Script/DataToSave_TimeMenager.gd" id="4_tsap3"]
 [ext_resource type="Script" uid="uid://csqeytjnduddh" path="res://scenes/General/Components/SaveLoadComponent/Script/DataToSave.gd" id="5_aoxye"]
+[ext_resource type="PackedScene" uid="uid://b6blihku1vtlt" path="res://scenes/General/Components/SurvivalComponent/Scene/survival_component.tscn" id="6_e8kp6"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ko6be"]
 properties/0/path = NodePath(".:current_day")
@@ -16,10 +17,12 @@ properties/1/replication_mode = 1
 
 [sub_resource type="Resource" id="Resource_tsap3"]
 script = ExtResource("4_tsap3")
+ref_root_node = null
 metadata/_custom_type_script = "uid://c2di55v3108hj"
 
 [sub_resource type="Resource" id="Resource_e8kp6"]
 script = ExtResource("5_aoxye")
+ref_root_node = null
 metadata/_custom_type_script = "uid://csqeytjnduddh"
 
 [node name="GlobalTime" type="Node3D"]
@@ -34,3 +37,5 @@ replication_config = SubResource("SceneReplicationConfig_ko6be")
 resource_type = SubResource("Resource_tsap3")
 isGlobal = true
 myResource = SubResource("Resource_e8kp6")
+
+[node name="SurvivalComponent" parent="ComponentContainer" instance=ExtResource("6_e8kp6")]

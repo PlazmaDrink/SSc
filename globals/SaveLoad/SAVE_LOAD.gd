@@ -39,14 +39,13 @@ func load_game(load_name = "DefaultSaveFile"):
 		get_tree().call_group(GROUP_NAME, FUNC_BEFORE_LOAD)
 		_update_globals(saved_game.saved_data_globals)
 		for item in saved_game.saved_data:
-			item.ref_root_node.component_container.get_component("SaveLoadComponent").on_load_game(item)
 			var scene = load(item.scene_path) as PackedScene
 			var restored_node = scene.instantiate()
 			if(item.parent_path):
 				get_node(item.parent_path).add_child(restored_node)
 				if(item.index):
 					get_node(item.parent_path).move_child(restored_node, item.index)
-			restored_node.component_container.get_component("SaveLoadComponent").on_load_game(item)
+			restored_node.component_container.get_component(GameEnums.Components.SaveLoadComponent).on_load_game(item)
 
 func update_name_to_path_dict() -> void:
 	if multiplayer.is_server():

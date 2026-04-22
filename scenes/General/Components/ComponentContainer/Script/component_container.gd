@@ -1,24 +1,26 @@
+class_name component_container
 extends Node
 
-##Array of all components of this scene
-var components_list: Array
+##Array of all components of this instance
+var components_dict: Dictionary
 # Called when the node enters the scene tree for the first time.
 func _enter_tree() -> void:
-		_initiate_component_array()
+		_initiate_components_dict()
 
-func _initiate_component_array()->void:
-	components_list = get_children()
+func _initiate_components_dict()->void:
+	for item in GameEnums.Components:
+		if get_node_or_null(String(item)):
+			components_dict[item] = get_node(String(item))
 
-func send_message_to_child(child_name:String, func_name:String)->void:
-	for item in components_list:
-		if item.name == child_name:
-			item.call(func_name)
-			break
+func send_message_to_component(inComponent:GameEnums.Components, func_name:String)->void:
+	var component = components_dict.get(GameEnums.Components.find_key(inComponent))
+	if component:
+		component.call(func_name)
 
-func get_component(componentName:String)->Node:
-	for item in components_list:
-		if item.name == componentName:
-			return item
+func get_component(inComponent:GameEnums.Components)->Node:
+	var component = components_dict.get(GameEnums.Components.find_key(inComponent))
+	if component:
+		return component
 	return null
 
 func get_main_node()->Variant:

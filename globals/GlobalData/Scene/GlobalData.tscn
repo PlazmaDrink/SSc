@@ -8,6 +8,7 @@
 
 [sub_resource type="Resource" id="Resource_ki20t"]
 script = ExtResource("5_ki20t")
+ref_root_node = null
 metadata/_custom_type_script = "uid://dwqg4lbtgcc76"
 
 [node name="GlobalData" type="Node3D"]
@@ -18,7 +19,7 @@ player_scene = ExtResource("2_k0opn")
 
 [node name="ComponentContainer" parent="." instance=ExtResource("3_gsjgm")]
 
-[node name="SaveLoadComponent" parent="ComponentContainer" node_paths=PackedStringArray("root_node_to_save_from") groups=["DataToSave"] instance=ExtResource("4_ki20t")]
+[node name="SaveLoadComponent" parent="ComponentContainer" node_paths=PackedStringArray("root_node_to_save_from") instance=ExtResource("4_ki20t")]
 resource_type = SubResource("Resource_ki20t")
 root_node_to_save_from = NodePath("../..")
 isGlobal = true
