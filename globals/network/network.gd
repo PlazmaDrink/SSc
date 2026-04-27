@@ -7,7 +7,8 @@ const MAX_PLAYERS : int = 10
 var players = {}
 var player_info = {
 	"nick" : "host",
-	"skin" : Character.SkinColor.BLUE
+	"skin" : Character.SkinColor.BLUE,
+	"peer" : ENetMultiplayerPeer
 }
 
 signal player_connected(peer_id, player_info)
@@ -37,6 +38,7 @@ func start_host(nickname: String, skin_color_str: String):
 
 	player_info["nick"] = nickname
 	player_info["skin"] = skin_str_to_e(skin_color_str)
+	player_info["peer"] = peer
 	
 	if DisplayServer.get_name() == "headless":
 		return
@@ -62,7 +64,7 @@ func join_game(nickname: String, skin_color_str: String, address: String = SERVE
 
 	player_info["nick"] = nickname
 	player_info["skin"] = skin_enum
-
+	player_info["peer"] = peer
 
 func _on_connected_ok():
 	var peer_id = multiplayer.get_unique_id()

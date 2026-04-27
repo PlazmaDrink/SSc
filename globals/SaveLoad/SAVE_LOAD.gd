@@ -38,6 +38,7 @@ func load_game(load_name = "DefaultSaveFile"):
 		var saved_game: SavedGame = load(name_to_path_dict.get(load_name)) as SavedGame
 		get_tree().call_group(GROUP_NAME, FUNC_BEFORE_LOAD)
 		_update_globals(saved_game.saved_data_globals)
+		#Creating new emtities from save_data list
 		for item in saved_game.saved_data:
 			var scene = load(item.scene_path) as PackedScene
 			var restored_node = scene.instantiate()
