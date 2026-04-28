@@ -26,7 +26,7 @@ func hide_menu():
 func is_menu_visible() -> bool:
 	return visible
 	
-func open_ui_save_load_menu(player: Character = null):
+func open_ui_save_load_menu(player: Player_Character = null):
 	if player:
 		visible = true
 

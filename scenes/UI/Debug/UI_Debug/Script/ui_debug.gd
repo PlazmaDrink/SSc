@@ -24,7 +24,7 @@ func hide_menu():
 func is_menu_visible() -> bool:
 	return visible
 	
-func open_UI_debug_menu(player: Character = null):
+func open_UI_debug_menu(player: Player_Character = null):
 	if player:
 		show_menu()
 

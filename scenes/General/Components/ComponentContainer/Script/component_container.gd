@@ -3,9 +3,11 @@ extends Node
 
 ##Array of all components of this instance
 var components_dict: Dictionary
+var root_node:Node
 # Called when the node enters the scene tree for the first time.
 func _enter_tree() -> void:
 		_initiate_components_dict()
+		root_node = get_parent()
 
 func _initiate_components_dict()->void:
 	for item in GameEnums.Components:

@@ -45,6 +45,6 @@ func hide_menu():
 func is_menu_visible() -> bool:
 	return visible
 	
-func open_UI_time_menu(player: Character = null):
+func open_UI_time_menu(player: Player_Character = null):
 	if player:
 		visible = true

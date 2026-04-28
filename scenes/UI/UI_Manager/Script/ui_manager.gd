@@ -67,7 +67,7 @@ func msg_rpc(nick, msg):
 	
 # ---------- INVENTORY SYSTEM ----------
 func toggle_inventory():
-	var local_player = get_parent().get_local_player()
+	var local_player = GlobalData.get_local_player()
 	if not local_player:
 		return
 
@@ -91,22 +91,23 @@ func update_local_inventory_display():
 
 # Debug functions for testing inventory system
 func _debug_add_item():
-	var local_player = get_parent().get_local_player()
+	var local_player = GlobalData.get_local_player()
 	if local_player:
 		var test_items = ["iron_sword", "health_potion", "leather_armor", "magic_gem", "iron_pickaxe"]
 		var random_item = test_items[randi() % test_items.size()]
 		print("Debug: Requesting to add ", random_item, " to player ", local_player.name, " (authority: ", local_player.get_multiplayer_authority(), ")")
-		local_player.request_add_item.rpc_id(1, random_item, 1)
+		local_player.component_container.get_component(GameEnums.Components.InventoryComponent).request_add_item.rpc_id(1, random_item, 1)
+		inventory_ui.update_inventory_display()
 	else:
 		print("Debug: No local player found!")
 
 func _debug_print_inventory():
-	var local_player = get_parent().get_local_player()
-	if local_player and local_player.get_inventory():
-		var inventory = local_player.get_inventory()
+	var local_player = GlobalData.get_local_player()
+	var players_inventory = local_player.component_container.get_component(GameEnums.Components.InventoryComponent).get_inventory()
+	if local_player and players_inventory:
 		print("=== Inventory Debug ===")
-		for i in range(inventory.slots.size()):
-			var slot = inventory.get_slot(i)
+		for i in range(players_inventory.slots.size()):
+			var slot = players_inventory.get_slot(i)
 			if slot and not slot.is_empty():
 				print("Slot ", i, ": ", slot.item_id, " x", slot.quantity)
 		print("=====================")
@@ -118,7 +119,7 @@ func toggle_UI_debug_menu():
 	if ui_debug.is_menu_visible():
 		ui_debug.hide_menu()
 		return
-	var local_player = get_parent().get_local_player()
+	var local_player = GlobalData.get_local_player()
 	if not local_player:
 		return
 	UI_debug_menu_visible = !UI_debug_menu_visible
@@ -126,13 +127,10 @@ func toggle_UI_debug_menu():
 		ui_debug.open_UI_debug_menu(local_player)
 	else:
 		ui_debug.hide_menu()
-#func is_UI_Debug_Menu_visible() -> bool:
-	#return UI_debug_menu_visible
-# ---------- UI_Time_Menu ----------
 
 # ---------- Pop Up Message ----------
 func togle_pop_up_message(topLabel:String, messageLabel:String):
-	var local_player = get_parent().get_local_player()
+	var local_player = GlobalData.get_local_player()
 	if not local_player:
 		return
 	var pop_up_instance

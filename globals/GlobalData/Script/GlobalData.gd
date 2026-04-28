@@ -64,4 +64,9 @@ func _remove_player(id):
 	var player_node = players_container.get_node(str(id))
 	if player_node:
 		player_node.queue_free()
-	
+
+func get_local_player()->Player_Character:
+	for player in players_container.get_children():
+		if player.is_local_player:
+			return player as Player_Character
+	return null

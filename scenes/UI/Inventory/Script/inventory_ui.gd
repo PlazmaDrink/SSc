@@ -7,14 +7,14 @@ class_name InventoryUI
 @onready var tooltip: Control = $ItemTooltip
 @onready var tooltip_label: RichTextLabel = $ItemTooltip/Panel/MarginContainer/TooltipText
 
-var current_player: Character
+var current_player: Player_Character
 var slot_ui_scene: PackedScene
 var slot_uis: Array[InventorySlotUI] = []
 
 signal inventory_closed
 
 func _ready():
-	slot_ui_scene = preload("res://scenes/UI/Inventory/Scene/inventory_slot_ui.tscn")
+	slot_ui_scene = preload("uid://bglwdpf2mf7g0")
 	grid_container.columns = 4
 	close_button.pressed.connect(_on_close_pressed)
 	tooltip.visible = false
@@ -40,10 +40,10 @@ func _create_slot_uis():
 		slot_uis.append(slot_ui)
 
 func update_inventory_display():
-	if not current_player or not current_player.get_inventory():
+	if not current_player or not current_player.component_container.get_component(GameEnums.Components.InventoryComponent).get_inventory():
 		return
 
-	var player_inventory = current_player.get_inventory()
+	var player_inventory = current_player.component_container.get_component(GameEnums.Components.InventoryComponent).get_inventory()
 	print("Debug: Updating inventory display with ", player_inventory.slots.size(), " slots")
 	for i in range(slot_uis.size()):
 		if i < PlayerInventory.INVENTORY_SIZE:
@@ -59,10 +59,10 @@ func _on_slot_clicked(slot_index: int, button: int):
 			_handle_right_click(slot_index)
 
 func _handle_right_click(slot_index: int):
-	if not current_player or not current_player.get_inventory():
+	if not current_player or not current_player.component_container.get_component(GameEnums.Components.InventoryComponent).get_inventory():
 		return
 
-	var player_inventory = current_player.get_inventory()
+	var player_inventory = current_player.component_container.get_component(GameEnums.Components.InventoryComponent).get_inventory()
 	var slot = player_inventory.get_slot(slot_index)
 	if slot and not slot.is_empty():
 		var item = ItemDatabase.get_item(slot.item_id)
@@ -140,13 +140,12 @@ func handle_item_drop(from_slot: int, to_slot: int, inventory_type: String):
 	print("Moving item from slot ", from_slot, " to slot ", to_slot)
 
 	if inventory_type == "player" and current_player:
-		current_player.request_move_item.rpc_id(1, from_slot, to_slot)
-
+		current_player.component_container.get_component(GameEnums.Components.InventoryComponent).request_move_item.rpc_id(1, from_slot, to_slot)
 func _on_close_pressed():
 	inventory_closed.emit()
 	visible = false
 
-func open_inventory(player: Character = null):
+func open_inventory(player: Player_Character = null):
 	if player:
 		current_player = player
 		update_inventory_display()

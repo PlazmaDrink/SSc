@@ -7,7 +7,7 @@ const MAX_PLAYERS : int = 10
 var players = {}
 var player_info = {
 	"nick" : "host",
-	"skin" : Character.SkinColor.BLUE,
+	"skin" : Player_Character.SkinColor.BLUE,
 	"peer" : ENetMultiplayerPeer
 }
 
@@ -96,8 +96,8 @@ func _on_server_disconnected():
 
 func skin_str_to_e(s):
 	match s.to_lower():
-		"blue": return Character.SkinColor.BLUE
-		"yellow": return Character.SkinColor.YELLOW
-		"green": return Character.SkinColor.GREEN
-		"red": return Character.SkinColor.RED
-		_: return Character.SkinColor.BLUE
+		"blue": return Player_Character.SkinColor.BLUE
+		"yellow": return Player_Character.SkinColor.YELLOW
+		"green": return Player_Character.SkinColor.GREEN
+		"red": return Player_Character.SkinColor.RED
+		_: return Player_Character.SkinColor.BLUE

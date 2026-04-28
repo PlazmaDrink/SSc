@@ -1,6 +1,6 @@
 extends Node3D
 
-@onready var player: Character = $".."
+@onready var player: Player_Character = $".."
 @onready var camera_3d: Camera3D = $SpringArm3D/Camera3D
 @onready var ray_cast_3d: RayCast3D = $SpringArm3D/Camera3D/RayCast3D
 

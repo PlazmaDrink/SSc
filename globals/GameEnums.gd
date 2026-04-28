@@ -4,5 +4,6 @@ enum Components{
 	SurvivalComponent,
 	SaveLoadComponent,
 	TimeComponent,
-	InteractableComponent
+	InteractableComponent,
+	InventoryComponent
 }
