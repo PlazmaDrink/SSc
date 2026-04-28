@@ -1,6 +1,6 @@
 extends Node
 
-var owner_inventory: PlayerInventory
+var owner_inventory: Inventory
 var root_node: Node
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -17,9 +17,10 @@ func _ready() -> void:
 		else:
 			if root_node.get_multiplayer_authority() == root_node.local_client_id:
 				request_inventory_sync.rpc_id(1)
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+		return
+	else:
+		owner_inventory = Inventory.new()
+		_add_starting_items()
 
 func _add_starting_items():
 	if not owner_inventory:

@@ -1,4 +1,4 @@
-class_name PlayerInventory
+class_name Inventory
 extends RefCounted
 
 const INVENTORY_SIZE = 20  # 4x5 grid

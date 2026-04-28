@@ -1,16 +1,23 @@
-[gd_scene load_steps=6 format=3 uid="uid://blx04n88ctcmy"]
+[gd_scene load_steps=7 format=3 uid="uid://blx04n88ctcmy"]
 
 [ext_resource type="PackedScene" uid="uid://od014t1fy44i" path="res://scenes/General/Components/ComponentContainer/Scene/ComponentContainer.tscn" id="1_jtvj8"]
 [ext_resource type="PackedScene" uid="uid://botwm1ppo741l" path="res://scenes/General/Components/InteractableComponent/Scene/InteractableComponent.tscn" id="2_isug7"]
-[ext_resource type="Material" uid="uid://d1hbc5mvwhs5" path="res://assets/Materials/OutlineShaderMaterial.tres" id="4_7evri"]
+[ext_resource type="Shader" uid="uid://2nhcv1ne75jp" path="res://assets/Materials/shaders/outline.gdshader" id="3_isug7"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_jtvj8"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_0sixc"]
 
-[node name="Ball_Outline_Test" type="Node3D"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7evri"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("3_isug7")
+shader_parameter/outline_colour = Color(0, 0, 0, 1)
+shader_parameter/outline_width = 2.0
 
-[node name="Area3D" type="Area3D" parent="." groups=["iInteractable"]]
+[node name="Ball_Outline_Test" type="Node3D" groups=["iInteractable"]]
+
+[node name="Area3D" type="Area3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
 mesh = SubResource("SphereMesh_jtvj8")
@@ -22,6 +29,6 @@ shape = SubResource("SphereShape3D_0sixc")
 
 [node name="InteractableComponent" parent="ComponentContainer" node_paths=PackedStringArray("meshToOutline") instance=ExtResource("2_isug7")]
 meshToOutline = NodePath("../../Area3D/MeshInstance3D")
-outlineMaterial = ExtResource("4_7evri")
+outlineMaterial = SubResource("ShaderMaterial_7evri")
 OutlineColor = Color(0.81048363, 0, 0.3345245, 1)
 OutlineWidth = 15.0

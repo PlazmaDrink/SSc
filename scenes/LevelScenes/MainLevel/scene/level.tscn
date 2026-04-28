@@ -127,7 +127,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_086mn")
 [node name="TimeTestBlock2" parent="." instance=ExtResource("5_llr3u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9525715, 2.4574652, -6.078645)
 
-[node name="Kasa" type="Node3D" parent="." groups=["DataToSave"]]
+[node name="Kasa" type="Node3D" parent="." groups=["DataToSave", "iInteractable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.24699, 2.5629745, -1.4397779)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Kasa" groups=["iInteractable"]]
@@ -157,7 +157,7 @@ outlineMaterial = SubResource("ShaderMaterial_qqfr2")
 OutlineColor = Color(0.31241986, 0.9999996, 0.8632624, 1)
 OutlineWidth = 5.0
 
-[node name="Ball_Outline_Test" parent="." instance=ExtResource("6_s6177")]
+[node name="Ball_Outline_Test" parent="." groups=["iInteractable"] instance=ExtResource("6_s6177")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.012225, 3.0197444, -4.8178844)
 
 [node name="TimeTestBlock" parent="." instance=ExtResource("10_tf2q7")]

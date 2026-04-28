@@ -8,6 +8,7 @@ extends Control
 @onready var container_for_temp: Node = $ContainerForTemp
 @onready var survival_bars: Control = $SurvivalBars
 const POP_UP_MESSAGE = preload("uid://cmi5io0cl7ms1")
+const INVENTORY_UI = preload("uid://bclq8vh1x2goy")
 
 
 var chat_visible = false
@@ -113,6 +114,10 @@ func _debug_print_inventory():
 		print("=====================")
 	else:
 		print("No inventory found for local player")
+
+func _add_non_player_inventory_to_viewport(inventory: Inventory):
+	var non_player_inventory = INVENTORY_UI.instantiate()
+# ---------- INVENTORY SYSTEM ----------
 
 # ---------- UI_Time_Menu ----------
 func toggle_UI_debug_menu():
