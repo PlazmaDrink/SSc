@@ -8,7 +8,7 @@ var rayCastCollisionState: bool = false
 var target_collider
 var target_component_container
 
-func _input(event) -> void:
+func _input(_event) -> void:
 	if is_colliding():
 		#Condition makes sure function call send only once
 		if get_collider().get_parent().is_in_group("iInteractable") && !rayCastCollisionState:

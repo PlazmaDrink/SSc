@@ -16,11 +16,11 @@ func set_timer(wait_time:int) ->void:
 	action_Finish_Time = GlobalTime.current_day + wait_time
 	isBusy = true
 
-func on_time_tick(time_of_day:int, hour:int, minute:int)-> void:
+func on_time_tick(_time_of_day:int, _hour:int, _minute:int)-> void:
 	if isBusy:
-		CheckIsActionComplete(time_of_day)
+		CheckIsActionComplete()
 
-func CheckIsActionComplete(time:int) -> void:
+func CheckIsActionComplete() -> void:
 	if GlobalTime.current_day >= action_Finish_Time:
 		isBusy = false
 		action_Finish_Time = -1

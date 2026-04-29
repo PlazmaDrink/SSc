@@ -9,10 +9,10 @@ const PRELOAD_CUSTOM = preload("uid://c2di55v3108hj")
 func _init() -> void:
 	Network.player_connected.connect(_on_player_connected)
 
-func save_properties(root:Node, custom:Node = null, isGlobal = false)->void:
-	super.save_properties(root, custom, isGlobal)
+func save_properties(root:Node, custom:Node = null, inIsGlobal = false)->void:
+	super.save_properties(root, custom, inIsGlobal)
 
-func load_properties(root:Node = null, custom:Node = null)->void:
+func load_properties(_root:Node = null, _custom:Node = null)->void:
 	pass
 
 func _on_player_connected(inPeer_id, inPlayer_info):

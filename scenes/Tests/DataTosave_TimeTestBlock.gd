@@ -6,8 +6,8 @@ const PRELOAD_CUSTOM = preload("uid://bc7cbp1leuoyd")
 
 @export var material: Material
 
-func save_properties(root:Node, custom:Node = null, isGlobal = false)->void:
-	super.save_properties(root, custom, isGlobal)
+func save_properties(root:Node, custom:Node = null, inIsGlobal = false)->void:
+	super.save_properties(root, custom, inIsGlobal)
 	material = custom.mesh.get_material()
 	
 func load_properties(root_node:Node = null, custom_node:Node = null)->void:

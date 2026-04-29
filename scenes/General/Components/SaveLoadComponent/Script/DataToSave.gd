@@ -16,15 +16,15 @@ const PRELOAD = preload("uid://csqeytjnduddh")
 @export var index: int
 @export var isGlobal:bool
 
-func save_properties(root:Node, custom:Node = null, isGlobal = false)->void:
+func save_properties(root:Node, _custom:Node = null, inIsGlobal = false)->void:
 	if !isGlobal:
 		self.position = root.position
 		self.scene_path = root.scene_file_path
 		self.parent_path = root.get_parent().get_path()
 		self.index = root.get_index()
-		self.isGlobal = isGlobal
+		self.isGlobal = inIsGlobal
 
-func load_properties(root:Node, custom:Node = null)->void:
+func load_properties(root:Node, _custom:Node = null)->void:
 	root.position = position
 
 func get_preload()->Resource:

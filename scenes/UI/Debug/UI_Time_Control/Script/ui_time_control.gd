@@ -12,11 +12,7 @@ func _ready() -> void:
 	GlobalTime.time_tick.connect(on_time_tick)
 	hide_menu()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-func on_time_tick(current_day: int, current_hour: int, current_min:int)-> void:
+func on_time_tick(_current_day: int, current_hour: int, current_min:int)-> void:
 	time_value.text = "%s : %s" % [current_hour, current_min]
 	
 func _on_add_time_pressed() -> void:
@@ -26,8 +22,8 @@ func _on_add_time_pressed() -> void:
 func _on_set_time_pressed() -> void:
 	var input = set_time_input.text.split(":")
 	var hours:int = int(input[0])
-	var min:int = int(input[1])
-	GlobalTime.add_time(0, hours, min, true)
+	var minute:int = int(input[1])
+	GlobalTime.add_time(0, hours, minute, true)
 
 func _on_close_pressed() -> void:
 	hide_menu()

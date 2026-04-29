@@ -11,16 +11,12 @@ signal value_changed(new_value:SurvivalProperty)
 func _ready() -> void:
 	GlobalTime.time_tick.connect(_on_time_tick)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
 func alter_property(property, value)->void:
 	property.property_value += value
 	if property.property_last_time_footprint != abs(value):
 		value_changed.emit(property)
 
-func _on_time_tick(current_day, current_hour, current_min):
+func _on_time_tick(current_day, _current_hour, _current_min):
 	for property in _survi_properties:
 		var current_value = current_day/property.property_time_step
 		if property.property_last_time_footprint != current_value:

@@ -8,7 +8,7 @@ const JUMP_VELOCITY = 10
 enum SkinColor { BLUE, YELLOW, GREEN, RED }
 
 @onready var nickname: Label3D = $PlayerNick/Nickname
-@onready var component_container: Node = $ComponentContainer
+@onready var my_component_container: component_container = $ComponentContainer
 
 
 @export_category("Objects")
@@ -28,6 +28,7 @@ enum SkinColor { BLUE, YELLOW, GREEN, RED }
 @onready var _limbs_head_mesh: MeshInstance3D = get_node("3DGodotRobot/RobotArmature/Skeleton3D/Llimbs and head")
 
 var is_local_player: bool
+var local_client_id: int
 var _current_speed: float
 var _respawn_point = Vector3(0, 5, 0)
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -45,7 +46,7 @@ func _enter_tree():
 
 func _ready():
 	is_local_player = is_multiplayer_authority()
-	var local_client_id = multiplayer.get_unique_id()
+	local_client_id = multiplayer.get_unique_id()
 
 	print("Debug: Player ", name, " ready - authority: ", get_multiplayer_authority(), ", local client: ", local_client_id, ", is_local: ", is_local_player)
 
@@ -166,5 +167,5 @@ func set_mesh_texture(mesh_instance: MeshInstance3D, texture: CompressedTexture2
 			new_material.albedo_texture = texture
 			mesh_instance.set_surface_override_material(0, new_material)
 
-func getComponentContainer()->Node:
-	return component_container
+func getComponentContainer()->component_container:
+	return my_component_container

@@ -3,7 +3,7 @@ extends Node3D
 ##The purpose of this script is to hold the information crutial to be passed between the scenes
 
 @onready var players_container: Node3D = $Players_Container
-@onready var component_container: Node = $ComponentContainer
+@onready var my_component_container: component_container = $ComponentContainer
 
 @export var player_scene: PackedScene
 
