@@ -10,6 +10,7 @@ extends Node3D
 var nickname:String = ""
 var skin:String = ""
 var adress:String = ""
+var UI_manager: UI_Manager
 
 func _ready() -> void:
 	SceneManager.current_scene.host_pressed.connect(_on_host_pressed)

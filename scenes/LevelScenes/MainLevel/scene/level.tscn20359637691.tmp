@@ -123,7 +123,7 @@ mesh = SubResource("BoxMesh_xv074")
 skeleton = NodePath("../../StaticBody3D2")
 surface_material_override/0 = SubResource("StandardMaterial3D_086mn")
 
-[node name="OutlineTest" parent="." instance=ExtResource("5_llr3u")]
+[node name="TimeTestBlock2" parent="." instance=ExtResource("5_llr3u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9525715, 2.4574652, -6.078645)
 
 [node name="Kasa" type="Node3D" parent="." groups=["DataToSave", "iInteractable"]]

@@ -8,7 +8,7 @@ extends Control
 @onready var container_for_temp: Node = $ContainerForTemp
 @onready var survival_bars: Control = $SurvivalBars
 const POP_UP_MESSAGE = preload("uid://cmi5io0cl7ms1")
-const INVENTORY_UI = preload("uid://bclq8vh1x2goy")
+const INVENTORY_UI_SCENE = preload("uid://bclq8vh1x2goy")
 
 
 var chat_visible = false
@@ -74,7 +74,7 @@ func toggle_inventory():
 
 	inventory_visible = !inventory_visible
 	if inventory_visible:
-		inventory_ui.open_inventory(local_player)
+		inventory_ui.open_inventory(local_player.component_container.get_component(GameEnums.Components.InventoryComponent).get_inventory())
 	else:
 		inventory_ui.close_inventory()
 
@@ -83,12 +83,6 @@ func is_inventory_visible() -> bool:
 
 func _on_inventory_closed():
 	inventory_visible = false
-	
-func update_local_inventory_display():
-	if inventory_ui:
-		# Always refresh if the UI exists, regardless of visibility
-		inventory_ui.refresh_display()
-		print("Debug: Inventory display updated from server sync")
 
 # Debug functions for testing inventory system
 func _debug_add_item():
@@ -99,6 +93,7 @@ func _debug_add_item():
 		print("Debug: Requesting to add ", random_item, " to player ", local_player.name, " (authority: ", local_player.get_multiplayer_authority(), ")")
 		local_player.component_container.get_component(GameEnums.Components.InventoryComponent).request_add_item.rpc_id(1, random_item, 1)
 		inventory_ui.update_inventory_display()
+
 	else:
 		print("Debug: No local player found!")
 
@@ -115,8 +110,10 @@ func _debug_print_inventory():
 	else:
 		print("No inventory found for local player")
 
-func _add_non_player_inventory_to_viewport(inventory: Inventory):
-	var non_player_inventory = INVENTORY_UI.instantiate()
+func add_non_player_inventory_to_viewport(inventory: Inventory):
+	var non_player_inventory = INVENTORY_UI_SCENE.instantiate() as InventoryUI
+	container_for_temp.add_child(non_player_inventory)
+	non_player_inventory.open_inventory(inventory)
 # ---------- INVENTORY SYSTEM ----------
 
 # ---------- UI_Time_Menu ----------

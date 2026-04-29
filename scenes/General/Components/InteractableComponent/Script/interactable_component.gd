@@ -35,6 +35,6 @@ func raytrace_exit()->void:
 	meshToOutline.get_surface_override_material(0).set_next_pass(null)
 	is_focused = false
 
-func try_interact()->void:
+func try_interact(func_name:String = "on_interaction")->void:
 	if is_focused:
-		Action_to_do.on_interaction(get_parent())
+		Action_to_do.call(func_name, get_parent())

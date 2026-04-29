@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://x0fgn0okf41d"]
+[gd_scene load_steps=13 format=3 uid="uid://x0fgn0okf41d"]
 
 [ext_resource type="PackedScene" uid="uid://c01xn2plqcvv1" path="res://scenes/General/Components/Time_Component/Scene/time_component.tscn" id="3_2hwpd"]
 [ext_resource type="PackedScene" uid="uid://od014t1fy44i" path="res://scenes/General/Components/ComponentContainer/Scene/ComponentContainer.tscn" id="4_2hwpd"]
 [ext_resource type="PackedScene" uid="uid://botwm1ppo741l" path="res://scenes/General/Components/InteractableComponent/Scene/InteractableComponent.tscn" id="5_2hwpd"]
 [ext_resource type="PackedScene" uid="uid://cgnevae3alfpl" path="res://scenes/General/Components/InventoryComponent/Scene/InventoryComponent.tscn" id="5_axoal"]
 [ext_resource type="Shader" uid="uid://2nhcv1ne75jp" path="res://assets/Materials/shaders/outline.gdshader" id="5_gfg01"]
+[ext_resource type="Script" uid="uid://bqvu3ld03temc" path="res://scenes/General/Components/InteractableComponent/Interactions/Interaction_Inventory.gd" id="5_onuxl"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ybtej"]
 
@@ -15,12 +16,16 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gfg01"]
 next_pass = SubResource("ShaderMaterial_2hwpd")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_axoal"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gfg01"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("5_gfg01")
 shader_parameter/outline_colour = Color(0, 0, 0, 1)
 shader_parameter/outline_width = 2.0
+
+[sub_resource type="Resource" id="Resource_2eg87"]
+script = ExtResource("5_onuxl")
+metadata/_custom_type_script = "uid://bqvu3ld03temc"
 
 [node name="OutlineTestBlock" type="Node3D" groups=["DataToSave", "iInteractable"]]
 
@@ -42,9 +47,10 @@ surface_material_override/0 = SubResource("StandardMaterial3D_gfg01")
 
 [node name="InteractableComponent" parent="ComponentContainer" node_paths=PackedStringArray("meshToOutline") instance=ExtResource("5_2hwpd")]
 meshToOutline = NodePath("../../Area3D/MeshInstance3D")
-outlineMaterial = SubResource("ShaderMaterial_axoal")
+outlineMaterial = SubResource("ShaderMaterial_gfg01")
 OutlineColor = Color(0.31241986, 0.9999996, 0.8632624, 1)
 OutlineWidth = 5.0
+Action_to_do = SubResource("Resource_2eg87")
 
 [node name="InventoryComponent" parent="ComponentContainer" instance=ExtResource("5_axoal")]
 
