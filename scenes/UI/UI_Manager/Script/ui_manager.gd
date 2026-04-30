@@ -74,7 +74,7 @@ func toggle_inventory():
 
 	inventory_visible = !inventory_visible
 	if inventory_visible:
-		inventory_ui.open_inventory(local_player.component_container.get_component(GameEnums.Components.InventoryComponent).get_inventory())
+		inventory_ui.open_inventory(local_player.my_component_container.get_component(GameEnums.Components.InventoryComponent).get_inventory())
 	else:
 		inventory_ui.close_inventory()
 
@@ -91,15 +91,14 @@ func _debug_add_item():
 		var test_items = ["iron_sword", "health_potion", "leather_armor", "magic_gem", "iron_pickaxe"]
 		var random_item = test_items[randi() % test_items.size()]
 		print("Debug: Requesting to add ", random_item, " to player ", local_player.name, " (authority: ", local_player.get_multiplayer_authority(), ")")
-		local_player.component_container.get_component(GameEnums.Components.InventoryComponent).request_add_item.rpc_id(1, random_item, 1)
-		inventory_ui.update_inventory_display()
-
+		local_player.my_component_container.get_component(GameEnums.Components.InventoryComponent).request_add_item.rpc_id(1, random_item, 1)
+		inventory_ui.update_inventory_display(local_player.my_component_container.get_component(GameEnums.Components.InventoryComponent).get_inventory())
 	else:
 		print("Debug: No local player found!")
 
 func _debug_print_inventory():
 	var local_player = GlobalData.get_local_player()
-	var players_inventory = local_player.component_container.get_component(GameEnums.Components.InventoryComponent).get_inventory()
+	var players_inventory = local_player.my_component_container.get_component(GameEnums.Components.InventoryComponent).get_inventory()
 	if local_player and players_inventory:
 		print("=== Inventory Debug ===")
 		for i in range(players_inventory.slots.size()):
@@ -110,9 +109,10 @@ func _debug_print_inventory():
 	else:
 		print("No inventory found for local player")
 
-func add_non_player_inventory_to_viewport(inventory: Inventory):
+func add_non_player_inventory_to_viewport(inventory: Inventory, Title:String = "Inventory"):
 	var non_player_inventory = INVENTORY_UI_SCENE.instantiate() as InventoryUI
 	container_for_temp.add_child(non_player_inventory)
+	non_player_inventory.set_title(Title)
 	non_player_inventory.open_inventory(inventory)
 # ---------- INVENTORY SYSTEM ----------
 

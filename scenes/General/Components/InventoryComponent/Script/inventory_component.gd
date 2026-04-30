@@ -1,3 +1,4 @@
+class_name Inventory_component
 extends Node
 
 var owner_inventory: Inventory
@@ -9,17 +10,17 @@ func _ready() -> void:
 	if root_node is Player_Character:
 		var is_local_player = root_node.is_local_player
 		if is_local_player:
-			owner_inventory = PlayerInventory.new()
+			owner_inventory = PlayerInventory.new(self)
 			_add_starting_items()
 		elif multiplayer.is_server():
-			owner_inventory = PlayerInventory.new()
+			owner_inventory = PlayerInventory.new(self)
 			_add_starting_items()
 		else:
 			if root_node.get_multiplayer_authority() == root_node.local_client_id:
 				request_inventory_sync.rpc_id(1)
 		return
 	else:
-		owner_inventory = Inventory.new()
+		owner_inventory = Inventory.new(self)
 		_add_starting_items()
 
 func _add_starting_items():
@@ -61,22 +62,14 @@ func sync_inventory_to_owner(inventory_data: Dictionary):
 		return
 
 	if not owner_inventory:
-		owner_inventory = PlayerInventory.new()
+		owner_inventory = PlayerInventory.new(self)
 	owner_inventory.from_dict(inventory_data)
 
-	var level_scene = get_tree().get_current_scene()
-	if level_scene:
-		if is_multiplayer_authority() or get_multiplayer_authority() == multiplayer.get_unique_id():
-			print("Debug: This is the local player, updating UI")
-			if level_scene.has_method("update_local_inventory_display"):
-				level_scene.update_local_inventory_display()
-			if level_scene.has_node("InventoryUI"):
-				var inventory_ui = level_scene.get_node("InventoryUI")
-				if inventory_ui.visible and inventory_ui.has_method("refresh_display"):
-					print("Debug: Calling refresh_display directly on InventoryUI")
-					inventory_ui.refresh_display()
-		else:
-			print("Debug: Not the local player, skipping UI update")
+	if get_multiplayer_authority() == multiplayer.get_unique_id():
+		GlobalData.UI_manager.inventory_ui.update_inventory_display(owner_inventory)
+	else:
+		print("Debug: Not the local player, skipping UI update")
+
 @rpc("any_peer", "call_local", "reliable")
 func request_move_item(from_slot: int, to_slot: int, quantity: int = -1):
 	print("Debug: request_move_item called - from:", from_slot, " to:", to_slot, " on player ", name, " (authority: ", get_multiplayer_authority(), ") by client ", multiplayer.get_remote_sender_id())
@@ -114,9 +107,7 @@ func request_move_item(from_slot: int, to_slot: int, quantity: int = -1):
 		if owner_id != 1:
 			sync_inventory_to_owner.rpc_id(owner_id, owner_inventory.to_dict())
 		else:
-			var level_scene = get_tree().get_current_scene()
-			if level_scene and level_scene.has_method("update_local_inventory_display"):
-				level_scene.update_local_inventory_display()
+			GlobalData.UI_manager.inventory_ui.update_inventory_display(owner_inventory)
 	else:
 		print("Debug: Move/swap failed")
 
@@ -154,9 +145,7 @@ func request_add_item(item_id: String, quantity: int = 1):
 		if owner_id != 1:
 			sync_inventory_to_owner.rpc_id(owner_id, owner_inventory.to_dict())
 		else:
-			var level_scene = get_tree().get_current_scene()
-			if level_scene and level_scene.has_method("update_local_inventory_display"):
-				level_scene.update_local_inventory_display()
+			GlobalData.UI_manager.inventory_ui.update_inventory_display(owner_inventory)
 
 @rpc("any_peer", "call_local", "reliable")
 func request_remove_item(item_id: String, quantity: int = 1):

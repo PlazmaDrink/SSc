@@ -6,6 +6,7 @@ class_name InventoryUI
 @onready var close_button: Button = $Panel/MarginContainer/VBoxContainer/TitleBar/CloseButton
 @onready var tooltip: Control = $ItemTooltip
 @onready var tooltip_label: RichTextLabel = $ItemTooltip/Panel/MarginContainer/TooltipText
+@onready var title: Label = $Panel/MarginContainer/VBoxContainer/TitleBar/Title
 
 var current_player: Player_Character
 var my_inventory: Inventory
@@ -40,11 +41,14 @@ func _create_slot_uis():
 		grid_container.add_child(slot_ui)
 		slot_uis.append(slot_ui)
 
-func update_inventory_display():
+func update_inventory_display(my_inventory: Inventory):
 	for i in range(slot_uis.size()):
-		if i < PlayerInventory.INVENTORY_SIZE:
+		if i < my_inventory.INVENTORY_SIZE:
 			slot_uis[i].set_slot_data(my_inventory.get_slot(i), i)
 
+func set_title(newTitle:String)->void:
+	title.text = newTitle
+	
 func _on_slot_clicked(slot_index: int, button: int):
 	print("Slot ", slot_index, " clicked with button ", button)
 
@@ -131,27 +135,32 @@ func _get_rarity_string(rarity: Item.ItemRarity) -> String:
 
 func handle_item_drop(from_slot: int, to_slot: int, inventory_type: String):
 	print("Moving item from slot ", from_slot, " to slot ", to_slot)
-
+	if current_player == null and my_inventory:
+		my_inventory.inventory_component_ref.request_move_item.rpc_id(1, from_slot, to_slot)
 	if inventory_type == "player" and current_player:
-		current_player.component_container.get_component(GameEnums.Components.InventoryComponent).request_move_item.rpc_id(1, from_slot, to_slot)
-
+		current_player.my_component_container.get_component(GameEnums.Components.InventoryComponent).request_move_item.rpc_id(1, from_slot, to_slot)
+	update_inventory_display(my_inventory)
+	
 func _on_close_pressed():
+	if current_player == null:
+		queue_free()
+		return
 	inventory_closed.emit()
 	visible = false
 
 func open_inventory(inInventory: Inventory):
-	#if player:
-		#current_player = player
+	if inInventory is PlayerInventory:
+		current_player = GlobalData.get_local_player()
 	my_inventory = inInventory
 	visible = true
-	update_inventory_display()
+	update_inventory_display(my_inventory)
 
 func close_inventory():
 	visible = false
 
 func refresh_display():
 	print("Debug: InventoryUI refresh_display called")
-	update_inventory_display()
+	update_inventory_display(my_inventory)
 
 func _input(event):
 	if event is InputEventKey and event.pressed:

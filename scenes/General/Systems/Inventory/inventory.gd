@@ -3,9 +3,11 @@ extends RefCounted
 
 const INVENTORY_SIZE = 20  # 4x5 grid
 var slots: Array[InventorySlot] = []
+var inventory_component_ref: Inventory_component
 
-func _init():
+func _init(parent_component: Inventory_component):
 	_initialize_slots()
+	inventory_component_ref = parent_component
 
 func _initialize_slots():
 	slots.clear()
