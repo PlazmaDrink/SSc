@@ -173,5 +173,5 @@ func request_remove_item(item_id: String, quantity: int = 1):
 		if owner_id != 1:
 			sync_inventory_to_owner.rpc_id(owner_id, owner_inventory.to_dict())
 
-func get_inventory() -> PlayerInventory:
+func get_inventory() -> Inventory:
 	return owner_inventory

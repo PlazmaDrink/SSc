@@ -1,6 +1,8 @@
 extends Control
 class_name InventoryUI
 
+const INVENTORY_UI_SCENE = preload("uid://bclq8vh1x2goy")
+
 @onready var grid_container: GridContainer = $Panel/MarginContainer/VBoxContainer/GridContainer
 @onready var title_label: Label = $Panel/MarginContainer/VBoxContainer/TitleBar/Title
 @onready var close_button: Button = $Panel/MarginContainer/VBoxContainer/TitleBar/CloseButton
@@ -10,8 +12,11 @@ class_name InventoryUI
 
 var current_player: Player_Character
 var my_inventory: Inventory
+
 var slot_ui_scene: PackedScene
 var slot_uis: Array[InventorySlotUI] = []
+var inventory_visible = false
+
 
 signal inventory_closed
 
@@ -21,6 +26,13 @@ func _ready():
 	close_button.pressed.connect(_on_close_pressed)
 	tooltip.visible = false
 	_create_slot_uis()
+
+func initiane_vars(inMy_inventory:Inventory, inCurrent_Player: Player_Character = null)->void:
+	current_player = inCurrent_Player
+	if current_player:
+		my_inventory = inMy_inventory as PlayerInventory
+	else:
+		my_inventory = inMy_inventory
 
 func _create_slot_uis():
 	for child in grid_container.get_children():
@@ -41,14 +53,6 @@ func _create_slot_uis():
 		grid_container.add_child(slot_ui)
 		slot_uis.append(slot_ui)
 
-func update_inventory_display(my_inventory: Inventory):
-	for i in range(slot_uis.size()):
-		if i < my_inventory.INVENTORY_SIZE:
-			slot_uis[i].set_slot_data(my_inventory.get_slot(i), i)
-
-func set_title(newTitle:String)->void:
-	title.text = newTitle
-	
 func _on_slot_clicked(slot_index: int, button: int):
 	print("Slot ", slot_index, " clicked with button ", button)
 
@@ -133,14 +137,11 @@ func _get_rarity_string(rarity: Item.ItemRarity) -> String:
 		Item.ItemRarity.LEGENDARY: return "Legendary"
 		_: return "Unknown"
 
-func handle_item_drop(from_slot: int, to_slot: int, inventory_type: String):
-	print("Moving item from slot ", from_slot, " to slot ", to_slot)
-	if current_player == null and my_inventory:
-		my_inventory.inventory_component_ref.request_move_item.rpc_id(1, from_slot, to_slot)
-	if inventory_type == "player" and current_player:
-		current_player.my_component_container.get_component(GameEnums.Components.InventoryComponent).request_move_item.rpc_id(1, from_slot, to_slot)
-	update_inventory_display(my_inventory)
-	
+func _input(event):
+	if event is InputEventKey and event.pressed:
+		if event.keycode == KEY_ESCAPE and visible:
+			_on_close_pressed()
+
 func _on_close_pressed():
 	if current_player == null:
 		queue_free()
@@ -148,21 +149,74 @@ func _on_close_pressed():
 	inventory_closed.emit()
 	visible = false
 
-func open_inventory(inInventory: Inventory):
-	if inInventory is PlayerInventory:
-		current_player = GlobalData.get_local_player()
-	my_inventory = inInventory
-	visible = true
+func handle_item_drop(from_slot: int, to_slot: int, inventory_type: String):
+	print("Moving item from slot ", from_slot, " to slot ", to_slot)
+	if current_player == null and my_inventory:
+		my_inventory.inventory_component_ref.request_move_item.rpc_id(1, from_slot, to_slot)
+	if inventory_type == "player" and current_player:
+		current_player.my_component_container.get_component(GameEnums.Components.InventoryComponent).request_move_item.rpc_id(1, from_slot, to_slot)
 	update_inventory_display(my_inventory)
+
+func open_inventory(inInventory: Inventory):
+	my_inventory = inInventory
+	update_inventory_display(my_inventory)
+	visible = true
 
 func close_inventory():
 	visible = false
 
-func refresh_display():
-	print("Debug: InventoryUI refresh_display called")
-	update_inventory_display(my_inventory)
+func toggle_inventory():
+	if not current_player:
+		return
+	inventory_visible = !inventory_visible
+	if inventory_visible:
+		open_inventory(current_player.my_component_container.get_component(GameEnums.Components.InventoryComponent).get_inventory())
+	else:
+		close_inventory()
 
-func _input(event):
-	if event is InputEventKey and event.pressed:
-		if event.keycode == KEY_ESCAPE and visible:
-			_on_close_pressed()
+func update_inventory_display(inInventory: Inventory):
+	for i in range(slot_uis.size()):
+		if i < my_inventory.INVENTORY_SIZE:
+			slot_uis[i].set_slot_data(inInventory.get_slot(i), i)
+
+func set_title(newTitle:String)->void:
+	title.text = newTitle
+
+func is_inventory_visible() -> bool:
+	return inventory_visible
+
+func _on_inventory_closed():
+	inventory_visible = false
+
+func debug_add_item():
+	if current_player:
+		var test_items = ["iron_sword", "health_potion", "leather_armor", "magic_gem", "iron_pickaxe"]
+		var random_item = test_items[randi() % test_items.size()]
+		print("Debug: Requesting to add ", random_item, " to player ", current_player.name, " (authority: ", current_player.get_multiplayer_authority(), ")")
+		current_player.my_component_container.get_component(GameEnums.Components.InventoryComponent).request_add_item.rpc_id(1, random_item, 1)
+		update_inventory_display(my_inventory)
+	else:
+		print("Debug: No local player found!")
+
+func debug_print_inventory():
+	var local_player = GlobalData.get_local_player()
+	var players_inventory = local_player.my_component_container.get_component(GameEnums.Components.InventoryComponent).get_inventory()
+	if local_player and players_inventory:
+		print("=== Inventory Debug ===")
+		for i in range(players_inventory.slots.size()):
+			var slot = players_inventory.get_slot(i)
+			if slot and not slot.is_empty():
+				print("Slot ", i, ": ", slot.item_id, " x", slot.quantity)
+		print("=====================")
+	else:
+		print("No inventory found for local player")
+
+#TODO: I don't like this solution for adding to temp container. Think, Roman, think!
+func add_non_player_inventory_to_viewport(inventory: Inventory, Title:String = "Inventory")->void:
+	if inventory is not PlayerInventory:
+		var non_player_inventory = INVENTORY_UI_SCENE.instantiate() as InventoryUI
+		get_parent().add_child_to_temp_container(non_player_inventory)
+		#non_player_inventory_container.add_child(non_player_inventory)
+		non_player_inventory.initiane_vars(inventory)
+		non_player_inventory.set_title(Title)
+		non_player_inventory.open_inventory(inventory)
