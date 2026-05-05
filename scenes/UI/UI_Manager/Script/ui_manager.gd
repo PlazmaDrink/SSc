@@ -1,7 +1,6 @@
 class_name UI_Manager
 extends Control
 
-@onready var inventory_slot_ui: InventorySlotUI = $InventorySlotUI
 @onready var inventory_ui: InventoryUI = $InventoryUI
 @onready var multiplayer_chat_ui: MultiplayerChatUI = $MultiplayerChatUI
 @onready var ui_debug: UI_Debug = $UI_Debug
@@ -87,9 +86,9 @@ func togle_pop_up_message(topLabel:String, messageLabel:String):
 		return
 	var pop_up_instance = POP_UP_MESSAGE.instantiate()
 	add_child_to_temp_container(pop_up_instance)
-	#container_for_temp.add_child(pop_up_instance)
 	pop_up_instance.update_pop_up_message(topLabel, messageLabel)
 # ---------- Pop Up Message ----------
 
 func add_child_to_temp_container(childToAdd: Node)->void:
+	childToAdd.add_to_group("Temp")
 	container_for_temp.add_child(childToAdd)

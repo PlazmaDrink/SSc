@@ -17,7 +17,6 @@ var slot_ui_scene: PackedScene
 var slot_uis: Array[InventorySlotUI] = []
 var inventory_visible = false
 
-
 signal inventory_closed
 
 func _ready():
@@ -148,15 +147,26 @@ func _on_close_pressed():
 		return
 	inventory_closed.emit()
 	visible = false
+	
+func handle_item_drop(from_slot: InventorySlot, to_slot: InventorySlot):
+	print("Moving item from slot ", from_slot.slot_index, " to slot ", to_slot.slot_index)
+	print("From slot owner ", from_slot.inventory_ref.ownerName, " | To slot owner ", to_slot.inventory_ref.ownerName)
+	if from_slot.inventory_owner_name == to_slot.inventory_owner_name:
+		if current_player == null and my_inventory:
+			my_inventory.inventory_component_ref.request_move_item.rpc_id(1, from_slot.slot_index, to_slot.slot_index)
+		if current_player:
+			current_player.my_component_container.get_component\
+			(GameEnums.Components.InventoryComponent).request_move_item.rpc_id(1, from_slot.slot_index, to_slot.slot_index)
+	else:
+		if current_player == null and my_inventory:
+			to_slot.inventory_ref.inventory_component_ref.request_add_item(from_slot)
+			#TODO: Update inventory to "from_slot" as it remains with old ui, thought inventory itself it updated
+			from_slot.clear()
 
-func handle_item_drop(from_slot: int, to_slot: int, inventory_type: String):
-	print("Moving item from slot ", from_slot, " to slot ", to_slot)
-	if current_player == null and my_inventory:
-		my_inventory.inventory_component_ref.request_move_item.rpc_id(1, from_slot, to_slot)
-	if inventory_type == "player" and current_player:
-		current_player.my_component_container.get_component(GameEnums.Components.InventoryComponent).request_move_item.rpc_id(1, from_slot, to_slot)
+		if current_player:
+			current_player.my_component_container.get_component\
+			(GameEnums.Components.InventoryComponent).request_move_item.rpc_id(1, from_slot.slot_index, to_slot.slot_index)
 	update_inventory_display(my_inventory)
-
 func open_inventory(inInventory: Inventory):
 	my_inventory = inInventory
 	update_inventory_display(my_inventory)
@@ -216,7 +226,6 @@ func add_non_player_inventory_to_viewport(inventory: Inventory, Title:String = "
 	if inventory is not PlayerInventory:
 		var non_player_inventory = INVENTORY_UI_SCENE.instantiate() as InventoryUI
 		get_parent().add_child_to_temp_container(non_player_inventory)
-		#non_player_inventory_container.add_child(non_player_inventory)
 		non_player_inventory.initiane_vars(inventory)
 		non_player_inventory.set_title(Title)
 		non_player_inventory.open_inventory(inventory)

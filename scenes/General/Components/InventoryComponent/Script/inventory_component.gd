@@ -10,17 +10,17 @@ func _ready() -> void:
 	if root_node is Player_Character:
 		var is_local_player = root_node.is_local_player
 		if is_local_player:
-			owner_inventory = PlayerInventory.new(self)
+			owner_inventory = PlayerInventory.new(self, root_node.name)
 			_add_starting_items()
 		elif multiplayer.is_server():
-			owner_inventory = PlayerInventory.new(self)
+			owner_inventory = PlayerInventory.new(self, root_node.name)
 			_add_starting_items()
 		else:
 			if root_node.get_multiplayer_authority() == root_node.local_client_id:
 				request_inventory_sync.rpc_id(1)
 		return
 	else:
-		owner_inventory = Inventory.new(self)
+		owner_inventory = Inventory.new(self, root_node.name)
 		_add_starting_items()
 
 func _add_starting_items():
@@ -62,7 +62,7 @@ func sync_inventory_to_owner(inventory_data: Dictionary):
 		return
 
 	if not owner_inventory:
-		owner_inventory = PlayerInventory.new(self)
+		owner_inventory = PlayerInventory.new(self, root_node.name)
 	owner_inventory.from_dict(inventory_data)
 
 	if get_multiplayer_authority() == multiplayer.get_unique_id():
@@ -112,32 +112,32 @@ func request_move_item(from_slot: int, to_slot: int, quantity: int = -1):
 		print("Debug: Move/swap failed")
 
 @rpc("any_peer", "call_local", "reliable")
-func request_add_item(item_id: String, quantity: int = 1):
+func request_add_item(slot: InventorySlot):
 	print("Debug: request_add_item called on player ", name, " (authority: ", get_multiplayer_authority(), ") by client ", multiplayer.get_remote_sender_id())
 
 	if not multiplayer.is_server():
 		return
 
 	var requesting_client = multiplayer.get_remote_sender_id()
-	if requesting_client != get_multiplayer_authority() and requesting_client != 1:
+	if requesting_client != get_multiplayer_authority() and requesting_client != 1 and owner_inventory is PlayerInventory:
 		push_warning("Client " + str(requesting_client) + " tried to add items to player " + str(get_multiplayer_authority()))
 		return
 
 	if not owner_inventory:
 		return
 
-	if quantity <= 0:
-		push_warning("Invalid quantity: " + str(quantity))
+	if slot.quantity <= 0:
+		push_warning("Invalid quantity: " + str(slot.quantity))
 		return
 
-	var item = ItemDatabase.get_item(item_id)
+	var item = ItemDatabase.get_item(slot.item_id)
 	if not item:
-		push_warning("Item not found: " + item_id)
+		push_warning("Item not found: " + slot.item_id)
 		return
 
-	var remaining = owner_inventory.add_item(item, quantity)
-	var added = quantity - remaining
-	print("Debug: Added ", added, " ", item_id, " to inventory (", remaining, " remaining)")
+	var remaining = owner_inventory.add_item(item, slot.quantity)
+	var added = slot.quantity - remaining
+	print("Debug: Added ", added, " ", slot.item_id, " to inventory (", remaining, " remaining)")
 
 	if added > 0:
 		var owner_id = get_multiplayer_authority()
@@ -148,30 +148,32 @@ func request_add_item(item_id: String, quantity: int = 1):
 			GlobalData.UI_manager.inventory_ui.update_inventory_display(owner_inventory)
 
 @rpc("any_peer", "call_local", "reliable")
-func request_remove_item(item_id: String, quantity: int = 1):
+func request_remove_item(slot: InventorySlot):
 	print("Debug: request_remove_item called on player ", name, " (authority: ", get_multiplayer_authority(), ") by client ", multiplayer.get_remote_sender_id())
 
 	if not multiplayer.is_server():
 		return
 
 	var requesting_client = multiplayer.get_remote_sender_id()
-	if requesting_client != get_multiplayer_authority():
+	if requesting_client != get_multiplayer_authority() and owner_inventory is PlayerInventory:
 		push_warning("Client " + str(requesting_client) + " tried to remove items from player " + str(get_multiplayer_authority()))
 		return
 
 	if not owner_inventory:
 		return
 
-	if quantity <= 0:
-		push_warning("Invalid quantity: " + str(quantity))
+	if slot.quantity <= 0:
+		push_warning("Invalid quantity: " + str(slot.quantity))
 		return
 
-	var removed = owner_inventory.remove_item(item_id, quantity)
+	var removed = owner_inventory.remove_item(slot.item_id, slot.quantity)
 
 	if removed > 0:
 		var owner_id = get_multiplayer_authority()
 		if owner_id != 1:
 			sync_inventory_to_owner.rpc_id(owner_id, owner_inventory.to_dict())
+		else:
+			GlobalData.UI_manager.inventory_ui.update_inventory_display(owner_inventory)
 
 func get_inventory() -> Inventory:
 	return owner_inventory

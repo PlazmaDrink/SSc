@@ -32,6 +32,8 @@ func _ready():
 func set_slot_data(slot_data: InventorySlot, index: int):
 	inventory_data = slot_data
 	slot_index = index
+	if inventory_data:
+		inventory_data.slot_index = index
 	update_display()
 
 func update_display():
@@ -89,11 +91,11 @@ func _on_mouse_exited():
 	background.modulate = Color.WHITE
 
 func _can_drop_data(_position: Vector2, data) -> bool:
-	return data is Dictionary and data.has("slot_index") and data.has("inventory_type")
+	return data is InventorySlot
 
 func _drop_data(_position: Vector2, data):
 	if parent_inventory and parent_inventory.has_method("handle_item_drop"):
-		parent_inventory.handle_item_drop(data.slot_index, slot_index, data.inventory_type)
+		parent_inventory.handle_item_drop(data, inventory_data)
 
 func _get_drag_data(_position: Vector2):
 	if not inventory_data or inventory_data.is_empty():
@@ -115,12 +117,7 @@ func _get_drag_data(_position: Vector2):
 
 	item_icon.modulate = Color(0.5, 0.5, 0.5)
 
-	return {
-		"slot_index": slot_index,
-		"item_id": inventory_data.item_id,
-		"quantity": inventory_data.quantity,
-		"inventory_type": "player"  # Can be extended for different inventory types
-	}
+	return inventory_data
 
 func _notification(what):
 	if what == NOTIFICATION_DRAG_END:
