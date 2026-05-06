@@ -21,8 +21,9 @@ func _ready() -> void:
 	multiplayer_chat_ui.set_process_input(true)
 	
 	if inventory_ui:
+		var temp:Inventory = GlobalData.get_local_player().my_component_container.get_component(GameEnums.Components.InventoryComponent).owner_inventory
 		inventory_ui.initiane_vars\
-		(GlobalData.get_local_player().my_component_container.get_component(GameEnums.Components.InventoryComponent).owner_inventory, \
+		(temp, \
 		GlobalData.get_local_player())
 	if multiplayer_chat_ui:
 		multiplayer_chat_ui.message_sent.connect(_on_chat_message_sent)

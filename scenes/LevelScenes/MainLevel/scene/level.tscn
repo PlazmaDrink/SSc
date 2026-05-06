@@ -56,7 +56,7 @@ size = Vector3(10, 5, 2)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_crfef"]
 albedo_texture = ExtResource("8_siss4")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qqfr2"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_siss4"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("12_8pciu")
@@ -76,7 +76,7 @@ metadata/_custom_type_script = "uid://ccqedcxfcxjw5"
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gfg01"]
 next_pass = SubResource("ShaderMaterial_2hwpd")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_5to0l"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kni5o"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("12_8pciu")
@@ -178,7 +178,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_crfef")
 
 [node name="InteractableComponent" parent="Kasa/ComponentContainer" node_paths=PackedStringArray("meshToOutline") instance=ExtResource("11_5to0l")]
 meshToOutline = NodePath("../../StaticBody3D/MeshInstance3D")
-outlineMaterial = SubResource("ShaderMaterial_qqfr2")
+outlineMaterial = SubResource("ShaderMaterial_siss4")
 OutlineColor = Color(0.31241986, 0.9999996, 0.8632624, 1)
 OutlineWidth = 5.0
 Action_to_do = SubResource("Resource_siss4")
@@ -210,7 +210,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_gfg01")
 
 [node name="InteractableComponent" parent="OutlineTestBlock/ComponentContainer" node_paths=PackedStringArray("meshToOutline") instance=ExtResource("11_5to0l")]
 meshToOutline = NodePath("../../Area3D/MeshInstance3D")
-outlineMaterial = SubResource("ShaderMaterial_5to0l")
+outlineMaterial = SubResource("ShaderMaterial_kni5o")
 OutlineColor = Color(0.31241986, 0.9999996, 0.8632624, 1)
 OutlineWidth = 5.0
 Action_to_do = SubResource("Resource_2eg87")

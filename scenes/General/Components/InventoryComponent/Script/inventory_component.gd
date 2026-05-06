@@ -71,7 +71,7 @@ func sync_inventory_to_owner(inventory_data: Dictionary):
 		print("Debug: Not the local player, skipping UI update")
 
 @rpc("any_peer", "call_local", "reliable")
-func request_move_item(from_slot: int, to_slot: int, quantity: int = -1):
+func request_move_item(from_slot: InventorySlot, to_slot: InventorySlot, quantity: int = -1):
 	print("Debug: request_move_item called - from:", from_slot, " to:", to_slot, " on player ", name, " (authority: ", get_multiplayer_authority(), ") by client ", multiplayer.get_remote_sender_id())
 
 	if not multiplayer.is_server():
@@ -85,21 +85,21 @@ func request_move_item(from_slot: int, to_slot: int, quantity: int = -1):
 	if not owner_inventory:
 		return
 
-	if from_slot < 0 or from_slot >= PlayerInventory.INVENTORY_SIZE or to_slot < 0 or to_slot >= PlayerInventory.INVENTORY_SIZE:
+	if from_slot.slot_index < 0 or from_slot.slot_index >= PlayerInventory.INVENTORY_SIZE or to_slot.slot_index < 0 or to_slot.slot_index >= PlayerInventory.INVENTORY_SIZE:
 		push_warning("Invalid slot indices: from=" + str(from_slot) + " to=" + str(to_slot))
 		return
 
 	var success = false
-	if quantity == -1:
+	if from_slot.quantity == -1:
 		success = owner_inventory.move_item(from_slot, to_slot)
 		if not success:
-			success = owner_inventory.swap_items(from_slot, to_slot)
+			success = owner_inventory.swap_items(from_slot.slot_index, to_slot.slot_index)
 			print("Debug: Swapped items between slots ", from_slot, " and ", to_slot)
 		else:
 			print("Debug: Moved item from slot ", from_slot, " to ", to_slot)
 	else:
-		success = owner_inventory.move_item(from_slot, to_slot, quantity)
-		print("Debug: Moved ", quantity, " items from slot ", from_slot, " to ", to_slot)
+		success = owner_inventory.move_item(from_slot, to_slot)
+		print("Debug: Moved ", from_slot.quantity, " items from slot ", from_slot.slot_index, " to ", to_slot.slot_index)
 
 	if success:
 		print("Debug: Move successful, syncing inventory to owner ", get_multiplayer_authority())

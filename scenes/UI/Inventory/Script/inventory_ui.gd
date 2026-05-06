@@ -32,6 +32,7 @@ func initiane_vars(inMy_inventory:Inventory, inCurrent_Player: Player_Character 
 		my_inventory = inMy_inventory as PlayerInventory
 	else:
 		my_inventory = inMy_inventory
+	my_inventory.Request_UI_Update.connect(update_inventory_display)
 
 func _create_slot_uis():
 	for child in grid_container.get_children():
@@ -149,24 +150,10 @@ func _on_close_pressed():
 	visible = false
 	
 func handle_item_drop(from_slot: InventorySlot, to_slot: InventorySlot):
-	print("Moving item from slot ", from_slot.slot_index, " to slot ", to_slot.slot_index)
-	print("From slot owner ", from_slot.inventory_ref.ownerName, " | To slot owner ", to_slot.inventory_ref.ownerName)
-	if from_slot.inventory_owner_name == to_slot.inventory_owner_name:
-		if current_player == null and my_inventory:
-			my_inventory.inventory_component_ref.request_move_item.rpc_id(1, from_slot.slot_index, to_slot.slot_index)
-		if current_player:
-			current_player.my_component_container.get_component\
-			(GameEnums.Components.InventoryComponent).request_move_item.rpc_id(1, from_slot.slot_index, to_slot.slot_index)
-	else:
-		if current_player == null and my_inventory:
-			to_slot.inventory_ref.inventory_component_ref.request_add_item(from_slot)
-			#TODO: Update inventory to "from_slot" as it remains with old ui, thought inventory itself it updated
-			from_slot.clear()
+	my_inventory.inventory_component_ref.request_move_item.rpc_id(1, from_slot, to_slot)
+	from_slot.inventory_ref.on_Request_UI_Update()
+	to_slot.inventory_ref.on_Request_UI_Update()
 
-		if current_player:
-			current_player.my_component_container.get_component\
-			(GameEnums.Components.InventoryComponent).request_move_item.rpc_id(1, from_slot.slot_index, to_slot.slot_index)
-	update_inventory_display(my_inventory)
 func open_inventory(inInventory: Inventory):
 	my_inventory = inInventory
 	update_inventory_display(my_inventory)
@@ -186,7 +173,7 @@ func toggle_inventory():
 
 func update_inventory_display(inInventory: Inventory):
 	for i in range(slot_uis.size()):
-		if i < my_inventory.INVENTORY_SIZE:
+		if i < inInventory.INVENTORY_SIZE:
 			slot_uis[i].set_slot_data(inInventory.get_slot(i), i)
 
 func set_title(newTitle:String)->void:

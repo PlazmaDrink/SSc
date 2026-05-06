@@ -6,6 +6,8 @@ var slots: Array[InventorySlot] = []
 var inventory_component_ref: Inventory_component
 var ownerName: String
 
+signal Request_UI_Update(Inventory)
+
 func _init(parent_component: Inventory_component, inOwnerName:String):
 	inventory_component_ref = parent_component
 	ownerName = inOwnerName
@@ -55,15 +57,15 @@ func remove_item(item_id: String, quantity: int = 1) -> int:
 				break
 	return removed
 
-func move_item(from_index: int, to_index: int, quantity: int = -1) -> bool:
-	var from_slot = get_slot(from_index)
-	var to_slot = get_slot(to_index)
+func move_item(inFrom_slot: InventorySlot, inTo_slot: InventorySlot,) -> bool:
+	var from_slot = inFrom_slot.inventory_ref.get_slot(inFrom_slot.slot_index)
+	var to_slot = inTo_slot.inventory_ref.get_slot(inTo_slot.slot_index)
 
 	if not from_slot or not to_slot or from_slot.is_empty():
 		return false
 
 	# If quantity is -1, move entire stack
-	var move_amount = quantity if quantity > 0 else from_slot.quantity
+	var move_amount = from_slot.quantity if from_slot.quantity > 0 else from_slot.quantity
 	move_amount = min(move_amount, from_slot.quantity)
 
 	# Get item reference for validation
@@ -84,7 +86,7 @@ func move_item(from_index: int, to_index: int, quantity: int = -1) -> bool:
 		return true
 	else:
 		# Destination slot is occupied, try to stack in other available slots
-		var remaining_after_stack = try_stack_item(item, move_amount, from_index)
+		var remaining_after_stack = try_stack_item(item, move_amount, from_slot.slot_index)
 		if remaining_after_stack < move_amount:
 			# Successfully stacked at least part of the item
 			var moved_amount = move_amount - remaining_after_stack
@@ -201,3 +203,6 @@ func from_dict(data: Dictionary) -> void:
 	var slots_data = data.get("slots", [])
 	for i in range(min(slots_data.size(), slots.size())):
 		slots[i].from_dict(slots_data[i])
+
+func on_Request_UI_Update()->void:
+	Request_UI_Update.emit(self)
