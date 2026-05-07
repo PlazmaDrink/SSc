@@ -44,8 +44,9 @@ func clear() -> void:
 	quantity = 0
 
 func to_dict() -> Dictionary:
-	return {"item_id": item_id, "quantity": quantity}
+	return {"item_id": item_id, "quantity": quantity, "slot_index": slot_index}
 
 func from_dict(data: Dictionary) -> void:
 	item_id = data.get("item_id", "")
 	quantity = data.get("quantity", 0)
+	slot_index = data.get("slot_index", 0)

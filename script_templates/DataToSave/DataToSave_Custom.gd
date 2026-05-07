@@ -5,19 +5,15 @@ var ref_custom_node:Node
 #Assigne UID to PRELOAD_CUSTOM!
 const PRELOAD_CUSTOM = preload("uid://csqeytjnduddh")
 
-func save_properties()->void:
+func save_properties(root:Node, _custom:Node = null, inIsGlobal = false)->void:
 	if isGlobal:
 		return
-	super.save_properties()
+	super.save_properties(root)
 
-func load_properties()->void:
+func load_properties(root:Node, _custom:Node = null)->void:
 	if isGlobal:
 		return
-	super.load_properties()
-
-func set_ref_nodes(inCommonNode, inCustomNode = null)->void:
-	super.set_ref_nodes(inCommonNode)
-	ref_custom_node = inCustomNode
+	super.load_properties(root)
 
 func get_preload()->Resource:
 	return PRELOAD_CUSTOM

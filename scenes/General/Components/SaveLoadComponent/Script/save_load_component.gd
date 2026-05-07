@@ -1,15 +1,18 @@
 extends Node
 
-
+#Choose resource file to write save data in (If requirs unique data, create new script based ob DataToSave_Custom
 @export var resource_type: DataToSave
-@export var root_node_to_save_from: Node
+#This node will be used to save data from and load to
 @export var custom_node_to_save_from: Node
 @export var isGlobal: bool = false
+
+var root_node_to_save_from: Node
 
 @export var myResource: DataToSave
 
 func _ready() -> void:
 	myResource = resource_type.get_preload().new()
+	root_node_to_save_from = owner
 
 func on_save_game(saved_data_globals:Array[DataToSave_Custom], saved_data:Array[DataToSave]):
 	if not is_multiplayer_authority(): return

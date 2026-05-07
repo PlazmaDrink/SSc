@@ -5,16 +5,16 @@
 [ext_resource type="PackedScene" uid="uid://c01xn2plqcvv1" path="res://scenes/General/Components/Time_Component/Scene/time_component.tscn" id="2_ybtej"]
 [ext_resource type="PackedScene" uid="uid://od014t1fy44i" path="res://scenes/General/Components/ComponentContainer/Scene/ComponentContainer.tscn" id="3_fpggi"]
 [ext_resource type="PackedScene" uid="uid://dmk2m8iulciae" path="res://scenes/General/Components/SaveLoadComponent/Scene/SaveLoadComponent.tscn" id="5_7argl"]
-[ext_resource type="Script" uid="uid://bc7cbp1leuoyd" path="res://scenes/Tests/DataTosave_TimeTestBlock.gd" id="6_paypt"]
+[ext_resource type="Script" uid="uid://dry3eod5i7wv7" path="res://scenes/Tests/DataToSave_OutlineTest.gd" id="6_paypt"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_l5gki"]
 material = ExtResource("2_fpggi")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ybtej"]
 
-[sub_resource type="Resource" id="Resource_paypt"]
+[sub_resource type="Resource" id="Resource_tj8jy"]
 script = ExtResource("6_paypt")
-metadata/_custom_type_script = "uid://bc7cbp1leuoyd"
+metadata/_custom_type_script = "uid://dry3eod5i7wv7"
 
 [node name="TimeTestBlock" type="Node3D"]
 script = ExtResource("1_27qd3")
@@ -33,10 +33,8 @@ shape = SubResource("BoxShape3D_ybtej")
 
 [node name="TimeComponent" parent="ComponentContainer" instance=ExtResource("2_ybtej")]
 
-[node name="SaveLoadComponent" parent="ComponentContainer" node_paths=PackedStringArray("root_node_to_save_from", "custom_node_to_save_from") groups=["DataToSave"] instance=ExtResource("5_7argl")]
-resource_type = SubResource("Resource_paypt")
-root_node_to_save_from = NodePath("../..")
+[node name="SaveLoadComponent" parent="ComponentContainer" node_paths=PackedStringArray("custom_node_to_save_from") groups=["DataToSave"] instance=ExtResource("5_7argl")]
+resource_type = SubResource("Resource_tj8jy")
 custom_node_to_save_from = NodePath("../../MeshInstance3D")
-isGlobal = null
 
 [connection signal="ActionFinished" from="ComponentContainer/TimeComponent" to="." method="_on_time_component_action_finished"]

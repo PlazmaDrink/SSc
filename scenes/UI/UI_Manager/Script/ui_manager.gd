@@ -93,3 +93,11 @@ func togle_pop_up_message(topLabel:String, messageLabel:String):
 func add_child_to_temp_container(childToAdd: Node)->void:
 	childToAdd.add_to_group("Temp")
 	container_for_temp.add_child(childToAdd)
+
+func _on_container_for_temp_child_exiting_tree(node: Node) -> void:
+	if container_for_temp.get_child_count() == 0:
+		container_for_temp.visible = false
+
+
+func _on_container_for_temp_child_entered_tree(node: Node) -> void:
+	container_for_temp.visible = true
