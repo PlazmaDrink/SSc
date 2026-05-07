@@ -32,14 +32,15 @@ func initiane_vars(inMy_inventory:Inventory, inCurrent_Player: Player_Character 
 		my_inventory = inMy_inventory as PlayerInventory
 	else:
 		my_inventory = inMy_inventory
-	my_inventory.Request_UI_Update.connect(update_inventory_display)
+	if inMy_inventory:
+		my_inventory.Request_UI_Update.connect(update_inventory_display)
 
 func _create_slot_uis():
 	for child in grid_container.get_children():
 		child.queue_free()
 	slot_uis.clear()
 
-	for i in range(PlayerInventory.INVENTORY_SIZE):
+	for i in range(my_inventory.INVENTORY_SIZE):
 		var slot_ui = slot_ui_scene.instantiate() as InventorySlotUI
 		slot_ui.custom_minimum_size = Vector2(64, 64)
 		slot_ui.parent_inventory = self
@@ -151,8 +152,6 @@ func _on_close_pressed():
 	
 func handle_item_drop(from_slot: InventorySlot, to_slot: InventorySlot):
 	my_inventory.inventory_component_ref.request_move_item.rpc_id(1, from_slot, to_slot)
-	from_slot.inventory_ref.on_Request_UI_Update()
-	to_slot.inventory_ref.on_Request_UI_Update()
 
 func open_inventory(inInventory: Inventory):
 	my_inventory = inInventory

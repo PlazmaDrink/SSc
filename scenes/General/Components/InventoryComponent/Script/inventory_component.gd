@@ -71,7 +71,7 @@ func sync_inventory_to_owner(inventory_data: Dictionary):
 		print("Debug: Not the local player, skipping UI update")
 
 @rpc("any_peer", "call_local", "reliable")
-func request_move_item(from_slot: InventorySlot, to_slot: InventorySlot, quantity: int = -1):
+func request_move_item(from_slot: InventorySlot, to_slot: InventorySlot):
 	print("Debug: request_move_item called - from:", from_slot, " to:", to_slot, " on player ", name, " (authority: ", get_multiplayer_authority(), ") by client ", multiplayer.get_remote_sender_id())
 
 	if not multiplayer.is_server():

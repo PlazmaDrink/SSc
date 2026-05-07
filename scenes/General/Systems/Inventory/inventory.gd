@@ -58,6 +58,10 @@ func remove_item(item_id: String, quantity: int = 1) -> int:
 	return removed
 
 func move_item(inFrom_slot: InventorySlot, inTo_slot: InventorySlot,) -> bool:
+	#TODO:Next 2 lines make inventory UI update. It looks messy. Will need some rework
+	inFrom_slot.inventory_ref.call_deferred("on_Request_UI_Update")
+	call_deferred("on_Request_UI_Update")
+	
 	var from_slot = inFrom_slot.inventory_ref.get_slot(inFrom_slot.slot_index)
 	var to_slot = inTo_slot.inventory_ref.get_slot(inTo_slot.slot_index)
 
