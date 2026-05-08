@@ -10,17 +10,17 @@ func _ready() -> void:
 	if root_node is Player_Character:
 		var is_local_player = root_node.is_local_player
 		if is_local_player:
-			owner_inventory = PlayerInventory.new(self, root_node.name)
+			owner_inventory = PlayerInventory.new(self)
 			_add_starting_items()
 		elif multiplayer.is_server():
-			owner_inventory = PlayerInventory.new(self, root_node.name)
+			owner_inventory = PlayerInventory.new(self)
 			_add_starting_items()
 		else:
 			if root_node.get_multiplayer_authority() == root_node.local_client_id:
 				request_inventory_sync.rpc_id(1)
 		return
 	else:
-		owner_inventory = Inventory.new(self, root_node.name)
+		owner_inventory = Inventory.new(self)
 		_add_starting_items()
 
 func _add_starting_items():
@@ -62,7 +62,7 @@ func sync_inventory_to_owner(inventory_data: Dictionary):
 		return
 
 	if not owner_inventory:
-		owner_inventory = PlayerInventory.new(self, root_node.name)
+		owner_inventory = PlayerInventory.new(self)
 	owner_inventory.from_dict(inventory_data)
 
 	if get_multiplayer_authority() == multiplayer.get_unique_id():

@@ -1,5 +1,5 @@
-class_name DataToSave_Player
-extends DataToSave_Custom
+class_name data_to_save_player
+extends data_to_save_custom
 
 var peer_id
 var player_info: Dictionary

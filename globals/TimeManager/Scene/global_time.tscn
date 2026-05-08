@@ -22,7 +22,7 @@ metadata/_custom_type_script = "uid://c2di55v3108hj"
 script = ExtResource("5_aoxye")
 metadata/_custom_type_script = "uid://csqeytjnduddh"
 
-[node name="GlobalTime" type="Node3D"]
+[node name="GlobalTime" type="Node3D" groups=["DataToSave"]]
 script = ExtResource("1_ko6be")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]

@@ -1,8 +1,8 @@
-class_name DataToSave_TimeTestBlock
+class_name data_to_save_time_test_block
 
-extends DataToSave_Custom
+extends data_to_save_custom
 
-const PRELOAD_CUSTOM = preload("uid://bc7cbp1leuoyd")
+const PRELOAD_CUSTOM_TIMETESTBLOCK = preload("uid://bc7cbp1leuoyd")
 
 @export var material: Material
 
@@ -17,4 +17,4 @@ func load_properties(root_node:Node = null, custom_node:Node = null)->void:
 	custom_node.set_material_override(material)
 
 func get_preload()->Resource:
-	return PRELOAD_CUSTOM
+	return PRELOAD_CUSTOM_TIMETESTBLOCK

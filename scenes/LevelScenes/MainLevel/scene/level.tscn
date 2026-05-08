@@ -1,18 +1,17 @@
-[gd_scene load_steps=37 format=3 uid="uid://dugaivbj1o66n"]
+[gd_scene load_steps=38 format=3 uid="uid://dugaivbj1o66n"]
 
 [ext_resource type="Script" uid="uid://d0dgljwwl463n" path="res://scenes/Tests/script/level.gd" id="1_e1sh7"]
 [ext_resource type="Script" uid="uid://b7hxqglwotpm5" path="res://scenes/Tests/script/environment.gd" id="3_xv074"]
-[ext_resource type="PackedScene" uid="uid://x0fgn0okf41d" path="res://scenes/Tests/test_outline.tscn" id="5_llr3u"]
-[ext_resource type="PackedScene" uid="uid://blx04n88ctcmy" path="res://scenes/Tests/ball_outline_test.tscn" id="6_s6177"]
 [ext_resource type="PackedScene" uid="uid://cxwfmkvydqapy" path="res://scenes/UI/UI_Manager/Scene/ui_manager.tscn" id="6_vpf64"]
 [ext_resource type="ArrayMesh" uid="uid://b743gdlgnws8l" path="res://assets/kasa/kasa_Mesh_001.res" id="7_gqbg4"]
 [ext_resource type="Texture2D" uid="uid://bm5lrom2wcjhk" path="res://assets/kasa/kasa_kasa_BaseColor.png" id="8_siss4"]
 [ext_resource type="PackedScene" uid="uid://od014t1fy44i" path="res://scenes/General/Components/ComponentContainer/Scene/ComponentContainer.tscn" id="9_kni5o"]
 [ext_resource type="PackedScene" uid="uid://c01xn2plqcvv1" path="res://scenes/General/Components/Time_Component/Scene/time_component.tscn" id="10_df7s7"]
-[ext_resource type="PackedScene" uid="uid://sn664ywhj318" path="res://scenes/Tests/time_test_block.tscn" id="10_tf2q7"]
 [ext_resource type="PackedScene" uid="uid://botwm1ppo741l" path="res://scenes/General/Components/InteractableComponent/Scene/InteractableComponent.tscn" id="11_5to0l"]
 [ext_resource type="Script" uid="uid://ccqedcxfcxjw5" path="res://scenes/General/Components/InteractableComponent/Interactions/Interaction.gd" id="11_qqfr2"]
 [ext_resource type="Shader" uid="uid://2nhcv1ne75jp" path="res://assets/Materials/shaders/outline.gdshader" id="12_8pciu"]
+[ext_resource type="PackedScene" uid="uid://dmk2m8iulciae" path="res://scenes/General/Components/SaveLoadComponent/Scene/SaveLoadComponent.tscn" id="13_gqbg4"]
+[ext_resource type="Script" uid="uid://ci5jqf3fynvq7" path="res://scenes/Tests/DataToSave_OutlineTest.gd" id="14_kni5o"]
 [ext_resource type="Script" uid="uid://bqvu3ld03temc" path="res://scenes/General/Components/InteractableComponent/Interactions/Interaction_Inventory.gd" id="14_siss4"]
 [ext_resource type="PackedScene" uid="uid://cgnevae3alfpl" path="res://scenes/General/Components/InventoryComponent/Scene/InventoryComponent.tscn" id="15_kni5o"]
 
@@ -56,7 +55,7 @@ size = Vector3(10, 5, 2)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_crfef"]
 albedo_texture = ExtResource("8_siss4")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_siss4"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gqbg4"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("12_8pciu")
@@ -67,7 +66,7 @@ shader_parameter/outline_width = 2.0
 script = ExtResource("11_qqfr2")
 metadata/_custom_type_script = "uid://ccqedcxfcxjw5"
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_df7s7"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_5to0l"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_l5gki"]
 
@@ -76,7 +75,7 @@ metadata/_custom_type_script = "uid://ccqedcxfcxjw5"
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gfg01"]
 next_pass = SubResource("ShaderMaterial_2hwpd")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_kni5o"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_siss4"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("12_8pciu")
@@ -86,6 +85,17 @@ shader_parameter/outline_width = 2.0
 [sub_resource type="Resource" id="Resource_2eg87"]
 script = ExtResource("14_siss4")
 metadata/_custom_type_script = "uid://bqvu3ld03temc"
+
+[sub_resource type="Resource" id="Resource_onuxl"]
+script = ExtResource("14_kni5o")
+metadata/_custom_type_script = "uid://ci5jqf3fynvq7"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kni5o"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("12_8pciu")
+shader_parameter/outline_colour = Color(0, 0, 0, 1)
+shader_parameter/outline_width = 2.0
 
 [node name="Level" type="Node3D"]
 script = ExtResource("1_e1sh7")
@@ -133,6 +143,7 @@ physics_material_override = SubResource("PhysicsMaterial_vpf64")
 shape = SubResource("BoxShape3D_wcngd")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.618793)
 mesh = SubResource("BoxMesh_xv074")
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="."]
@@ -149,9 +160,6 @@ layers = 3
 mesh = SubResource("BoxMesh_xv074")
 skeleton = NodePath("../../StaticBody3D2")
 surface_material_override/0 = SubResource("StandardMaterial3D_086mn")
-
-[node name="OutlineTest" parent="." instance=ExtResource("5_llr3u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1129252, 2.4574652, -6.078645)
 
 [node name="Kasa" type="Node3D" parent="." groups=["DataToSave", "iInteractable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.24699, 2.5629745, -1.4397779)
@@ -178,44 +186,77 @@ surface_material_override/0 = SubResource("StandardMaterial3D_crfef")
 
 [node name="InteractableComponent" parent="Kasa/ComponentContainer" node_paths=PackedStringArray("meshToOutline") instance=ExtResource("11_5to0l")]
 meshToOutline = NodePath("../../StaticBody3D/MeshInstance3D")
-outlineMaterial = SubResource("ShaderMaterial_siss4")
+outlineMaterial = SubResource("ShaderMaterial_gqbg4")
 OutlineColor = Color(0.31241986, 0.9999996, 0.8632624, 1)
 OutlineWidth = 5.0
 Action_to_do = SubResource("Resource_siss4")
 
-[node name="Ball_Outline_Test" parent="." instance=ExtResource("6_s6177")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.012225, 3.0197444, -4.8178844)
+[node name="Temp" type="Node" parent="."]
 
-[node name="TimeTestBlock" parent="." instance=ExtResource("10_tf2q7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.96162, 3.4010892, 0)
+[node name="OutlineTestBlock" type="Node3D" parent="Temp" groups=["DataToSave", "iInteractable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.46674055, 1.5974417, -6.788118)
 
-[node name="OutlineTestBlock" type="Node3D" parent="." groups=["DataToSave", "iInteractable"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.897055, 2.1915553, -7.1387353)
-
-[node name="Area3D" type="Area3D" parent="OutlineTestBlock"]
+[node name="Area3D" type="Area3D" parent="Temp/OutlineTestBlock"]
 collision_layer = 2
 collision_mask = 3
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="OutlineTestBlock/Area3D"]
-shape = SubResource("BoxShape3D_df7s7")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Temp/OutlineTestBlock/Area3D"]
+shape = SubResource("BoxShape3D_5to0l")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="OutlineTestBlock/Area3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Temp/OutlineTestBlock/Area3D"]
 mesh = SubResource("BoxMesh_l5gki")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_gfg01")
 
-[node name="ComponentContainer" parent="OutlineTestBlock" instance=ExtResource("9_kni5o")]
+[node name="ComponentContainer" parent="Temp/OutlineTestBlock" instance=ExtResource("9_kni5o")]
 
-[node name="TimeComponent" parent="OutlineTestBlock/ComponentContainer" instance=ExtResource("10_df7s7")]
+[node name="TimeComponent" parent="Temp/OutlineTestBlock/ComponentContainer" instance=ExtResource("10_df7s7")]
 
-[node name="InteractableComponent" parent="OutlineTestBlock/ComponentContainer" node_paths=PackedStringArray("meshToOutline") instance=ExtResource("11_5to0l")]
+[node name="InteractableComponent" parent="Temp/OutlineTestBlock/ComponentContainer" node_paths=PackedStringArray("meshToOutline") instance=ExtResource("11_5to0l")]
+meshToOutline = NodePath("../../Area3D/MeshInstance3D")
+outlineMaterial = SubResource("ShaderMaterial_siss4")
+OutlineColor = Color(0.31241986, 0.9999996, 0.8632624, 1)
+OutlineWidth = 5.0
+Action_to_do = SubResource("Resource_2eg87")
+
+[node name="InventoryComponent" parent="Temp/OutlineTestBlock/ComponentContainer" instance=ExtResource("15_kni5o")]
+
+[node name="SaveLoadComponent" parent="Temp/OutlineTestBlock/ComponentContainer" node_paths=PackedStringArray("custom_node_to_save_from") instance=ExtResource("13_gqbg4")]
+resource_type = SubResource("Resource_onuxl")
+custom_node_to_save_from = NodePath("..")
+
+[node name="OutlineTestBlock2" type="Node3D" parent="Temp" groups=["DataToSave", "iInteractable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3237143, 1.5974417, -6.788118)
+
+[node name="Area3D" type="Area3D" parent="Temp/OutlineTestBlock2"]
+collision_layer = 2
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Temp/OutlineTestBlock2/Area3D"]
+shape = SubResource("BoxShape3D_5to0l")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Temp/OutlineTestBlock2/Area3D"]
+mesh = SubResource("BoxMesh_l5gki")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_gfg01")
+
+[node name="ComponentContainer" parent="Temp/OutlineTestBlock2" instance=ExtResource("9_kni5o")]
+
+[node name="TimeComponent" parent="Temp/OutlineTestBlock2/ComponentContainer" instance=ExtResource("10_df7s7")]
+
+[node name="InteractableComponent" parent="Temp/OutlineTestBlock2/ComponentContainer" node_paths=PackedStringArray("meshToOutline") instance=ExtResource("11_5to0l")]
 meshToOutline = NodePath("../../Area3D/MeshInstance3D")
 outlineMaterial = SubResource("ShaderMaterial_kni5o")
 OutlineColor = Color(0.31241986, 0.9999996, 0.8632624, 1)
 OutlineWidth = 5.0
 Action_to_do = SubResource("Resource_2eg87")
 
-[node name="InventoryComponent" parent="OutlineTestBlock/ComponentContainer" instance=ExtResource("15_kni5o")]
+[node name="InventoryComponent" parent="Temp/OutlineTestBlock2/ComponentContainer" instance=ExtResource("15_kni5o")]
+
+[node name="SaveLoadComponent" parent="Temp/OutlineTestBlock2/ComponentContainer" node_paths=PackedStringArray("custom_node_to_save_from") instance=ExtResource("13_gqbg4")]
+resource_type = SubResource("Resource_onuxl")
+custom_node_to_save_from = NodePath("..")
 
 [connection signal="ActionFinished" from="Kasa/ComponentContainer/TimeComponent" to="Kasa" method="_on_time_component_action_finished"]
-[connection signal="ActionFinished" from="OutlineTestBlock/ComponentContainer/TimeComponent" to="OutlineTestBlock" method="_on_time_component_action_finished"]
+[connection signal="ActionFinished" from="Temp/OutlineTestBlock/ComponentContainer/TimeComponent" to="Temp/OutlineTestBlock" method="_on_time_component_action_finished"]
+[connection signal="ActionFinished" from="Temp/OutlineTestBlock2/ComponentContainer/TimeComponent" to="Temp/OutlineTestBlock2" method="_on_time_component_action_finished"]

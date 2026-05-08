@@ -20,11 +20,10 @@ func _ready() -> void:
 	multiplayer_chat_ui.hide()
 	multiplayer_chat_ui.set_process_input(true)
 	
-	if inventory_ui:
-		var temp:Inventory = GlobalData.get_local_player().my_component_container.get_component(GameEnums.Components.InventoryComponent).owner_inventory
-		inventory_ui.initiane_vars\
-		(temp, \
-		GlobalData.get_local_player())
+	#if inventory_ui:
+		#var temp:Inventory = GlobalData.get_local_player().my_component_container.\
+		#get_component(GameEnums.Components.InventoryComponent).get_inventory()
+		#inventory_ui.initiane_vars(temp, GlobalData.get_local_player())
 	if multiplayer_chat_ui:
 		multiplayer_chat_ui.message_sent.connect(_on_chat_message_sent)
 
@@ -94,10 +93,10 @@ func add_child_to_temp_container(childToAdd: Node)->void:
 	childToAdd.add_to_group("Temp")
 	container_for_temp.add_child(childToAdd)
 
-func _on_container_for_temp_child_exiting_tree(node: Node) -> void:
+func _on_container_for_temp_child_exiting_tree(_node: Node) -> void:
 	if container_for_temp.get_child_count() == 0:
 		container_for_temp.visible = false
 
 
-func _on_container_for_temp_child_entered_tree(node: Node) -> void:
+func _on_container_for_temp_child_entered_tree(_node: Node) -> void:
 	container_for_temp.visible = true

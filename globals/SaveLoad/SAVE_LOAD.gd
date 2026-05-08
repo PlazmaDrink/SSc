@@ -21,8 +21,8 @@ func save_game(save_name = "DefaultSaveFile"):
 		save_location = temp_value
 		
 		# Collect dataToSave from all items in "DataToSave" group
-		var saved_data_globals:Array[DataToSave_Custom] = []
-		var saved_data:Array[DataToSave] = []
+		var saved_data_globals:Array[data_to_save_custom] = []
+		var saved_data:Array[data_to_save] = []
 		get_tree().call_group(GROUP_NAME, FUNC_SAVE_GAME, saved_data_globals, saved_data)
 		
 		# Create a saveGame file and assign var values
@@ -46,7 +46,7 @@ func load_game(load_name = "DefaultSaveFile"):
 				get_node(item.parent_path).add_child(restored_node)
 				if(item.index):
 					get_node(item.parent_path).move_child(restored_node, item.index)
-			restored_node.component_container.get_component(GameEnums.Components.SaveLoadComponent).on_load_game(item)
+			restored_node.my_component_container.get_component(GameEnums.Components.SaveLoadComponent).on_load_game(item)
 
 func update_name_to_path_dict() -> void:
 	if multiplayer.is_server():
@@ -63,6 +63,6 @@ func update_name_to_path_dict() -> void:
 
 		dir.list_dir_end()
 
-func _update_globals(savedData: Array[DataToSave_Custom]):
+func _update_globals(savedData: Array[data_to_save_custom]):
 	for item in savedData:
 		item.load_properties()

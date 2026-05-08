@@ -19,7 +19,6 @@ func _ready() -> void:
 	if not multiplayer.is_server():
 		return
 		
-	#Network.connect("player_connected", Callable(self, "_on_player_connected"))
 	Network.player_connected.connect(_on_player_connected)
 	multiplayer.peer_disconnected.connect(_remove_player)
 

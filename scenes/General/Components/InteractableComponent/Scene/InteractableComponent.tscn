@@ -2,6 +2,6 @@
 
 [ext_resource type="Script" uid="uid://cetrwf0of75dn" path="res://scenes/General/Components/InteractableComponent/Script/interactable_component.gd" id="1_ka23q"]
 
-[node name="InteractableComponent" type="Node"]
+[node name="InteractableComponent" type="Node" groups=["iInteractable"]]
 script = ExtResource("1_ka23q")
 OutlineColor = Color(0.9275334, 0.9078322, 0, 1)

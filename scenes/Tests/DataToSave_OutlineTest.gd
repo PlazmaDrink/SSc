@@ -1,24 +1,23 @@
-class_name DataToSave_OutlineTest
+class_name data_to_save_outline_test
+extends data_to_save_custom
 
-extends DataToSave_Custom
+const PRELOAD_CUSTOM = preload("uid://ci5jqf3fynvq7")
 
-var ref_custom_node:Node
-var inventory_content: Dictionary
-
-#Assigne UID to PRELOAD_CUSTOM!
-const PRELOAD_CUSTOM = preload("uid://dry3eod5i7wv7")
+var inventory_dict:Dictionary = {}
 
 func save_properties(root:Node, _custom:Node = null, inIsGlobal = false)->void:
-	if isGlobal:
+	if inIsGlobal:
 		return
 	super.save_properties(root)
-	inventory_content = _custom.get_component(GameEnums.Components.InventoryComponent).get_inventory().to_dict()
+	inventory_dict = _custom.get_component(GameEnums.Components.InventoryComponent).get_inventory().to_dict()
+	pass
 
 func load_properties(root:Node = null, _custom:Node = null)->void:
 	if isGlobal:
 		return
 	super.load_properties(root)
-	_custom.get_component(GameEnums.Components.InventoryComponent).get_inventory().from_dict(inventory_content)
+	_custom.get_component(GameEnums.Components.InventoryComponent).get_inventory().from_dict(inventory_dict)
+	pass
 
 func get_preload()->Resource:
 	return PRELOAD_CUSTOM

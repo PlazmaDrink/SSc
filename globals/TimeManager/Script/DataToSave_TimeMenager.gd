@@ -1,6 +1,6 @@
-class_name DataToSave_TimeMenager
+class_name data_to_save_time_manager
 
-extends DataToSave_Custom
+extends data_to_save_custom
 
 const PRELOAD_CUSTOM = preload("uid://c2di55v3108hj")
 
@@ -8,7 +8,7 @@ var time: float = 0.0
 
 func save_properties(root:Node, custom:Node = null, inIsGlobal = false)->void:
 	if isGlobal:
-		time = GlobalTime._time
+		time = GlobalTime.time
 		return
 	super.save_properties(root, custom, inIsGlobal)
 

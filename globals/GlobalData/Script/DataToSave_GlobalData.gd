@@ -1,6 +1,6 @@
-class_name DataToSave_GlobalData
+class_name data_to_save_custom_global_data
 
-extends DataToSave_Custom
+extends data_to_save_custom
 const PRELOAD_CUSTOM = preload("uid://c2di55v3108hj")
 
 @export var peer_id: Array = []

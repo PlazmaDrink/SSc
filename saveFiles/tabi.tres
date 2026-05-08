@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="SavedGame" load_steps=4 format=3]
-
-[ext_resource type="Script" path="res://scenes/General/Components/SaveLoadComponent/Script/DataToSave.gd" id="1_abcw0"]
-[ext_resource type="Script" path="res://scenes/General/Components/SaveLoadComponent/Script/DataToSave_Custom.gd" id="2_6oqik"]
-[ext_resource type="Script" path="res://scenes/General/Components/SaveLoadComponent/Script/SavedGame.gd" id="3_5mpgt"]
-
-[resource]
-script = ExtResource("3_5mpgt")

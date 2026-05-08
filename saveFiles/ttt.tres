@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="SavedGame" load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://scenes/General/Components/SaveLoadComponent/Script/DataToSave.gd" id="1_7dsxt"]
+[ext_resource type="Script" path="res://scenes/Tests/DataToSave_OutlineTest.gd" id="2_qh33a"]
+[ext_resource type="Script" path="res://scenes/General/Components/SaveLoadComponent/Script/DataToSave_Custom.gd" id="3_g4ibj"]
+[ext_resource type="Script" path="res://globals/TimeManager/Script/DataToSave_TimeMenager.gd" id="4_lsof2"]
+[ext_resource type="Script" path="res://scenes/General/Components/SaveLoadComponent/Script/SavedGame.gd" id="5_ng6kp"]
+
+[sub_resource type="Resource" id="Resource_xf2yt"]
+script = ExtResource("1_7dsxt")
+position = Vector3(8.779664, 0.06225349, 4.7872224)
+scene_path = "res://scenes/characters/Player/Scene/player.tscn"
+parent_path = "/root/GlobalData/Players_Container"
+
+[sub_resource type="Resource" id="Resource_v2sv4"]
+script = ExtResource("2_qh33a")
+scene_path = "res://scenes/LevelScenes/MainLevel/scene/level.tscn"
+parent_path = "/root"
+index = 7
+
+[sub_resource type="Resource" id="Resource_cokwa"]
+script = ExtResource("2_qh33a")
+scene_path = "res://scenes/LevelScenes/MainLevel/scene/level.tscn"
+parent_path = "/root"
+index = 7
+
+[sub_resource type="Resource" id="Resource_ufaj2"]
+script = ExtResource("4_lsof2")
+scene_path = "res://globals/TimeManager/Scene/global_time.tscn"
+parent_path = "/root"
+index = 2
+isGlobal = true
+
+[sub_resource type="Resource" id="Resource_owcmy"]
+script = ExtResource("4_lsof2")
+scene_path = "res://globals/GlobalData/Scene/GlobalData.tscn"
+parent_path = "/root"
+index = 5
+isGlobal = true
+
+[resource]
+script = ExtResource("5_ng6kp")
+saved_data_globals = Array[ExtResource("3_g4ibj")]([SubResource("Resource_ufaj2"), SubResource("Resource_owcmy")])
+saved_data = Array[ExtResource("1_7dsxt")]([SubResource("Resource_xf2yt"), SubResource("Resource_v2sv4"), SubResource("Resource_cokwa")])

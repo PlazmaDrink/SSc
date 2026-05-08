@@ -1,12 +1,6 @@
-class_name DataToSave
+class_name data_to_save
 extends Resource
 
-# In order to save/load data:
-# Parent has to have implemented 3 functions:
-# func on_save_game(saved_data:Array[DataToSave]):
-# func on_before_load():
-# func on_load_game(data:DataToSave):
-# If some object specific data required - create new script that inherits from DataToSave
 # All vars have to be @export
 const PRELOAD = preload("uid://csqeytjnduddh")
 

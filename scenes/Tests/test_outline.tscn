@@ -7,9 +7,9 @@
 [ext_resource type="Shader" uid="uid://2nhcv1ne75jp" path="res://assets/Materials/shaders/outline.gdshader" id="5_gfg01"]
 [ext_resource type="Script" uid="uid://bqvu3ld03temc" path="res://scenes/General/Components/InteractableComponent/Interactions/Interaction_Inventory.gd" id="5_onuxl"]
 [ext_resource type="PackedScene" uid="uid://dmk2m8iulciae" path="res://scenes/General/Components/SaveLoadComponent/Scene/SaveLoadComponent.tscn" id="7_axoal"]
-[ext_resource type="Script" uid="uid://dry3eod5i7wv7" path="res://scenes/Tests/DataToSave_OutlineTest.gd" id="8_onuxl"]
+[ext_resource type="Script" uid="uid://ci5jqf3fynvq7" path="res://scenes/Tests/DataToSave_OutlineTest.gd" id="8_onuxl"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ybtej"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_5to0l"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_l5gki"]
 
@@ -18,7 +18,7 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gfg01"]
 next_pass = SubResource("ShaderMaterial_2hwpd")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_axoal"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_onuxl"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("5_gfg01")
@@ -29,9 +29,9 @@ shader_parameter/outline_width = 2.0
 script = ExtResource("5_onuxl")
 metadata/_custom_type_script = "uid://bqvu3ld03temc"
 
-[sub_resource type="Resource" id="Resource_geop1"]
+[sub_resource type="Resource" id="Resource_onuxl"]
 script = ExtResource("8_onuxl")
-metadata/_custom_type_script = "uid://dry3eod5i7wv7"
+metadata/_custom_type_script = "uid://ci5jqf3fynvq7"
 
 [node name="OutlineTestBlock" type="Node3D" groups=["DataToSave", "iInteractable"]]
 
@@ -40,7 +40,7 @@ collision_layer = 2
 collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-shape = SubResource("BoxShape3D_ybtej")
+shape = SubResource("BoxShape3D_5to0l")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
 mesh = SubResource("BoxMesh_l5gki")
@@ -53,7 +53,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_gfg01")
 
 [node name="InteractableComponent" parent="ComponentContainer" node_paths=PackedStringArray("meshToOutline") instance=ExtResource("5_2hwpd")]
 meshToOutline = NodePath("../../Area3D/MeshInstance3D")
-outlineMaterial = SubResource("ShaderMaterial_axoal")
+outlineMaterial = SubResource("ShaderMaterial_onuxl")
 OutlineColor = Color(0.31241986, 0.9999996, 0.8632624, 1)
 OutlineWidth = 5.0
 Action_to_do = SubResource("Resource_2eg87")
@@ -61,7 +61,7 @@ Action_to_do = SubResource("Resource_2eg87")
 [node name="InventoryComponent" parent="ComponentContainer" instance=ExtResource("5_axoal")]
 
 [node name="SaveLoadComponent" parent="ComponentContainer" node_paths=PackedStringArray("custom_node_to_save_from") instance=ExtResource("7_axoal")]
-resource_type = SubResource("Resource_geop1")
+resource_type = SubResource("Resource_onuxl")
 custom_node_to_save_from = NodePath("..")
 
 [connection signal="ActionFinished" from="ComponentContainer/TimeComponent" to="." method="_on_time_component_action_finished"]

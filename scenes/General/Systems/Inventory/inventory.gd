@@ -7,7 +7,7 @@ var inventory_component_ref: Inventory_component
 
 signal Request_UI_Update(Inventory)
 
-func _init(parent_component: Inventory_component, inOwnerName:String):
+func _init(parent_component: Inventory_component):
 	inventory_component_ref = parent_component
 	_initialize_slots()
 
