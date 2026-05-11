@@ -20,5 +20,5 @@ player_scene = ExtResource("2_k0opn")
 
 [node name="SaveLoadComponent" parent="ComponentContainer" node_paths=PackedStringArray("root_node_to_save_from") instance=ExtResource("4_ki20t")]
 resource_type = SubResource("Resource_ki20t")
-root_node_to_save_from = NodePath("../..")
 isGlobal = true
+root_node_to_save_from = NodePath("../..")

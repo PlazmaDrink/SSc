@@ -5,15 +5,12 @@ extends Node
 #This node will be used to save data from and load to
 @export var custom_node_to_save_from: Node
 @export var isGlobal: bool = false
-
-var root_node_to_save_from: Node
+@export var root_node_to_save_from: Node
 
 @export var myResource: data_to_save
 
 func _ready() -> void:
 	myResource = resource_type.get_preload().new()
-	root_node_to_save_from = owner
-
 func on_save_game(saved_data_globals:Array[data_to_save_custom], saved_data:Array[data_to_save]):
 	if not is_multiplayer_authority(): return
 	myResource.save_properties(root_node_to_save_from, custom_node_to_save_from, isGlobal)

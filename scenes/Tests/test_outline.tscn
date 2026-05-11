@@ -1,5 +1,6 @@
-[gd_scene load_steps=16 format=3 uid="uid://x0fgn0okf41d"]
+[gd_scene load_steps=17 format=3 uid="uid://x0fgn0okf41d"]
 
+[ext_resource type="Script" uid="uid://b1orsou17g3em" path="res://scenes/Tests/test_outline.gd" id="1_2eg87"]
 [ext_resource type="PackedScene" uid="uid://c01xn2plqcvv1" path="res://scenes/General/Components/Time_Component/Scene/time_component.tscn" id="3_2hwpd"]
 [ext_resource type="PackedScene" uid="uid://od014t1fy44i" path="res://scenes/General/Components/ComponentContainer/Scene/ComponentContainer.tscn" id="4_2hwpd"]
 [ext_resource type="PackedScene" uid="uid://botwm1ppo741l" path="res://scenes/General/Components/InteractableComponent/Scene/InteractableComponent.tscn" id="5_2hwpd"]
@@ -34,6 +35,7 @@ script = ExtResource("8_onuxl")
 metadata/_custom_type_script = "uid://ci5jqf3fynvq7"
 
 [node name="OutlineTestBlock" type="Node3D" groups=["DataToSave", "iInteractable"]]
+script = ExtResource("1_2eg87")
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 2
@@ -60,8 +62,9 @@ Action_to_do = SubResource("Resource_2eg87")
 
 [node name="InventoryComponent" parent="ComponentContainer" instance=ExtResource("5_axoal")]
 
-[node name="SaveLoadComponent" parent="ComponentContainer" node_paths=PackedStringArray("custom_node_to_save_from") instance=ExtResource("7_axoal")]
+[node name="SaveLoadComponent" parent="ComponentContainer" node_paths=PackedStringArray("custom_node_to_save_from", "root_node_to_save_from") instance=ExtResource("7_axoal")]
 resource_type = SubResource("Resource_onuxl")
 custom_node_to_save_from = NodePath("..")
+root_node_to_save_from = NodePath("../..")
 
 [connection signal="ActionFinished" from="ComponentContainer/TimeComponent" to="." method="_on_time_component_action_finished"]

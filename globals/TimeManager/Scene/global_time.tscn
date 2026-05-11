@@ -30,7 +30,8 @@ replication_config = SubResource("SceneReplicationConfig_ko6be")
 
 [node name="ComponentContainer" parent="." instance=ExtResource("2_vdjiu")]
 
-[node name="SaveLoadComponent" parent="ComponentContainer" instance=ExtResource("3_tsap3")]
+[node name="SaveLoadComponent" parent="ComponentContainer" node_paths=PackedStringArray("root_node_to_save_from") instance=ExtResource("3_tsap3")]
 resource_type = SubResource("Resource_tsap3")
 isGlobal = true
+root_node_to_save_from = NodePath("../..")
 myResource = SubResource("Resource_e8kp6")

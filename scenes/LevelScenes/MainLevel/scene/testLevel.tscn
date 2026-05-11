@@ -1,19 +1,19 @@
-[gd_scene load_steps=38 format=3 uid="uid://dugaivbj1o66n"]
+[gd_scene load_steps=38 format=3 uid="uid://dacxgwh4kl7fw"]
 
-[ext_resource type="Script" uid="uid://d0dgljwwl463n" path="res://scenes/Tests/script/level.gd" id="1_e1sh7"]
-[ext_resource type="Script" uid="uid://b7hxqglwotpm5" path="res://scenes/Tests/script/environment.gd" id="3_xv074"]
-[ext_resource type="PackedScene" uid="uid://cxwfmkvydqapy" path="res://scenes/UI/UI_Manager/Scene/ui_manager.tscn" id="6_vpf64"]
-[ext_resource type="ArrayMesh" uid="uid://b743gdlgnws8l" path="res://assets/kasa/kasa_Mesh_001.res" id="7_gqbg4"]
-[ext_resource type="Texture2D" uid="uid://bm5lrom2wcjhk" path="res://assets/kasa/kasa_kasa_BaseColor.png" id="8_siss4"]
-[ext_resource type="PackedScene" uid="uid://od014t1fy44i" path="res://scenes/General/Components/ComponentContainer/Scene/ComponentContainer.tscn" id="9_kni5o"]
-[ext_resource type="PackedScene" uid="uid://c01xn2plqcvv1" path="res://scenes/General/Components/Time_Component/Scene/time_component.tscn" id="10_df7s7"]
-[ext_resource type="PackedScene" uid="uid://botwm1ppo741l" path="res://scenes/General/Components/InteractableComponent/Scene/InteractableComponent.tscn" id="11_5to0l"]
-[ext_resource type="Script" uid="uid://ccqedcxfcxjw5" path="res://scenes/General/Components/InteractableComponent/Interactions/Interaction.gd" id="11_qqfr2"]
-[ext_resource type="Shader" uid="uid://2nhcv1ne75jp" path="res://assets/Materials/shaders/outline.gdshader" id="12_8pciu"]
-[ext_resource type="PackedScene" uid="uid://dmk2m8iulciae" path="res://scenes/General/Components/SaveLoadComponent/Scene/SaveLoadComponent.tscn" id="13_gqbg4"]
-[ext_resource type="Script" uid="uid://ci5jqf3fynvq7" path="res://scenes/Tests/DataToSave_OutlineTest.gd" id="14_kni5o"]
-[ext_resource type="Script" uid="uid://bqvu3ld03temc" path="res://scenes/General/Components/InteractableComponent/Interactions/Interaction_Inventory.gd" id="14_siss4"]
-[ext_resource type="PackedScene" uid="uid://cgnevae3alfpl" path="res://scenes/General/Components/InventoryComponent/Scene/InventoryComponent.tscn" id="15_kni5o"]
+[ext_resource type="Script" uid="uid://d0dgljwwl463n" path="res://scenes/Tests/script/level.gd" id="1_tgcqh"]
+[ext_resource type="Script" uid="uid://b7hxqglwotpm5" path="res://scenes/Tests/script/environment.gd" id="2_sn712"]
+[ext_resource type="PackedScene" uid="uid://cxwfmkvydqapy" path="res://scenes/UI/UI_Manager/Scene/ui_manager.tscn" id="3_fwdbg"]
+[ext_resource type="ArrayMesh" uid="uid://b743gdlgnws8l" path="res://assets/kasa/kasa_Mesh_001.res" id="4_i52xu"]
+[ext_resource type="Texture2D" uid="uid://bm5lrom2wcjhk" path="res://assets/kasa/kasa_kasa_BaseColor.png" id="5_r58nn"]
+[ext_resource type="PackedScene" uid="uid://od014t1fy44i" path="res://scenes/General/Components/ComponentContainer/Scene/ComponentContainer.tscn" id="6_m0y61"]
+[ext_resource type="PackedScene" uid="uid://c01xn2plqcvv1" path="res://scenes/General/Components/Time_Component/Scene/time_component.tscn" id="7_vfjmf"]
+[ext_resource type="PackedScene" uid="uid://botwm1ppo741l" path="res://scenes/General/Components/InteractableComponent/Scene/InteractableComponent.tscn" id="8_r47rt"]
+[ext_resource type="Shader" uid="uid://2nhcv1ne75jp" path="res://assets/Materials/shaders/outline.gdshader" id="9_iir0e"]
+[ext_resource type="Script" uid="uid://ccqedcxfcxjw5" path="res://scenes/General/Components/InteractableComponent/Interactions/Interaction.gd" id="10_uo5jy"]
+[ext_resource type="Script" uid="uid://bqvu3ld03temc" path="res://scenes/General/Components/InteractableComponent/Interactions/Interaction_Inventory.gd" id="11_75pep"]
+[ext_resource type="PackedScene" uid="uid://cgnevae3alfpl" path="res://scenes/General/Components/InventoryComponent/Scene/InventoryComponent.tscn" id="12_kk13i"]
+[ext_resource type="PackedScene" uid="uid://dmk2m8iulciae" path="res://scenes/General/Components/SaveLoadComponent/Scene/SaveLoadComponent.tscn" id="13_hgayi"]
+[ext_resource type="Script" uid="uid://ci5jqf3fynvq7" path="res://scenes/Tests/DataToSave_OutlineTest.gd" id="14_4ifpm"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_r5xs5"]
 size = Vector2(90, 90)
@@ -53,17 +53,17 @@ size = Vector3(10, 5, 2)
 [sub_resource type="BoxShape3D" id="BoxShape3D_ybtej"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_crfef"]
-albedo_texture = ExtResource("8_siss4")
+albedo_texture = ExtResource("5_r58nn")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gqbg4"]
 resource_local_to_scene = true
 render_priority = 0
-shader = ExtResource("12_8pciu")
+shader = ExtResource("9_iir0e")
 shader_parameter/outline_colour = Color(0, 0, 0, 1)
 shader_parameter/outline_width = 2.0
 
 [sub_resource type="Resource" id="Resource_siss4"]
-script = ExtResource("11_qqfr2")
+script = ExtResource("10_uo5jy")
 metadata/_custom_type_script = "uid://ccqedcxfcxjw5"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5to0l"]
@@ -78,30 +78,30 @@ next_pass = SubResource("ShaderMaterial_2hwpd")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_siss4"]
 resource_local_to_scene = true
 render_priority = 0
-shader = ExtResource("12_8pciu")
+shader = ExtResource("9_iir0e")
 shader_parameter/outline_colour = Color(0, 0, 0, 1)
 shader_parameter/outline_width = 2.0
 
 [sub_resource type="Resource" id="Resource_2eg87"]
-script = ExtResource("14_siss4")
+script = ExtResource("11_75pep")
 metadata/_custom_type_script = "uid://bqvu3ld03temc"
 
 [sub_resource type="Resource" id="Resource_onuxl"]
-script = ExtResource("14_kni5o")
+script = ExtResource("14_4ifpm")
 metadata/_custom_type_script = "uid://ci5jqf3fynvq7"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kni5o"]
 resource_local_to_scene = true
 render_priority = 0
-shader = ExtResource("12_8pciu")
+shader = ExtResource("9_iir0e")
 shader_parameter/outline_colour = Color(0, 0, 0, 1)
 shader_parameter/outline_width = 2.0
 
 [node name="Level" type="Node3D"]
-script = ExtResource("1_e1sh7")
+script = ExtResource("1_tgcqh")
 
 [node name="Environment" type="Node3D" parent="."]
-script = ExtResource("3_xv074")
+script = ExtResource("2_sn712")
 
 [node name="Floor" type="StaticBody3D" parent="Environment"]
 collision_layer = 2
@@ -126,7 +126,7 @@ shadow_blur = 0.5
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Environment"]
 replication_config = SubResource("SceneReplicationConfig_sytrn")
 
-[node name="UI_Manager" parent="." instance=ExtResource("6_vpf64")]
+[node name="UI_Manager" parent="." instance=ExtResource("3_fwdbg")]
 visible = false
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -176,15 +176,15 @@ debug_color = Color(0, 0.60038817, 0.70000815, 1)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Kasa/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
-mesh = ExtResource("7_gqbg4")
+mesh = ExtResource("4_i52xu")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_crfef")
 
-[node name="ComponentContainer" parent="Kasa" instance=ExtResource("9_kni5o")]
+[node name="ComponentContainer" parent="Kasa" instance=ExtResource("6_m0y61")]
 
-[node name="TimeComponent" parent="Kasa/ComponentContainer" instance=ExtResource("10_df7s7")]
+[node name="TimeComponent" parent="Kasa/ComponentContainer" instance=ExtResource("7_vfjmf")]
 
-[node name="InteractableComponent" parent="Kasa/ComponentContainer" node_paths=PackedStringArray("meshToOutline") instance=ExtResource("11_5to0l")]
+[node name="InteractableComponent" parent="Kasa/ComponentContainer" node_paths=PackedStringArray("meshToOutline") instance=ExtResource("8_r47rt")]
 meshToOutline = NodePath("../../StaticBody3D/MeshInstance3D")
 outlineMaterial = SubResource("ShaderMaterial_gqbg4")
 OutlineColor = Color(0.31241986, 0.9999996, 0.8632624, 1)
@@ -208,23 +208,22 @@ mesh = SubResource("BoxMesh_l5gki")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_gfg01")
 
-[node name="ComponentContainer" parent="Temp/OutlineTestBlock" instance=ExtResource("9_kni5o")]
+[node name="ComponentContainer" parent="Temp/OutlineTestBlock" instance=ExtResource("6_m0y61")]
 
-[node name="TimeComponent" parent="Temp/OutlineTestBlock/ComponentContainer" instance=ExtResource("10_df7s7")]
+[node name="TimeComponent" parent="Temp/OutlineTestBlock/ComponentContainer" instance=ExtResource("7_vfjmf")]
 
-[node name="InteractableComponent" parent="Temp/OutlineTestBlock/ComponentContainer" node_paths=PackedStringArray("meshToOutline") instance=ExtResource("11_5to0l")]
+[node name="InteractableComponent" parent="Temp/OutlineTestBlock/ComponentContainer" node_paths=PackedStringArray("meshToOutline") instance=ExtResource("8_r47rt")]
 meshToOutline = NodePath("../../Area3D/MeshInstance3D")
 outlineMaterial = SubResource("ShaderMaterial_siss4")
 OutlineColor = Color(0.31241986, 0.9999996, 0.8632624, 1)
 OutlineWidth = 5.0
 Action_to_do = SubResource("Resource_2eg87")
 
-[node name="InventoryComponent" parent="Temp/OutlineTestBlock/ComponentContainer" instance=ExtResource("15_kni5o")]
+[node name="InventoryComponent" parent="Temp/OutlineTestBlock/ComponentContainer" instance=ExtResource("12_kk13i")]
 
-[node name="SaveLoadComponent" parent="Temp/OutlineTestBlock/ComponentContainer" node_paths=PackedStringArray("custom_node_to_save_from", "root_node_to_save_from") instance=ExtResource("13_gqbg4")]
+[node name="SaveLoadComponent" parent="Temp/OutlineTestBlock/ComponentContainer" node_paths=PackedStringArray("custom_node_to_save_from") instance=ExtResource("13_hgayi")]
 resource_type = SubResource("Resource_onuxl")
 custom_node_to_save_from = NodePath("..")
-root_node_to_save_from = NodePath("../..")
 
 [node name="OutlineTestBlock2" type="Node3D" parent="Temp" groups=["DataToSave", "iInteractable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3237143, 1.5974417, -6.788118)
@@ -241,23 +240,22 @@ mesh = SubResource("BoxMesh_l5gki")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_gfg01")
 
-[node name="ComponentContainer" parent="Temp/OutlineTestBlock2" instance=ExtResource("9_kni5o")]
+[node name="ComponentContainer" parent="Temp/OutlineTestBlock2" instance=ExtResource("6_m0y61")]
 
-[node name="TimeComponent" parent="Temp/OutlineTestBlock2/ComponentContainer" instance=ExtResource("10_df7s7")]
+[node name="TimeComponent" parent="Temp/OutlineTestBlock2/ComponentContainer" instance=ExtResource("7_vfjmf")]
 
-[node name="InteractableComponent" parent="Temp/OutlineTestBlock2/ComponentContainer" node_paths=PackedStringArray("meshToOutline") instance=ExtResource("11_5to0l")]
+[node name="InteractableComponent" parent="Temp/OutlineTestBlock2/ComponentContainer" node_paths=PackedStringArray("meshToOutline") instance=ExtResource("8_r47rt")]
 meshToOutline = NodePath("../../Area3D/MeshInstance3D")
 outlineMaterial = SubResource("ShaderMaterial_kni5o")
 OutlineColor = Color(0.31241986, 0.9999996, 0.8632624, 1)
 OutlineWidth = 5.0
 Action_to_do = SubResource("Resource_2eg87")
 
-[node name="InventoryComponent" parent="Temp/OutlineTestBlock2/ComponentContainer" instance=ExtResource("15_kni5o")]
+[node name="InventoryComponent" parent="Temp/OutlineTestBlock2/ComponentContainer" instance=ExtResource("12_kk13i")]
 
-[node name="SaveLoadComponent" parent="Temp/OutlineTestBlock2/ComponentContainer" node_paths=PackedStringArray("custom_node_to_save_from", "root_node_to_save_from") instance=ExtResource("13_gqbg4")]
+[node name="SaveLoadComponent" parent="Temp/OutlineTestBlock2/ComponentContainer" node_paths=PackedStringArray("custom_node_to_save_from") instance=ExtResource("13_hgayi")]
 resource_type = SubResource("Resource_onuxl")
 custom_node_to_save_from = NodePath("..")
-root_node_to_save_from = NodePath("../..")
 
 [connection signal="ActionFinished" from="Kasa/ComponentContainer/TimeComponent" to="Kasa" method="_on_time_component_action_finished"]
 [connection signal="ActionFinished" from="Temp/OutlineTestBlock/ComponentContainer/TimeComponent" to="Temp/OutlineTestBlock" method="_on_time_component_action_finished"]
