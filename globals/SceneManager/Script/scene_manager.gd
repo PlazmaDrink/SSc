@@ -5,7 +5,11 @@ var current_scene = null
 
 var game_scenes_dict = {
 	"MainMenu": "res://scenes/LevelScenes/MainMenu/scene/main_menu_ui.tscn",
-	"MainLevel": "res://scenes/LevelScenes/MainLevel/scene/level.tscn"
+	"MainLevel": "res://scenes/LevelScenes/MainLevel/scene/level.tscn",
+	"GlobalData": "res://globals/GlobalData/Scene/GlobalData.tscn",
+	"GlobalTime": "res://globals/TimeManager/Scene/global_time.tscn",
+	"player":"res://scenes/characters/Player/Scene/player.tscn",
+	"test_outline":"res://scenes/Tests/test_outline.tscn"
 }
 
 func _ready() -> void:
