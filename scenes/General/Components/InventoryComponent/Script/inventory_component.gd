@@ -4,8 +4,7 @@ extends Node
 var owner_inventory: Inventory
 var root_node: Node
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	await get_tree().process_frame
+func _enter_tree() -> void:
 	root_node = get_parent().root_node
 	if root_node is Player_Character:
 		var is_local_player = root_node.is_local_player

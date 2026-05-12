@@ -46,6 +46,8 @@ func load_game(load_name = "DefaultSaveFile"):
 				get_node(item.parent_path).add_child(restored_node)
 				if(item.index):
 					get_node(item.parent_path).move_child(restored_node, item.index)
+				else:
+					get_node(item.parent_path).move_child(restored_node, 0)
 			restored_node.my_component_container.get_component(GameEnums.Components.SaveLoadComponent).on_load_game(item)
 
 func update_name_to_path_dict() -> void:

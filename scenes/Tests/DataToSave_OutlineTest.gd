@@ -5,7 +5,7 @@ var custom_scene_path:String = "res://scenes/Tests/test_outline.tscn"
 
 const PRELOAD_CUSTOM = preload("uid://ci5jqf3fynvq7")
 
-var inventory_dict:Dictionary = {}
+@export var inventory_dict:Dictionary = {}
 
 func save_properties(root:Node, _custom:Node = null, inIsGlobal = false)->void:
 	if inIsGlobal:
