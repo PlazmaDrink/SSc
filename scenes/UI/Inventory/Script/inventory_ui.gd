@@ -8,7 +8,7 @@ const INVENTORY_UI_SCENE = preload("uid://bclq8vh1x2goy")
 @onready var close_button: Button = $Panel/MarginContainer/VBoxContainer/TitleBar/CloseButton
 @onready var tooltip: Control = $ItemTooltip
 @onready var tooltip_label: RichTextLabel = $ItemTooltip/Panel/MarginContainer/TooltipText
-@onready var title: Label = $Panel/MarginContainer/VBoxContainer/TitleBar/Title
+
 
 var current_player: Player_Character
 var my_inventory: Inventory
@@ -25,14 +25,20 @@ func _ready():
 	close_button.pressed.connect(_on_close_pressed)
 	tooltip.visible = false
 	_create_slot_uis()
-
-func initiane_vars(inMy_inventory:Inventory, inCurrent_Player: Player_Character = null)->void:
+func set_current_player(inCurrent_Player: Player_Character)->void:
 	current_player = inCurrent_Player
-	if current_player:
-		my_inventory = inMy_inventory as PlayerInventory
-	else:
-		my_inventory = inMy_inventory
+	my_inventory = current_player.my_component_container.get_component(GameEnums.Components.InventoryComponent).get_inventory() as PlayerInventory
+	
+func initiane_vars(inMy_inventory:Inventory, inCurrent_Player: Player_Character = null)->void:
+	if inCurrent_Player:
+		set_current_player(inCurrent_Player)
+
+	#if current_player:
+		#my_inventory = inMy_inventory as PlayerInventory
+	#else:
+		#my_inventory = inMy_inventory
 	if inMy_inventory:
+		my_inventory = inMy_inventory
 		my_inventory.Request_UI_Update.connect(update_inventory_display)
 
 func _create_slot_uis():
@@ -160,6 +166,9 @@ func open_inventory(inInventory: Inventory):
 
 func close_inventory():
 	visible = false
+	if is_in_group("Temp"):
+		get_parent().remove_child(self)
+		queue_free()
 
 func toggle_inventory():
 	if not current_player:
@@ -176,7 +185,7 @@ func update_inventory_display(inInventory: Inventory):
 			slot_uis[i].set_slot_data(inInventory.get_slot(i), i)
 
 func set_title(newTitle:String)->void:
-	title.text = newTitle
+	title_label.text = newTitle
 
 func is_inventory_visible() -> bool:
 	return inventory_visible
@@ -211,7 +220,8 @@ func debug_print_inventory():
 func add_non_player_inventory_to_viewport(inventory: Inventory, Title:String = "Inventory")->void:
 	if inventory is not PlayerInventory:
 		var non_player_inventory = INVENTORY_UI_SCENE.instantiate() as InventoryUI
-		get_parent().add_child_to_temp_container(non_player_inventory)
+		GlobalData.UI_manager.add_to_currently_on_display(non_player_inventory)
+		non_player_inventory.add_to_group("Temp")
 		non_player_inventory.initiane_vars(inventory)
-		non_player_inventory.set_title(Title)
 		non_player_inventory.open_inventory(inventory)
+		non_player_inventory.set_title(Title)

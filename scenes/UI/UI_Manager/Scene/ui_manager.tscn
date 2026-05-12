@@ -17,7 +17,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_rsvx4")
 
-[node name="ContainerForTemp" type="HBoxContainer" parent="."]
+[node name="CurrentlyOnDisplay" type="HBoxContainer" parent="."]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -47,5 +47,5 @@ layout_mode = 1
 [node name="SurvivalBars" parent="." instance=ExtResource("6_ua3iv")]
 layout_mode = 1
 
-[connection signal="child_entered_tree" from="ContainerForTemp" to="." method="_on_container_for_temp_child_entered_tree"]
-[connection signal="child_exiting_tree" from="ContainerForTemp" to="." method="_on_container_for_temp_child_exiting_tree"]
+[connection signal="child_entered_tree" from="CurrentlyOnDisplay" to="." method="_on_currently_on_display_child_entered_tree"]
+[connection signal="visibility_changed" from="InventoryUI" to="." method="_on_inventory_ui_visibility_changed"]

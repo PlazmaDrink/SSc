@@ -15,8 +15,8 @@ const BOB_AMPLITUDE = 0.08
 
 func _ready() -> void:
 	player.HeadBob.connect(_on_head_bob)
-	
-func _input(event) -> void:
+
+func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		rotate_y(-event.relative.x * MOUSE_SENSIBILITY)
 		_spring_arm.rotate_x(-event.relative.y * MOUSE_SENSIBILITY)

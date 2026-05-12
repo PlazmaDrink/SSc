@@ -4,29 +4,21 @@ extends Control
 @onready var inventory_ui: InventoryUI = $InventoryUI
 @onready var multiplayer_chat_ui: MultiplayerChatUI = $MultiplayerChatUI
 @onready var ui_debug: UI_Debug = $UI_Debug
-@onready var container_for_temp: Node = $ContainerForTemp
 @onready var survival_bars: Control = $SurvivalBars
+@onready var currently_on_display: HBoxContainer = $CurrentlyOnDisplay
+
 const POP_UP_MESSAGE = preload("uid://cmi5io0cl7ms1")
 const INVENTORY_UI_SCENE = preload("uid://bclq8vh1x2goy")
-
 
 var chat_visible = false
 var UI_debug_menu_visible = false
 
 func _ready() -> void:
 	show()
-	# This line will hide mouse
-	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	multiplayer_chat_ui.hide()
 	multiplayer_chat_ui.set_process_input(true)
-	
-	#if inventory_ui:
-		#var temp:Inventory = GlobalData.get_local_player().my_component_container.\
-		#get_component(GameEnums.Components.InventoryComponent).get_inventory()
-		#inventory_ui.initiane_vars(temp, GlobalData.get_local_player())
 	if multiplayer_chat_ui:
 		multiplayer_chat_ui.message_sent.connect(_on_chat_message_sent)
-
 
 func _input(event):
 	if event.is_action_pressed("toggle_chat"):
@@ -36,6 +28,8 @@ func _input(event):
 			multiplayer_chat_ui._on_send_pressed()
 			get_viewport().set_input_as_handled()
 	elif event.is_action_pressed("inventory"):
+		if inventory_ui.current_player == null:
+			inventory_ui.set_current_player(GlobalData.get_local_player())
 		inventory_ui.toggle_inventory()
 	elif event is InputEventKey and event.pressed and event.keycode == KEY_F1:
 		inventory_ui.debug_add_item()
@@ -43,6 +37,16 @@ func _input(event):
 		inventory_ui.debug_print_inventory()
 	elif event.is_action_pressed("DebugMenu"):
 		toggle_UI_debug_menu()
+	check_if_mouse_on_screen_required()
+
+##Toggle mouse visibility and input focus between game and UI
+func check_if_mouse_on_screen_required()->void:
+	if inventory_ui.visible or ui_debug.visible or multiplayer_chat_ui.visible or currently_on_display.get_child_count() != 0:
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		mouse_filter = Control.MOUSE_FILTER_STOP
+	else:
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 # ---------- MULTIPLAYER CHAT ----------
 
@@ -85,18 +89,20 @@ func togle_pop_up_message(topLabel:String, messageLabel:String):
 	if not local_player:
 		return
 	var pop_up_instance = POP_UP_MESSAGE.instantiate()
-	add_child_to_temp_container(pop_up_instance)
+	add_to_currently_on_display(pop_up_instance)
 	pop_up_instance.update_pop_up_message(topLabel, messageLabel)
 # ---------- Pop Up Message ----------
 
-func add_child_to_temp_container(childToAdd: Node)->void:
-	childToAdd.add_to_group("Temp")
-	container_for_temp.add_child(childToAdd)
+func add_to_currently_on_display(childToAdd: Node)->void:
+		childToAdd.reparent(currently_on_display)
 
-func _on_container_for_temp_child_exiting_tree(_node: Node) -> void:
-	if container_for_temp.get_child_count() == 0:
-		container_for_temp.visible = false
+func _on_inventory_ui_visibility_changed() -> void:
+	if inventory_ui.visible:
+		inventory_ui.reparent(currently_on_display)
+	else:
+		inventory_ui.reparent(self)
+		if currently_on_display.get_child_count() == 0:
+			currently_on_display.visible = false
 
-
-func _on_container_for_temp_child_entered_tree(_node: Node) -> void:
-	container_for_temp.visible = true
+func _on_currently_on_display_child_entered_tree(node: Node) -> void:
+		currently_on_display.visible = true	
