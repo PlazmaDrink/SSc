@@ -32,11 +32,6 @@ func set_current_player(inCurrent_Player: Player_Character)->void:
 func initiane_vars(inMy_inventory:Inventory, inCurrent_Player: Player_Character = null)->void:
 	if inCurrent_Player:
 		set_current_player(inCurrent_Player)
-
-	#if current_player:
-		#my_inventory = inMy_inventory as PlayerInventory
-	#else:
-		#my_inventory = inMy_inventory
 	if inMy_inventory:
 		my_inventory = inMy_inventory
 		my_inventory.Request_UI_Update.connect(update_inventory_display)

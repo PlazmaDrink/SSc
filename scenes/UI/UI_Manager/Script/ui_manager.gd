@@ -94,6 +94,8 @@ func togle_pop_up_message(topLabel:String, messageLabel:String):
 # ---------- Pop Up Message ----------
 
 func add_to_currently_on_display(childToAdd: Node)->void:
+	if childToAdd.get_parent() == null:
+		currently_on_display.add_child(childToAdd)
 		childToAdd.reparent(currently_on_display)
 
 func _on_inventory_ui_visibility_changed() -> void:
@@ -104,5 +106,5 @@ func _on_inventory_ui_visibility_changed() -> void:
 		if currently_on_display.get_child_count() == 0:
 			currently_on_display.visible = false
 
-func _on_currently_on_display_child_entered_tree(node: Node) -> void:
+func _on_currently_on_display_child_entered_tree(_node: Node) -> void:
 		currently_on_display.visible = true	
