@@ -8,12 +8,11 @@ class_name UI_Save_Load_Menu
 
 var loadButtonList: Array[Button] = []
 var tempLoadFileName: String = ""
-signal on_Close
+signal on_Close(UI_element: Control)
 signal on_Pop_up_request(windowLabel, messageLabel)
 
 func _on_close_pressed() -> void:
-	hide_menu()
-	on_Close.emit()
+	on_Close.emit(self)
 
 func show_menu():
 	SaveLoad.update_name_to_path_dict()
@@ -22,13 +21,6 @@ func show_menu():
 
 func hide_menu():
 	hide()
-	
-func is_menu_visible() -> bool:
-	return visible
-	
-func open_ui_save_load_menu(player: Player_Character = null):
-	if player:
-		visible = true
 
 func _on_save_game_pressed() -> void:
 	SaveLoad.save_game()
@@ -40,7 +32,6 @@ func _on_new_save_pressed() -> void:
 func _on_load_game_pressed() -> void:
 	main_container.hide()
 	load_game_list_container.show()
-	
 
 ## Updates buttons in Load Game List according to current state of SaveGame directory 
 func _update_loadlist()->void:

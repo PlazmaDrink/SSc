@@ -206,4 +206,4 @@ func from_dict(data: Dictionary) -> void:
 		slots[i].from_dict(slots_data[i])
 
 func on_Request_UI_Update()->void:
-	Request_UI_Update.emit(self)
+	Request_UI_Update.emit()

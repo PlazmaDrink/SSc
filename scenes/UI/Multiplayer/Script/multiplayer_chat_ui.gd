@@ -12,6 +12,7 @@ var chat_visible = false
 func _ready():
 	send.pressed.connect(_on_send_pressed)
 	message.text_submitted.connect(_on_send_pressed)
+
 	clear_chat()
 	hide()
 
@@ -31,14 +32,14 @@ func is_chat_visible() -> bool:
 
 func _on_send_pressed():
 	var message_text = message.text.strip_edges()
-	if message_text.is_empty():
+	if message_text.is_empty() or message_text.strip_edges() == "":
 		return
-
-	message_sent.emit(message_text)
-
+	var nick = Network.players[multiplayer.get_unique_id()]["nick"]
+	rpc("add_message", nick, message_text)
 	message.text = ""
 	message.grab_focus()
 
+@rpc("any_peer", "call_local")
 func add_message(nick: String, msg: String):
 	var time = Time.get_time_string_from_system()
 	var formatted_message = "[" + time + "] " + nick + ": " + msg + "\n"

@@ -65,7 +65,7 @@ func sync_inventory_to_owner(inventory_data: Dictionary):
 	owner_inventory.from_dict(inventory_data)
 
 	if get_multiplayer_authority() == multiplayer.get_unique_id():
-		GlobalData.UI_manager.inventory_ui.update_inventory_display(owner_inventory)
+		GlobalData.UI_manager.inventory_ui.update_inventory_display()
 	else:
 		print("Debug: Not the local player, skipping UI update")
 
@@ -106,7 +106,7 @@ func request_move_item(from_slot: InventorySlot, to_slot: InventorySlot):
 		if owner_id != 1:
 			sync_inventory_to_owner.rpc_id(owner_id, owner_inventory.to_dict())
 		else:
-			GlobalData.UI_manager.inventory_ui.update_inventory_display(owner_inventory)
+			GlobalData.UI_manager.inventory_ui.update_inventory_display()
 	else:
 		print("Debug: Move/swap failed")
 
@@ -144,7 +144,7 @@ func request_add_item(slot: InventorySlot):
 		if owner_id != 1:
 			sync_inventory_to_owner.rpc_id(owner_id, owner_inventory.to_dict())
 		else:
-			GlobalData.UI_manager.inventory_ui.update_inventory_display(owner_inventory)
+			GlobalData.UI_manager.inventory_ui.update_inventory_display()
 
 @rpc("any_peer", "call_local", "reliable")
 func request_remove_item(slot: InventorySlot):
@@ -172,7 +172,7 @@ func request_remove_item(slot: InventorySlot):
 		if owner_id != 1:
 			sync_inventory_to_owner.rpc_id(owner_id, owner_inventory.to_dict())
 		else:
-			GlobalData.UI_manager.inventory_ui.update_inventory_display(owner_inventory)
+			GlobalData.UI_manager.inventory_ui.update_inventory_display()
 
 func get_inventory() -> Inventory:
 	return owner_inventory

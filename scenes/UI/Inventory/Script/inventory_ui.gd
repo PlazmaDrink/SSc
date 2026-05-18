@@ -9,6 +9,7 @@ const INVENTORY_UI_SCENE = preload("uid://bclq8vh1x2goy")
 @onready var tooltip: Control = $ItemTooltip
 @onready var tooltip_label: RichTextLabel = $ItemTooltip/Panel/MarginContainer/TooltipText
 
+var UI_manager_ref: UI_Manager
 
 var current_player: Player_Character
 var my_inventory: Inventory
@@ -25,6 +26,7 @@ func _ready():
 	close_button.pressed.connect(_on_close_pressed)
 	tooltip.visible = false
 	_create_slot_uis()
+	UI_manager_ref = get_parent() as UI_Manager
 func set_current_player(inCurrent_Player: Player_Character)->void:
 	current_player = inCurrent_Player
 	my_inventory = current_player.my_component_container.get_component(GameEnums.Components.InventoryComponent).get_inventory() as PlayerInventory
@@ -156,7 +158,7 @@ func handle_item_drop(from_slot: InventorySlot, to_slot: InventorySlot):
 
 func open_inventory(inInventory: Inventory):
 	my_inventory = inInventory
-	update_inventory_display(my_inventory)
+	update_inventory_display()
 	visible = true
 
 func close_inventory():
@@ -174,10 +176,10 @@ func toggle_inventory():
 	else:
 		close_inventory()
 
-func update_inventory_display(inInventory: Inventory):
+func update_inventory_display():
 	for i in range(slot_uis.size()):
-		if i < inInventory.INVENTORY_SIZE:
-			slot_uis[i].set_slot_data(inInventory.get_slot(i), i)
+		if i < my_inventory.INVENTORY_SIZE:
+			slot_uis[i].set_slot_data(my_inventory.get_slot(i), i)
 
 func set_title(newTitle:String)->void:
 	title_label.text = newTitle
@@ -194,7 +196,7 @@ func debug_add_item():
 		var random_item = test_items[randi() % test_items.size()]
 		print("Debug: Requesting to add ", random_item, " to player ", current_player.name, " (authority: ", current_player.get_multiplayer_authority(), ")")
 		current_player.my_component_container.get_component(GameEnums.Components.InventoryComponent).request_add_item.rpc_id(1, random_item, 1)
-		update_inventory_display(my_inventory)
+		update_inventory_display()
 	else:
 		print("Debug: No local player found!")
 
@@ -220,3 +222,9 @@ func add_non_player_inventory_to_viewport(inventory: Inventory, Title:String = "
 		non_player_inventory.initiane_vars(inventory)
 		non_player_inventory.open_inventory(inventory)
 		non_player_inventory.set_title(Title)
+
+func _on_visibility_changed() -> void:
+	if visible:
+		self.reparent(UI_manager_ref.currently_on_display)
+	else:
+		self.reparent(UI_manager_ref)

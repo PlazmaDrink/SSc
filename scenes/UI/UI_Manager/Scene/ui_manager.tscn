@@ -45,7 +45,8 @@ visible = false
 layout_mode = 1
 
 [node name="SurvivalBars" parent="." instance=ExtResource("6_ua3iv")]
+visible = false
 layout_mode = 1
 
 [connection signal="child_entered_tree" from="CurrentlyOnDisplay" to="." method="_on_currently_on_display_child_entered_tree"]
-[connection signal="visibility_changed" from="InventoryUI" to="." method="_on_inventory_ui_visibility_changed"]
+[connection signal="visibility_changed" from="InventoryUI" to="InventoryUI" method="_on_visibility_changed"]
