@@ -1,0 +1,205 @@
+[gd_resource type="Resource" script_class="SavedGame" load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://scenes/General/Components/SaveLoadComponent/Script/DataToSave.gd" id="1_nx4gm"]
+[ext_resource type="Script" path="res://scenes/Tests/DataToSave_OutlineTest.gd" id="2_v2ro0"]
+[ext_resource type="Script" path="res://scenes/General/Components/SaveLoadComponent/Script/DataToSave_Custom.gd" id="3_bbivq"]
+[ext_resource type="Script" path="res://globals/TimeManager/Script/DataToSave_TimeMenager.gd" id="4_icr2u"]
+[ext_resource type="Script" path="res://scenes/General/Components/SaveLoadComponent/Script/SavedGame.gd" id="5_cnmvs"]
+
+[sub_resource type="Resource" id="Resource_w746j"]
+script = ExtResource("2_v2ro0")
+inventory_dict = {
+"slots": [{
+"item_id": "iron_sword",
+"quantity": 1,
+"slot_index": 0
+}, {
+"item_id": "health_potion",
+"quantity": 3,
+"slot_index": 0
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 0
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 0
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 0
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 0
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 0
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 0
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 0
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 0
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 0
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 0
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 0
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 0
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 0
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 0
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 0
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 0
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 0
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 0
+}]
+}
+position = Vector3(0.46674055, 1.5974417, -6.788118)
+scene_path = "res://scenes/Tests/test_outline.tscn"
+parent_path = "/root/Level/Temp"
+
+[sub_resource type="Resource" id="Resource_tdls2"]
+script = ExtResource("2_v2ro0")
+inventory_dict = {
+"slots": [{
+"item_id": "iron_sword",
+"quantity": 1,
+"slot_index": 0
+}, {
+"item_id": "health_potion",
+"quantity": 3,
+"slot_index": 0
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 0
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 0
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 0
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 0
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 0
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 0
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 0
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 0
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 0
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 0
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 0
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 0
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 0
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 0
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 0
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 0
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 0
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 0
+}]
+}
+position = Vector3(-2.3237143, 1.5974417, -6.788118)
+scene_path = "res://scenes/Tests/test_outline.tscn"
+parent_path = "/root/Level/Temp"
+index = 1
+
+[sub_resource type="Resource" id="Resource_8r54i"]
+script = ExtResource("4_icr2u")
+scene_path = "res://globals/TimeManager/Scene/global_time.tscn"
+parent_path = "/root"
+index = 2
+isGlobal = true
+
+[sub_resource type="Resource" id="Resource_5s1hc"]
+script = ExtResource("4_icr2u")
+scene_path = "res://globals/GlobalData/Scene/GlobalData.tscn"
+parent_path = "/root"
+index = 5
+isGlobal = true
+
+[resource]
+script = ExtResource("5_cnmvs")
+saved_data_globals = Array[ExtResource("3_bbivq")]([SubResource("Resource_8r54i"), SubResource("Resource_5s1hc")])
+saved_data = Array[ExtResource("1_nx4gm")]([SubResource("Resource_w746j"), SubResource("Resource_tdls2")])

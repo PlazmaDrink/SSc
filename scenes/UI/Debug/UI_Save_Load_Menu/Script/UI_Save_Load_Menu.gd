@@ -15,8 +15,6 @@ func _on_close_pressed() -> void:
 	on_Close.emit(self)
 
 func show_menu():
-	SaveLoad.update_name_to_path_dict()
-	_update_loadlist()
 	show()
 
 func hide_menu():
@@ -31,6 +29,8 @@ func _on_new_save_pressed() -> void:
 
 func _on_load_game_pressed() -> void:
 	main_container.hide()
+	SaveLoad.update_name_to_path_dict()
+	_update_loadlist()
 	load_game_list_container.show()
 
 ## Updates buttons in Load Game List according to current state of SaveGame directory 

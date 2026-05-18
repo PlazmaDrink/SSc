@@ -1,0 +1,205 @@
+[gd_resource type="Resource" script_class="SavedGame" load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://scenes/General/Components/SaveLoadComponent/Script/DataToSave.gd" id="1_17owb"]
+[ext_resource type="Script" path="res://scenes/Tests/DataToSave_OutlineTest.gd" id="2_flj6k"]
+[ext_resource type="Script" path="res://scenes/General/Components/SaveLoadComponent/Script/DataToSave_Custom.gd" id="3_lkdfx"]
+[ext_resource type="Script" path="res://globals/TimeManager/Script/DataToSave_TimeMenager.gd" id="4_vki7q"]
+[ext_resource type="Script" path="res://scenes/General/Components/SaveLoadComponent/Script/SavedGame.gd" id="5_xxrdl"]
+
+[sub_resource type="Resource" id="Resource_4t874"]
+script = ExtResource("2_flj6k")
+inventory_dict = {
+"slots": [{
+"item_id": "iron_sword",
+"quantity": 1,
+"slot_index": 0
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 1
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 2
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 3
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 4
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 5
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 6
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 7
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 8
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 9
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 10
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 11
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 12
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 13
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 14
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 15
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 16
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 17
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 18
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 19
+}]
+}
+position = Vector3(0.46674055, 1.5974417, -6.788118)
+scene_path = "res://scenes/Tests/test_outline.tscn"
+parent_path = "/root/Level/Temp"
+
+[sub_resource type="Resource" id="Resource_1dlxg"]
+script = ExtResource("2_flj6k")
+inventory_dict = {
+"slots": [{
+"item_id": "iron_sword",
+"quantity": 1,
+"slot_index": 0
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 1
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 2
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 3
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 4
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 5
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 6
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 7
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 8
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 9
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 10
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 11
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 12
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 13
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 14
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 15
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 16
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 17
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 18
+}, {
+"item_id": "",
+"quantity": 0,
+"slot_index": 19
+}]
+}
+position = Vector3(-2.3237143, 1.5974417, -6.788118)
+scene_path = "res://scenes/Tests/test_outline.tscn"
+parent_path = "/root/Level/Temp"
+index = 1
+
+[sub_resource type="Resource" id="Resource_nfc4w"]
+script = ExtResource("4_vki7q")
+scene_path = "res://globals/TimeManager/Scene/global_time.tscn"
+parent_path = "/root"
+index = 2
+isGlobal = true
+
+[sub_resource type="Resource" id="Resource_o57v2"]
+script = ExtResource("4_vki7q")
+scene_path = "res://globals/GlobalData/Scene/GlobalData.tscn"
+parent_path = "/root"
+index = 5
+isGlobal = true
+
+[resource]
+script = ExtResource("5_xxrdl")
+saved_data_globals = Array[ExtResource("3_lkdfx")]([SubResource("Resource_nfc4w"), SubResource("Resource_o57v2")])
+saved_data = Array[ExtResource("1_17owb")]([SubResource("Resource_4t874"), SubResource("Resource_1dlxg")])
