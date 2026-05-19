@@ -6,5 +6,5 @@
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("1_8lsiu")
-shader_parameter/outline_colour = Color(0, 0, 0, 1)
-shader_parameter/outline_width = 2.0
+shader_parameter/line_color = Color(1, 0.27942082, 0.41699702, 1)
+shader_parameter/depth_threshold = 1.0
