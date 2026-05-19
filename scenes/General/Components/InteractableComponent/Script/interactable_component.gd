@@ -34,7 +34,6 @@ func raytrace_enter()->void:
 		meshToOutline.set_surface_override_material(0, StandardMaterial3D.new())
 	meshToOutline.get_surface_override_material(0).next_pass = local_material_instance
 	is_focused = true
-	print_debug(meshToOutline.get_surface_override_material(0).next_pass)
 	
 func raytrace_exit()->void:
 	meshToOutline.get_surface_override_material(0).set_next_pass(null)
