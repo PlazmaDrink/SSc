@@ -81,6 +81,18 @@ func _create_sample_items():
 	pickaxe.value = 100
 	pickaxe.icon = placeholder_icon
 	items[pickaxe.id] = pickaxe
+	
+	#Oranzada bottle
+	var oranzada_bottle = Item.new()
+	oranzada_bottle.id = "oranzada_bottle"
+	oranzada_bottle.name = "Bottle of Oranzada"
+	oranzada_bottle.description = "So fresh"
+	oranzada_bottle.item_type = Item.ItemType.CONSUMABLE
+	oranzada_bottle.rarity = Item.ItemRarity.COMMON
+	oranzada_bottle.stackable = true
+	oranzada_bottle.value = 25
+	oranzada_bottle.icon = placeholder_icon
+	items[oranzada_bottle.id] = oranzada_bottle
 
 func add_item_to_database(item: Item) -> bool:
 	if item.id.is_empty():

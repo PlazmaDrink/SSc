@@ -1,0 +1,63 @@
+[gd_scene load_steps=15 format=3 uid="uid://b7w684jo2g6c8"]
+
+[ext_resource type="ArrayMesh" uid="uid://dwormhw5e5v27" path="res://assets/butelka/butelka_Circle_001.res" id="1_7qskr"]
+[ext_resource type="Texture2D" uid="uid://dgc8n7y30k8yt" path="res://assets/butelka/butelka_DefaultMaterial_BaseColor-DefaultMaterial_Alpha.png" id="1_kvhqr"]
+[ext_resource type="PackedScene" uid="uid://od014t1fy44i" path="res://scenes/General/Components/ComponentContainer/Scene/ComponentContainer.tscn" id="1_vluis"]
+[ext_resource type="Texture2D" uid="uid://b50ik4g2e2rk4" path="res://assets/butelka/butelka_DefaultMaterial_Metallic-DefaultMaterial_Roughness.png" id="2_6hhqa"]
+[ext_resource type="PackedScene" uid="uid://botwm1ppo741l" path="res://scenes/General/Components/InteractableComponent/Scene/InteractableComponent.tscn" id="2_7qskr"]
+[ext_resource type="Texture2D" uid="uid://bx8dh2se350qv" path="res://assets/butelka/butelka_DefaultMaterial_Normal.png" id="3_xscw5"]
+[ext_resource type="Material" uid="uid://d1hbc5mvwhs5" path="res://assets/Materials/OutlineShaderMaterial.tres" id="4_tjhaf"]
+[ext_resource type="Script" uid="uid://dumos62w7ersu" path="res://scenes/General/Components/InteractableComponent/Interactions/Interaction_PickUp_Item.gd" id="8_6hhqa"]
+[ext_resource type="Script" uid="uid://bbq3lkpgmwr1t" path="res://scenes/General/Items (Goes with multiplayer template)/item.gd" id="8_xscw5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vluis"]
+size = Vector3(0.1, 0.3, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pdk58"]
+albedo_texture = ExtResource("1_kvhqr")
+metallic = 1.0
+metallic_texture = ExtResource("2_6hhqa")
+roughness_texture = ExtResource("2_6hhqa")
+normal_enabled = true
+normal_texture = ExtResource("3_xscw5")
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_pdk58"]
+
+[sub_resource type="Resource" id="Resource_qiwa5"]
+script = ExtResource("8_xscw5")
+id = "oranzada_bottle"
+name = "Bottle of Oranzada"
+description = "So fresh"
+icon = SubResource("PlaceholderTexture2D_pdk58")
+item_type = 2
+value = 25
+metadata/_custom_type_script = "uid://bbq3lkpgmwr1t"
+
+[sub_resource type="Resource" id="Resource_xscw5"]
+script = ExtResource("8_6hhqa")
+pickupItem = SubResource("Resource_qiwa5")
+metadata/_custom_type_script = "uid://dumos62w7ersu"
+
+[node name="PickUpItem" type="Node3D" groups=["iInteractable"]]
+
+[node name="RigidBody3D" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+shape = SubResource("BoxShape3D_vluis")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+material_override = SubResource("StandardMaterial3D_pdk58")
+mesh = ExtResource("1_7qskr")
+skeleton = NodePath("../..")
+
+[node name="ComponentContainer" parent="." instance=ExtResource("1_vluis")]
+
+[node name="InteractableComponent" parent="ComponentContainer" node_paths=PackedStringArray("meshToOutline") instance=ExtResource("2_7qskr")]
+meshToOutline = NodePath("../../RigidBody3D/MeshInstance3D")
+outlineMaterial = ExtResource("4_tjhaf")
+OutlineColor = Color(0.3556655, 1, 0.8253859, 1)
+OutlineWidth = 5.0
+Action_to_do = SubResource("Resource_xscw5")

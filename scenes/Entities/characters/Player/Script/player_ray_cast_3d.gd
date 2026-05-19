@@ -16,12 +16,11 @@ func _input(_event) -> void:
 			target_collider = get_collider()
 			var path:String = target_collider.get_parent().get_path()
 			target_component_container = get_node(path + COMPONENT_CONTAINER_TREE_NAME)
-			target_component_container.send_message_to_component\
-			(GameEnums.Components.InteractableComponent, "raytrace_enter")
+			target_component_container.get_component(GameEnums.Components.InteractableComponent).raytrace_enter()
 	else:
 		if rayCastCollisionState:
-			target_component_container.send_message_to_component\
-			(GameEnums.Components.InteractableComponent, "raytrace_exit")
+			if target_collider:
+				target_component_container.get_component(GameEnums.Components.InteractableComponent).raytrace_exit()
 			target_collider = null
 			target_component_container = null
 			rayCastCollisionState = false

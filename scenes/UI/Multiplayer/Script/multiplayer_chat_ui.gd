@@ -5,8 +5,6 @@ class_name MultiplayerChatUI
 @onready var send: Button = $Panel/MarginContainer/VBoxContainer/HBoxContainer/Send
 @onready var chat: TextEdit = $Panel/MarginContainer/VBoxContainer/Chat
 
-signal message_sent(message_text: String)
-
 var chat_visible = false
 
 func _ready():

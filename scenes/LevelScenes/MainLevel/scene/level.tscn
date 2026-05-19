@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://dugaivbj1o66n"]
+[gd_scene load_steps=39 format=3 uid="uid://dugaivbj1o66n"]
 
 [ext_resource type="Script" uid="uid://d0dgljwwl463n" path="res://scenes/Tests/script/level.gd" id="1_e1sh7"]
 [ext_resource type="Script" uid="uid://b7hxqglwotpm5" path="res://scenes/Tests/script/environment.gd" id="3_xv074"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://ci5jqf3fynvq7" path="res://scenes/Tests/DataToSave_OutlineTest.gd" id="14_kni5o"]
 [ext_resource type="Script" uid="uid://bqvu3ld03temc" path="res://scenes/General/Components/InteractableComponent/Interactions/Interaction_Inventory.gd" id="14_siss4"]
 [ext_resource type="PackedScene" uid="uid://cgnevae3alfpl" path="res://scenes/General/Components/InventoryComponent/Scene/InventoryComponent.tscn" id="15_kni5o"]
+[ext_resource type="PackedScene" uid="uid://b7w684jo2g6c8" path="res://scenes/Entities/PickupItem/Scene/PickUpItem.tscn" id="15_siss4"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_r5xs5"]
 size = Vector2(90, 90)
@@ -55,7 +56,7 @@ size = Vector3(10, 5, 2)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_crfef"]
 albedo_texture = ExtResource("8_siss4")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gqbg4"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_siss4"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("12_8pciu")
@@ -75,7 +76,7 @@ metadata/_custom_type_script = "uid://ccqedcxfcxjw5"
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gfg01"]
 next_pass = SubResource("ShaderMaterial_2hwpd")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_siss4"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kni5o"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("12_8pciu")
@@ -90,7 +91,7 @@ metadata/_custom_type_script = "uid://bqvu3ld03temc"
 script = ExtResource("14_kni5o")
 metadata/_custom_type_script = "uid://ci5jqf3fynvq7"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_kni5o"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_df7s7"]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("12_8pciu")
@@ -186,7 +187,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_crfef")
 
 [node name="InteractableComponent" parent="Kasa/ComponentContainer" node_paths=PackedStringArray("meshToOutline") instance=ExtResource("11_5to0l")]
 meshToOutline = NodePath("../../StaticBody3D/MeshInstance3D")
-outlineMaterial = SubResource("ShaderMaterial_gqbg4")
+outlineMaterial = SubResource("ShaderMaterial_siss4")
 OutlineColor = Color(0.31241986, 0.9999996, 0.8632624, 1)
 OutlineWidth = 5.0
 Action_to_do = SubResource("Resource_siss4")
@@ -214,7 +215,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_gfg01")
 
 [node name="InteractableComponent" parent="Temp/OutlineTestBlock/ComponentContainer" node_paths=PackedStringArray("meshToOutline") instance=ExtResource("11_5to0l")]
 meshToOutline = NodePath("../../Area3D/MeshInstance3D")
-outlineMaterial = SubResource("ShaderMaterial_siss4")
+outlineMaterial = SubResource("ShaderMaterial_kni5o")
 OutlineColor = Color(0.31241986, 0.9999996, 0.8632624, 1)
 OutlineWidth = 5.0
 Action_to_do = SubResource("Resource_2eg87")
@@ -247,7 +248,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_gfg01")
 
 [node name="InteractableComponent" parent="Temp/OutlineTestBlock2/ComponentContainer" node_paths=PackedStringArray("meshToOutline") instance=ExtResource("11_5to0l")]
 meshToOutline = NodePath("../../Area3D/MeshInstance3D")
-outlineMaterial = SubResource("ShaderMaterial_kni5o")
+outlineMaterial = SubResource("ShaderMaterial_df7s7")
 OutlineColor = Color(0.31241986, 0.9999996, 0.8632624, 1)
 OutlineWidth = 5.0
 Action_to_do = SubResource("Resource_2eg87")
@@ -258,6 +259,9 @@ Action_to_do = SubResource("Resource_2eg87")
 resource_type = SubResource("Resource_onuxl")
 custom_node_to_save_from = NodePath("..")
 root_node_to_save_from = NodePath("../..")
+
+[node name="PickUpItem" parent="." instance=ExtResource("15_siss4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.091272, 0.7991588, -2.1456027)
 
 [connection signal="ActionFinished" from="Kasa/ComponentContainer/TimeComponent" to="Kasa" method="_on_time_component_action_finished"]
 [connection signal="ActionFinished" from="Temp/OutlineTestBlock/ComponentContainer/TimeComponent" to="Temp/OutlineTestBlock" method="_on_time_component_action_finished"]
