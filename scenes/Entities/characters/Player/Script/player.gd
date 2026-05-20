@@ -49,7 +49,6 @@ func _ready():
 	local_client_id = multiplayer.get_unique_id()
 
 	print("Debug: Player ", name, " ready - authority: ", get_multiplayer_authority(), ", local client: ", local_client_id, ", is_local: ", is_local_player)
-
 func _physics_process(delta):
 	if not is_multiplayer_authority(): return
 

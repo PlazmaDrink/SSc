@@ -153,8 +153,8 @@ func _on_close_pressed():
 	inventory_closed.emit()
 	visible = false
 	
-func handle_item_drop(from_slot: InventorySlot, to_slot: InventorySlot):
-	my_inventory.inventory_component_ref.request_move_item.rpc_id(1, from_slot, to_slot)
+func handle_item_drop(from_slot_index: int, from_slot_id:String, to_slot_index: int, quantity:int):
+	my_inventory.inventory_component_ref.request_move_item.rpc_id(1, from_slot_index,from_slot_id, to_slot_index, quantity)
 
 func open_inventory(inInventory: Inventory):
 	my_inventory = inInventory

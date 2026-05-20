@@ -13,11 +13,11 @@ func set_inventory_owner_name(inName:String)->void:
 func is_empty() -> bool:
 	return item_id.is_empty() or quantity <= 0
 
-func can_add_item(item: Item, amount: int = 1) -> bool:
+func can_add_item(inItem: Item, amount: int = 1) -> bool:
 	if is_empty():
 		return true
-	if item_id == item.id and item.stackable:
-		return quantity + amount <= item.max_stack
+	if item_id == inItem.id and inItem.stackable:
+		return quantity + amount <= inItem.max_stack
 	return false
 
 func add_item(item: Item, amount: int = 1) -> int:

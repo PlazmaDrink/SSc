@@ -15,6 +15,7 @@ func _ready() -> void:
 	show()
 	multiplayer_chat_ui.hide()
 	multiplayer_chat_ui.set_process_input(true)
+	GlobalData.UI_manager = self
 	
 func _input(event):
 	if event.is_action_pressed("toggle_chat"):

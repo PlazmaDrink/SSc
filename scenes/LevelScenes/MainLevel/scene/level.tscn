@@ -1,8 +1,7 @@
-[gd_scene load_steps=35 format=3 uid="uid://dugaivbj1o66n"]
+[gd_scene load_steps=34 format=3 uid="uid://dugaivbj1o66n"]
 
 [ext_resource type="Script" uid="uid://d0dgljwwl463n" path="res://scenes/Tests/script/level.gd" id="1_e1sh7"]
 [ext_resource type="Script" uid="uid://b7hxqglwotpm5" path="res://scenes/Tests/script/environment.gd" id="3_xv074"]
-[ext_resource type="PackedScene" uid="uid://cxwfmkvydqapy" path="res://scenes/UI/UI_Manager/Scene/ui_manager.tscn" id="6_vpf64"]
 [ext_resource type="ArrayMesh" uid="uid://b743gdlgnws8l" path="res://assets/kasa/kasa_Mesh_001.res" id="7_gqbg4"]
 [ext_resource type="Texture2D" uid="uid://bm5lrom2wcjhk" path="res://assets/kasa/kasa_kasa_BaseColor.png" id="8_siss4"]
 [ext_resource type="PackedScene" uid="uid://od014t1fy44i" path="res://scenes/General/Components/ComponentContainer/Scene/ComponentContainer.tscn" id="9_kni5o"]
@@ -105,8 +104,17 @@ shadow_blur = 0.5
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Environment"]
 replication_config = SubResource("SceneReplicationConfig_sytrn")
 
-[node name="UI_Manager" parent="." instance=ExtResource("6_vpf64")]
-visible = false
+[node name="PickUpItem" parent="Environment" instance=ExtResource("15_siss4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.091272, 0.7991588, -1.3211287)
+
+[node name="PickUpItem2" parent="Environment" instance=ExtResource("15_siss4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.091272, 0.7991588, -1.9945141)
+
+[node name="PickUpItem3" parent="Environment" instance=ExtResource("15_siss4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.091272, 0.7991588, -2.7501028)
+
+[node name="PickUpItem4" parent="Environment" instance=ExtResource("15_siss4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25410974, 0.7991588, -2.7501028)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -0.35520488, 0.93478847, 0, -0.93478847, -0.35520488, 0, 20.276133, 0)
@@ -234,18 +242,6 @@ Action_to_do = SubResource("Resource_2eg87")
 resource_type = SubResource("Resource_onuxl")
 custom_node_to_save_from = NodePath("..")
 root_node_to_save_from = NodePath("../..")
-
-[node name="PickUpItem" parent="." instance=ExtResource("15_siss4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.091272, 0.7991588, -1.3211287)
-
-[node name="PickUpItem2" parent="." instance=ExtResource("15_siss4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.091272, 0.7991588, -1.9945141)
-
-[node name="PickUpItem3" parent="." instance=ExtResource("15_siss4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.091272, 0.7991588, -2.7501028)
-
-[node name="PickUpItem4" parent="." instance=ExtResource("15_siss4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25410974, 0.7991588, -2.7501028)
 
 [connection signal="ActionFinished" from="Kasa/ComponentContainer/TimeComponent" to="Kasa" method="_on_time_component_action_finished"]
 [connection signal="ActionFinished" from="Temp/OutlineTestBlock/ComponentContainer/TimeComponent" to="Temp/OutlineTestBlock" method="_on_time_component_action_finished"]

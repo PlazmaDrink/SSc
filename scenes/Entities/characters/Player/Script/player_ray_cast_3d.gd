@@ -1,13 +1,16 @@
 extends RayCast3D
 
 const COMPONENT_CONTAINER_TREE_NAME: String = "/ComponentContainer"
+@onready var player_input: Node3D = $"../../../../PlayerInput"
 
 ##Tracks if raycast hit anything. Required to track when raycast stops heating current object
 var rayCastCollisionState: bool = false
 
 var target_collider
 var target_component_container
-
+func _ready() -> void:
+	player_input.InteractInput.connect(on_interact_input)
+	
 func _input(_event) -> void:
 	if is_colliding():
 		#Condition makes sure function call send only once
@@ -33,3 +36,7 @@ func _collision_with_current_object_finished()->void:
 	target_collider = null
 	target_component_container = null
 	rayCastCollisionState = false
+
+func on_interact_input()->void:
+	if target_collider:
+		target_component_container.get_component(GameEnums.Components.InteractableComponent).try_interact()

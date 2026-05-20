@@ -26,7 +26,6 @@ func _ready() -> void:
 	multiplayer.connected_to_server.connect(_on_connected_ok)
 
 func start_host(nickname: String, skin_color_str: String):
-	SceneManager.change_scene(SceneManager.game_scenes_dict.get("MainLevel"))
 	var peer = ENetMultiplayerPeer.new()
 	var error = peer.create_server(SERVER_PORT, MAX_PLAYERS)
 	if error:
@@ -45,10 +44,10 @@ func start_host(nickname: String, skin_color_str: String):
 
 	players[1] = player_info
 	player_connected.emit(1, player_info)
+	SceneManager.change_scene(SceneManager.game_scenes_dict.get("MainLevel"))
 
 
 func join_game(nickname: String, skin_color_str: String, address: String = SERVER_ADDRESS):
-	SceneManager.change_scene(SceneManager.game_scenes_dict.get("MainLevel"))
 	await get_tree().process_frame
 	var peer = ENetMultiplayerPeer.new()
 	var error = peer.create_client(address, SERVER_PORT)
@@ -70,12 +69,12 @@ func _on_connected_ok():
 	var peer_id = multiplayer.get_unique_id()
 	players[peer_id] = player_info
 	player_connected.emit(peer_id, player_info)
+	SceneManager.change_scene(SceneManager.game_scenes_dict.get("MainLevel"))
 
 func _on_player_connected(id):
 	if DisplayServer.get_name() == "headless":
 		return
 	_register_player.rpc_id(id, player_info)
-
 
 @rpc("any_peer", "reliable")
 func _register_player(new_player_info):

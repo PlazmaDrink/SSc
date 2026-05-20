@@ -15,6 +15,7 @@ func _initialize_slots():
 	slots.clear()
 	for i in range(INVENTORY_SIZE):
 		var new_slot = InventorySlot.new()
+		new_slot.slot_index = i
 		new_slot.inventory_ref = self
 		slots.append(new_slot)
 
@@ -54,48 +55,41 @@ func remove_item(item_id: String, quantity: int = 1) -> int:
 				break
 	return removed
 
-func move_item(inFrom_slot: InventorySlot, inTo_slot: InventorySlot,) -> bool:
+func move_item(from_slot_index: int, from_slot_id: String, to_slot_index: int, quantity: int) -> bool:
 	#TODO:Next 2 lines make inventory UI update. It looks messy. Will need some rework
-	inFrom_slot.inventory_ref.call_deferred("on_Request_UI_Update")
 	call_deferred("on_Request_UI_Update")
 	
-	var from_slot = inFrom_slot.inventory_ref.get_slot(inFrom_slot.slot_index)
-	var to_slot = inTo_slot.inventory_ref.get_slot(inTo_slot.slot_index)
-
-	if not from_slot or not to_slot or from_slot.is_empty():
-		return false
-
 	# If quantity is -1, move entire stack
-	var move_amount = from_slot.quantity if from_slot.quantity > 0 else from_slot.quantity
-	move_amount = min(move_amount, from_slot.quantity)
+	var move_amount = quantity if quantity > 0 else quantity
+	move_amount = min(move_amount, quantity)
 
 	# Get item reference for validation
-	var item = ItemDatabase.get_item(from_slot.item_id)
+	var item = ItemDatabase.get_item(from_slot_id)
 	if not item:
 		return false
 
 	# Check if we can add to destination
-	if to_slot.can_add_item(item, move_amount):
-		from_slot.remove_item(move_amount)
-		to_slot.add_item(item, move_amount)
+	if slots[from_slot_index].can_add_item(item, move_amount):
+		slots[from_slot_index].remove_item(move_amount)
+		slots[to_slot_index].add_item(item, move_amount)
 		return true
 
 	# If can't stack in destination, try to stack in other available slots
-	if to_slot.is_empty():
-		from_slot.remove_item(move_amount)
-		to_slot.add_item(item, move_amount)
+	if slots[to_slot_index].is_empty():
+		slots[from_slot_index].remove_item(move_amount)
+		slots[to_slot_index].add_item(item, move_amount)
 		return true
 	else:
 		# Destination slot is occupied, try to stack in other available slots
-		var remaining_after_stack = try_stack_item(item, move_amount, from_slot.slot_index)
+		var remaining_after_stack = try_stack_item(item, move_amount, from_slot_index)
 		if remaining_after_stack < move_amount:
 			# Successfully stacked at least part of the item
 			var moved_amount = move_amount - remaining_after_stack
-			from_slot.remove_item(moved_amount)
+			slots[from_slot_index].remove_item(moved_amount)
 
 			# If something remains, move to destination slot
 			if remaining_after_stack > 0:
-				to_slot.add_item(item, remaining_after_stack)
+				slots[to_slot_index].add_item(item, remaining_after_stack)
 			return true
 
 	return false

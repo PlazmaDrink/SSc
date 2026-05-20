@@ -6,6 +6,9 @@ var components_dict: Dictionary = {}
 var root_node:Node
 # Called when the node enters the scene tree for the first time.
 func _enter_tree() -> void:
+	get_parent().ready.connect(_on_parent_ready)
+
+func _on_parent_ready()->void:
 		_initiate_components_dict()
 		root_node = get_parent()
 
@@ -24,6 +27,3 @@ func get_component(inComponent:GameEnums.Components)->Node:
 	if component:
 		return component
 	return null
-
-func get_main_node()->Variant:
-	return get_parent()
