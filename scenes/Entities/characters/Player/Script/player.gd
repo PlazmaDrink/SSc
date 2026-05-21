@@ -43,9 +43,10 @@ signal HeadBob(time: float)
 func _enter_tree():
 	set_multiplayer_authority(str(name).to_int())
 	$"SpringArmCharacter/SpringArm3D/Camera3D".current = is_multiplayer_authority()
+	is_local_player = is_multiplayer_authority()
+	pass
 
 func _ready():
-	is_local_player = is_multiplayer_authority()
 
 	print("Debug: Player ", name, " ready - authority: ", get_multiplayer_authority(), ", local client: ", local_client_id, ", is_local: ", is_local_player)
 func _physics_process(delta):

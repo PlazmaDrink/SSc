@@ -3,12 +3,12 @@ extends RefCounted
 
 var item_id: String = ""
 var quantity: int = 0
-var inventory_owner_name: String
+var inventory_id: int
 var slot_index: int
 var inventory_ref: Inventory
 
-func set_inventory_owner_name(inName:String)->void:
-	inventory_owner_name = inName
+func set_inventory_id(inID:int)->void:
+	inventory_id = inID
 	
 func is_empty() -> bool:
 	return item_id.is_empty() or quantity <= 0

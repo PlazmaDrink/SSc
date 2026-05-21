@@ -6,6 +6,9 @@ var root_node: Node
 var isPlayerInventory:bool = true
 # Called when the node enters the scene tree for the first time.
 func _enter_tree() -> void:
+	get_parent().initiationFinished.connect(_on_parent_ready)
+
+func _on_parent_ready()->void:
 	root_node = get_parent().root_node
 	if root_node is Player_Character:
 		var is_local_player = root_node.is_local_player
@@ -23,6 +26,7 @@ func _enter_tree() -> void:
 		isPlayerInventory = false
 		owner_inventory = Inventory.new(self)
 		_add_starting_items()
+	print_debug(get_multiplayer_authority())
 
 func _add_starting_items():
 	if not owner_inventory:

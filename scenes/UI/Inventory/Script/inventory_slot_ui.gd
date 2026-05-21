@@ -34,6 +34,7 @@ func set_slot_data(slot_data: InventorySlot, index: int):
 	slot_index = index
 	if inventory_data:
 		inventory_data.slot_index = index
+		inventory_data.set_inventory_id(parent_inventory.get_instance_id())
 	update_display()
 
 func update_display():
@@ -94,8 +95,30 @@ func _can_drop_data(_position: Vector2, data) -> bool:
 	return data is InventorySlot
 
 func _drop_data(_position: Vector2, data):
-	if parent_inventory and parent_inventory.has_method("handle_item_drop"):
-		parent_inventory.handle_item_drop(data.slot_index, data.item_id, inventory_data.slot_index, data.quantity)
+	# 1. Make sure we have a valid inventory setup
+	if not parent_inventory or not parent_inventory.has_method("handle_item_drop"):
+		return
+		
+	# 2. Extract our source and destination information
+	var source_inventory_id = data.inventory_id
+	var source_slot_index = data.slot_index
+	var target_slot_index = inventory_data.slot_index # The slot we are hovering over right now
+	var item_id = data.item_id
+	var quantity = data.quantity
+
+	# 3. Hand everything off to a single controller function
+	# We pass the source_inventory_id so the system knows EXACTLY where it came from
+	parent_inventory.handle_item_drop(
+		source_inventory_id, 
+		source_slot_index, 
+		target_slot_index, 
+		item_id, 
+		quantity
+	)
+	#if parent_inventory and parent_inventory.has_method("handle_item_drop"):
+		#parent_inventory.handle_item_drop(data.slot_index, data.item_id, inventory_data.slot_index, data.quantity)
+	#if parent_inventory.get_instance_id() != data.inventory_id:
+		#data.remove_item(data.quantity)
 
 func _get_drag_data(_position: Vector2):
 	if not inventory_data or inventory_data.is_empty():

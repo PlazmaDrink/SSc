@@ -4,6 +4,7 @@ extends Node
 ##Array of all components of this instance
 var components_dict: Dictionary = {}
 var root_node:Node
+signal initiationFinished()
 # Called when the node enters the scene tree for the first time.
 func _enter_tree() -> void:
 	get_parent().ready.connect(_on_parent_ready)
@@ -11,6 +12,7 @@ func _enter_tree() -> void:
 func _on_parent_ready()->void:
 		_initiate_components_dict()
 		root_node = get_parent()
+		initiationFinished.emit()
 
 func _initiate_components_dict()->void:
 	for item in GameEnums.Components:

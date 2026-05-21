@@ -97,6 +97,7 @@ func move_item(from_slot_index: int, from_slot_id: String, to_slot_index: int, q
 	return false
 
 func swap_items(from_index: int, to_index: int) -> bool:
+	call_deferred("on_Request_UI_Update")
 	var from_slot = get_slot(from_index)
 	var to_slot = get_slot(to_index)
 

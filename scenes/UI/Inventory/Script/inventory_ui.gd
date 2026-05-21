@@ -154,9 +154,42 @@ func _on_close_pressed():
 	inventory_closed.emit()
 	visible = false
 	
-func handle_item_drop(from_slot_index: int, from_slot_id:String, to_slot_index: int, quantity:int):
-	my_inventory.inventory_component_ref.request_move_item.rpc_id(1, from_slot_index,from_slot_id, to_slot_index, quantity)
+#func handle_item_drop(from_slot_index: int, from_slot_id:String, to_slot_index: int, quantity:int):
+	#my_inventory.inventory_component_ref.request_move_item.rpc_id(1, from_slot_index,from_slot_id, to_slot_index, quantity)
+func handle_item_drop(source_inv_id: int, source_slot: int, target_slot: int, item_id: String, qty: int):
+	# If we are a client, send an RPC to request this move from the server
+	if not multiplayer.is_server():
+		my_inventory.inventory_component_ref.request_move_item_rpc.rpc_id(
+			1, 
+			source_inv_id, 
+			source_slot, 
+			self.get_instance_id(), 
+			target_slot, qty)
+		return
+	# --- SERVER LOGIC RUNS HERE ---
+	# Find the actual source inventory node using its instance ID
+	var source_inventory = instance_from_id(source_inv_id)
+	
+	if not source_inventory:
+		return
 
+	if source_inventory == self:
+		# SCENARIO A: Moving items within the exact same inventory
+		# (Just swap or merge the slots locally)
+		my_inventory.swap_items(source_slot, target_slot)
+	else:
+		# SCENARIO B: Moving from another inventory into this one
+		# 1. Try to add it to this destination inventory first
+		var add_successful = my_inventory.add_item(ItemDatabase.get_item(item_id), qty)
+		
+		# 2. ONLY if it successfully transferred, remove it from the source inventory
+		if add_successful == 0:
+			source_inventory.my_inventory.remove_item(item_id, qty)
+			my_inventory.on_Request_UI_Update()
+			source_inventory.my_inventory.inventory_component_ref.request_inventory_sync()
+
+	# 3. Finally, trigger the network syncs you set up in your previous prompt!
+	my_inventory.inventory_component_ref.request_inventory_sync() 
 func open_inventory(inInventory: Inventory):
 	my_inventory = inInventory
 	update_inventory_display()

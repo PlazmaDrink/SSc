@@ -87,6 +87,7 @@ func _on_player_disconnected(id):
 
 func _on_connection_failed():
 	multiplayer.multiplayer_peer = null
+	SceneManager.change_scene(SceneManager.game_scenes_dict.get("MainMenu"))
 
 func _on_server_disconnected():
 	multiplayer.multiplayer_peer = null
