@@ -4,6 +4,7 @@ extends Interaction
 var required_component = GameEnums.Components.InventoryComponent
 
 func on_interaction(componentContainer: component_container):
-	if GlobalData.UI_manager:
-		GlobalData.UI_manager.inventory_ui.add_non_player_inventory_to_viewport\
+	
+	if UIManager:
+		UIManager.inventory_ui.add_non_player_inventory_to_viewport\
 		(componentContainer.get_component(required_component).get_inventory(),componentContainer.root_node.name)

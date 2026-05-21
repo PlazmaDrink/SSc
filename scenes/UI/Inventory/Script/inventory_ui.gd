@@ -27,17 +27,18 @@ func _ready():
 	tooltip.visible = false
 	_create_slot_uis()
 	UI_manager_ref = get_parent() as UI_Manager
-func set_current_player(inCurrent_Player: Player_Character)->void:
-	current_player = inCurrent_Player
-	my_inventory = current_player.my_component_container.get_component(GameEnums.Components.InventoryComponent).get_inventory() as PlayerInventory
-	
+
 func initiane_vars(inMy_inventory:Inventory, inCurrent_Player: Player_Character = null)->void:
 	if inCurrent_Player:
 		set_current_player(inCurrent_Player)
 	if inMy_inventory:
 		my_inventory = inMy_inventory
 		my_inventory.Request_UI_Update.connect(update_inventory_display)
-
+		
+func set_current_player(inCurrent_Player: Player_Character)->void:
+	current_player = inCurrent_Player
+	my_inventory = current_player.my_component_container.get_component(GameEnums.Components.InventoryComponent).get_inventory() as PlayerInventory
+	
 func _create_slot_uis():
 	for child in grid_container.get_children():
 		child.queue_free()
@@ -217,14 +218,18 @@ func debug_print_inventory():
 func add_non_player_inventory_to_viewport(inventory: Inventory, Title:String = "Inventory")->void:
 	if inventory is not PlayerInventory:
 		var non_player_inventory = INVENTORY_UI_SCENE.instantiate() as InventoryUI
-		GlobalData.UI_manager.add_to_currently_on_display(non_player_inventory)
+		UIManager.add_to_currently_on_display(non_player_inventory)
 		non_player_inventory.add_to_group("Temp")
 		non_player_inventory.initiane_vars(inventory)
 		non_player_inventory.open_inventory(inventory)
 		non_player_inventory.set_title(Title)
+		non_player_inventory.update_inventory_display()
+
 
 func _on_visibility_changed() -> void:
 	if visible:
 		self.reparent(UI_manager_ref.currently_on_display)
+		my_inventory.isOpen = true
 	else:
 		self.reparent(UI_manager_ref)
+		my_inventory.isOpen = false

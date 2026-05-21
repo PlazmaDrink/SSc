@@ -10,7 +10,6 @@ extends Node3D
 var nickname:String = ""
 var skin:String = ""
 var adress:String = ""
-var UI_manager: UI_Manager
 
 func _ready() -> void:
 	SceneManager.current_scene.host_pressed.connect(_on_host_pressed)
@@ -45,6 +44,7 @@ func _add_player(id: int, player_info : Dictionary):
 
 	var player = player_scene.instantiate()
 	player.name = str(id)
+	player.local_client_id = id
 	player.position = get_spawn_point()
 	players_container.add_child(player, true)
 

@@ -4,6 +4,7 @@ extends RefCounted
 const INVENTORY_SIZE = 20  # 4x5 grid
 var slots: Array[InventorySlot] = []
 var inventory_component_ref: Inventory_component
+var isOpen:bool = false
 
 signal Request_UI_Update(Inventory)
 
@@ -25,6 +26,7 @@ func get_slot(index: int) -> InventorySlot:
 	return null
 
 func add_item(item: Item, quantity: int = 1) -> int:
+	call_deferred("on_Request_UI_Update")
 	var remaining = quantity
 
 	# First, try to add to existing stacks
@@ -46,6 +48,7 @@ func add_item(item: Item, quantity: int = 1) -> int:
 	return remaining  # Returns what couldn't be added
 
 func remove_item(item_id: String, quantity: int = 1) -> int:
+	call_deferred("on_Request_UI_Update")
 	var removed = 0
 	for slot in slots:
 		if slot.item_id == item_id:
@@ -56,7 +59,6 @@ func remove_item(item_id: String, quantity: int = 1) -> int:
 	return removed
 
 func move_item(from_slot_index: int, from_slot_id: String, to_slot_index: int, quantity: int) -> bool:
-	#TODO:Next 2 lines make inventory UI update. It looks messy. Will need some rework
 	call_deferred("on_Request_UI_Update")
 	
 	# If quantity is -1, move entire stack
@@ -198,6 +200,7 @@ func from_dict(data: Dictionary) -> void:
 	var slots_data = data.get("slots", [])
 	for i in range(min(slots_data.size(), slots.size())):
 		slots[i].from_dict(slots_data[i])
+	Request_UI_Update.emit()
 
 func on_Request_UI_Update()->void:
 	Request_UI_Update.emit()

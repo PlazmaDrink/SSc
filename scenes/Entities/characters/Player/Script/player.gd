@@ -28,7 +28,7 @@ enum SkinColor { BLUE, YELLOW, GREEN, RED }
 @onready var _limbs_head_mesh: MeshInstance3D = get_node("3DGodotRobot/RobotArmature/Skeleton3D/Llimbs and head")
 
 var is_local_player: bool
-var local_client_id: int
+@export var local_client_id: int
 var _current_speed: float
 var _respawn_point = Vector3(0, 5, 0)
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -46,10 +46,10 @@ func _enter_tree():
 
 func _ready():
 	is_local_player = is_multiplayer_authority()
-	local_client_id = multiplayer.get_unique_id()
 
 	print("Debug: Player ", name, " ready - authority: ", get_multiplayer_authority(), ", local client: ", local_client_id, ", is_local: ", is_local_player)
 func _physics_process(delta):
+	if not multiplayer.has_multiplayer_peer(): return
 	if not is_multiplayer_authority(): return
 
 	var current_scene = get_tree().get_current_scene()

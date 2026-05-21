@@ -15,8 +15,8 @@ func _ready() -> void:
 	show()
 	multiplayer_chat_ui.hide()
 	multiplayer_chat_ui.set_process_input(true)
-	GlobalData.UI_manager = self
-	
+	Network.player_connected.connect(_on_player_connected)
+
 func _input(event):
 	if event.is_action_pressed("toggle_chat"):
 		multiplayer_chat_ui.toggle_chat()
@@ -36,6 +36,8 @@ func _input(event):
 		ui_debug.toggle_menu()
 	check_if_mouse_on_screen_required()
 
+func _on_player_connected(_peer_id, _player_info):
+	set_multiplayer_authority(GlobalData.get_local_player().local_client_id)
 ##Toggle mouse visibility and input focus between game and UI
 func check_if_mouse_on_screen_required()->void:
 	if currently_on_display.get_child_count() == 0:

@@ -3,6 +3,7 @@ extends Node
 
 var owner_inventory: Inventory
 var root_node: Node
+var isPlayerInventory:bool = true
 # Called when the node enters the scene tree for the first time.
 func _enter_tree() -> void:
 	root_node = get_parent().root_node
@@ -19,6 +20,7 @@ func _enter_tree() -> void:
 				request_inventory_sync.rpc_id(1)
 		return
 	else:
+		isPlayerInventory = false
 		owner_inventory = Inventory.new(self)
 		_add_starting_items()
 
@@ -38,36 +40,40 @@ func _add_starting_items():
 @rpc("any_peer", "call_local", "reliable")
 func request_inventory_sync():
 	print("Debug: request_inventory_sync called on player ", name, " (authority: ", get_multiplayer_authority(), ") by client ", multiplayer.get_remote_sender_id())
-
 	if not multiplayer.is_server():
 		return
 
 	var requesting_client = multiplayer.get_remote_sender_id()
-	if requesting_client != get_multiplayer_authority():
-		push_warning("Client " + str(requesting_client) + " tried to request inventory for player " + str(get_multiplayer_authority()))
-		return
+	if isPlayerInventory:
+		if requesting_client != get_multiplayer_authority():
+			push_warning("Client " + str(requesting_client) + " tried to request inventory for player " + str(get_multiplayer_authority()))
+			return
 
-	if owner_inventory:
-		sync_inventory_to_owner.rpc_id(requesting_client, owner_inventory.to_dict())
+		if owner_inventory:
+			sync_inventory_to_all.rpc_id(requesting_client, owner_inventory.to_dict())
+	else:
+		if owner_inventory:
+			sync_inventory_to_all.rpc(owner_inventory.to_dict())
 
 @rpc("any_peer", "call_local", "reliable")
-func sync_inventory_to_owner(inventory_data: Dictionary):
+func sync_inventory_to_all(inventory_data: Dictionary):
 	print("Debug: sync_inventory_to_owner called on player ", name, " (authority: ", get_multiplayer_authority(), ") - local unique id: ", multiplayer.get_unique_id(), " from: ", multiplayer.get_remote_sender_id())
 
 	if multiplayer.get_remote_sender_id() != 1:
 		return
-
-	if not is_multiplayer_authority():
-		return
-
-	if not owner_inventory:
-		owner_inventory = PlayerInventory.new(self)
-	owner_inventory.from_dict(inventory_data)
-
-	if get_multiplayer_authority() == multiplayer.get_unique_id():
-		GlobalData.UI_manager.inventory_ui.update_inventory_display()
+	if isPlayerInventory:
+		if not is_multiplayer_authority():
+			return
+		if not owner_inventory:
+			owner_inventory = PlayerInventory.new(self)
+		owner_inventory.from_dict(inventory_data)
+		owner_inventory.on_Request_UI_Update()
 	else:
-		print("Debug: Not the local player, skipping UI update")
+		if not owner_inventory:
+			owner_inventory = Inventory.new(self)
+		owner_inventory.from_dict(inventory_data)
+	#else:
+		#print("Debug: Not the local player, skipping UI update")
 
 @rpc("any_peer", "call_local", "reliable")
 func request_move_item(from_slot: int, from_slot_id: String, to_slot: int, quantity: int):
@@ -103,11 +109,7 @@ func request_move_item(from_slot: int, from_slot_id: String, to_slot: int, quant
 
 	if success:
 		print("Debug: Move successful, syncing inventory to owner ", get_multiplayer_authority())
-		var owner_id = get_multiplayer_authority()
-		if owner_id != 1:
-			sync_inventory_to_owner.rpc_id(owner_id, owner_inventory.to_dict())
-		else:
-			GlobalData.UI_manager.inventory_ui.update_inventory_display()
+		sync_inventory_to_all.rpc(owner_inventory.to_dict())
 	else:
 		print("Debug: Move/swap failed")
 
@@ -143,7 +145,7 @@ func request_add_item(slot: InventorySlot):
 		var owner_id = get_multiplayer_authority()
 		print("Debug: Syncing inventory to owner ", owner_id)
 		if owner_id != 1:
-			sync_inventory_to_owner.rpc_id(owner_id, owner_inventory.to_dict())
+			sync_inventory_to_all.rpc_id(owner_id, owner_inventory.to_dict())
 		else:
 			GlobalData.UI_manager.inventory_ui.update_inventory_display()
 
@@ -171,7 +173,7 @@ func request_remove_item(slot: InventorySlot):
 	if removed > 0:
 		var owner_id = get_multiplayer_authority()
 		if owner_id != 1:
-			sync_inventory_to_owner.rpc_id(owner_id, owner_inventory.to_dict())
+			sync_inventory_to_all.rpc_id(owner_id, owner_inventory.to_dict())
 		else:
 			GlobalData.UI_manager.inventory_ui.update_inventory_display()
 

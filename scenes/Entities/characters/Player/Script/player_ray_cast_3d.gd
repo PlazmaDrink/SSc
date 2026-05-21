@@ -28,7 +28,6 @@ func _input(_event) -> void:
 	else:
 		if rayCastCollisionState:
 			_collision_with_current_object_finished()
-	print_debug(target_collider)
 
 func _collision_with_current_object_finished()->void:
 	if target_collider:
