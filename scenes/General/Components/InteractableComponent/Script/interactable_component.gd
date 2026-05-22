@@ -13,12 +13,8 @@ const OUTLINE_SHADER_MATERIAL = preload("uid://d1hbc5mvwhs5")
 var local_material_instance: ShaderMaterial
 var is_focused:= false
 
-func _ready() -> void:
-	_prepare_local_material()
-	
-#func _input(_event: InputEvent) -> void:
-	#if Input.is_action_just_pressed("Interact"):
-		#try_interact()
+func initiate_component()->void:
+	_prepare_local_material()	
 
 func _prepare_local_material():
 	local_material_instance = OUTLINE_SHADER_MATERIAL.duplicate()

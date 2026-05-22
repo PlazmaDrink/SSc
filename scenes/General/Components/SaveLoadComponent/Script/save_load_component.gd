@@ -9,7 +9,7 @@ extends Node
 
 @export var myResource: data_to_save
 
-func _ready() -> void:
+func initiate_component()->void:
 	myResource = resource_type.get_preload().new()
 func on_save_game(saved_data_globals:Array[data_to_save_custom], saved_data:Array[data_to_save]):
 	if not is_multiplayer_authority(): return

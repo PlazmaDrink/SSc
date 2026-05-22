@@ -7,7 +7,7 @@ signal ActionFinished
 
 var action_Finish_Time: int = 0
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
+func initiate_component()->void:
 	GlobalTime.time_tick.connect(on_time_tick)
 	#TODO: assigne set_timer func to UI
 	set_timer(10)
