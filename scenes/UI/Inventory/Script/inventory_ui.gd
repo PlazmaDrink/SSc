@@ -38,6 +38,7 @@ func initiane_vars(inMy_inventory:Inventory, inCurrent_Player: Player_Character 
 func set_current_player(inCurrent_Player: Player_Character)->void:
 	current_player = inCurrent_Player
 	my_inventory = current_player.my_component_container.get_component(GameEnums.Components.InventoryComponent).get_inventory() as PlayerInventory
+	my_inventory.Request_UI_Update.connect(update_inventory_display)
 	
 func _create_slot_uis():
 	for child in grid_container.get_children():
@@ -159,12 +160,12 @@ func _on_close_pressed():
 func handle_item_drop(source_inv_id: int, source_slot: int, target_slot: int, item_id: String, qty: int):
 	# If we are a client, send an RPC to request this move from the server
 	if not multiplayer.is_server():
-		my_inventory.inventory_component_ref.request_move_item_rpc.rpc_id(
+		my_inventory.inventory_component_ref.request_move_item.rpc_id(
 			1, 
-			source_inv_id, 
-			source_slot, 
-			self.get_instance_id(), 
-			target_slot, qty)
+			source_slot,
+			item_id,
+			target_slot,
+			qty)
 		return
 	# --- SERVER LOGIC RUNS HERE ---
 	# Find the actual source inventory node using its instance ID
@@ -177,6 +178,7 @@ func handle_item_drop(source_inv_id: int, source_slot: int, target_slot: int, it
 		# SCENARIO A: Moving items within the exact same inventory
 		# (Just swap or merge the slots locally)
 		my_inventory.swap_items(source_slot, target_slot)
+		my_inventory.inventory_component_ref.request_inventory_sync.rpc() 
 	else:
 		# SCENARIO B: Moving from another inventory into this one
 		# 1. Try to add it to this destination inventory first
@@ -186,10 +188,7 @@ func handle_item_drop(source_inv_id: int, source_slot: int, target_slot: int, it
 		if add_successful == 0:
 			source_inventory.my_inventory.remove_item(item_id, qty)
 			my_inventory.on_Request_UI_Update()
-			source_inventory.my_inventory.inventory_component_ref.request_inventory_sync()
-
-	# 3. Finally, trigger the network syncs you set up in your previous prompt!
-	my_inventory.inventory_component_ref.request_inventory_sync() 
+			source_inventory.my_inventory.inventory_component_ref.request_inventory_sync.rpc()
 func open_inventory(inInventory: Inventory):
 	my_inventory = inInventory
 	update_inventory_display()
@@ -211,6 +210,11 @@ func toggle_inventory():
 		close_inventory()
 
 func update_inventory_display():
+	for i in range(slot_uis.size()):
+		if i < my_inventory.INVENTORY_SIZE:
+			slot_uis[i].set_slot_data(my_inventory.get_slot(i), i)
+
+func update_inventory_display_signal():
 	for i in range(slot_uis.size()):
 		if i < my_inventory.INVENTORY_SIZE:
 			slot_uis[i].set_slot_data(my_inventory.get_slot(i), i)

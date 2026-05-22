@@ -11,6 +11,7 @@ extends Node
 
 func initiate_component()->void:
 	myResource = resource_type.get_preload().new()
+
 func on_save_game(saved_data_globals:Array[data_to_save_custom], saved_data:Array[data_to_save]):
 	if not is_multiplayer_authority(): return
 	myResource.save_properties(root_node_to_save_from, custom_node_to_save_from, isGlobal)

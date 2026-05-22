@@ -115,10 +115,6 @@ func _drop_data(_position: Vector2, data):
 		item_id, 
 		quantity
 	)
-	#if parent_inventory and parent_inventory.has_method("handle_item_drop"):
-		#parent_inventory.handle_item_drop(data.slot_index, data.item_id, inventory_data.slot_index, data.quantity)
-	#if parent_inventory.get_instance_id() != data.inventory_id:
-		#data.remove_item(data.quantity)
 
 func _get_drag_data(_position: Vector2):
 	if not inventory_data or inventory_data.is_empty():
