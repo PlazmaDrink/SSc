@@ -6,6 +6,7 @@ extends Node3D
 @onready var my_component_container: component_container = $ComponentContainer
 
 @export var player_scene: PackedScene
+@export var UI_manager_scene: PackedScene
 
 var nickname:String = ""
 var skin:String = ""
@@ -53,6 +54,8 @@ func _add_player(id: int, player_info : Dictionary):
 
 	var skin_enum = player_info["skin"]
 	player.set_player_skin(skin_enum)
+	var UI_manager = UI_manager_scene.instantiate()
+	UI_manager.initiate_manager(id, player_info)
 
 func get_spawn_point() -> Vector3:
 	var spawn_point = Vector2.from_angle(randf() * 2 * PI) * 10 # spawn radius

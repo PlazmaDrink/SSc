@@ -7,8 +7,8 @@ class_name InventorySlotUI
 @onready var rarity_border: NinePatchRect = $RarityBorder
 
 var slot_index: int = 0
-var inventory_data: InventorySlot
-var parent_inventory: Control
+var inventory_slot: InventorySlot
+var parent_inventory_UI: Control
 
 signal slot_clicked(slot_index: int, button: int)
 signal item_hovered(slot_index: int, item: Item)
@@ -27,18 +27,14 @@ func _ready():
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
 
-	update_display()
-
-func set_slot_data(slot_data: InventorySlot, index: int):
-	inventory_data = slot_data
-	slot_index = index
-	if inventory_data:
-		inventory_data.slot_index = index
-		inventory_data.set_inventory_id(parent_inventory.get_instance_id())
-	update_display()
+func set_slot_data(slot_data: InventorySlot):
+	inventory_slot = slot_data
+	if inventory_slot:
+		slot_index = slot_data.slot_index
+	call_deferred("update_display")
 
 func update_display():
-	if not inventory_data or inventory_data.is_empty():
+	if not inventory_slot or inventory_slot.is_empty():
 		_show_empty_slot()
 	else:
 		_show_item_slot()
@@ -54,15 +50,15 @@ func _show_empty_slot():
 		background.modulate = Color.WHITE
 
 func _show_item_slot():
-	var item = ItemDatabase.get_item(inventory_data.item_id)
+	var item = ItemDatabase.get_item(inventory_slot.item_id)
 	if not item:
 		_show_empty_slot()
 		return
 
 	item_icon.texture = item.icon
 
-	if item.stackable and inventory_data.quantity > 1:
-		quantity_label.text = str(inventory_data.quantity)
+	if item.stackable and inventory_slot.quantity > 1:
+		quantity_label.text = str(inventory_slot.quantity)
 		quantity_label.visible = true
 	else:
 		quantity_label.visible = false
@@ -79,8 +75,8 @@ func _on_gui_input(event: InputEvent):
 			slot_clicked.emit(slot_index, event.button_index)
 
 func _on_mouse_entered():
-	if inventory_data and not inventory_data.is_empty():
-		var item = ItemDatabase.get_item(inventory_data.item_id)
+	if inventory_slot and not inventory_slot.is_empty():
+		var item = ItemDatabase.get_item(inventory_slot.item_id)
 		if item:
 			item_hovered.emit(slot_index, item)
 
@@ -95,32 +91,21 @@ func _can_drop_data(_position: Vector2, data) -> bool:
 	return data is InventorySlot
 
 func _drop_data(_position: Vector2, data):
-	# 1. Make sure we have a valid inventory setup
-	if not parent_inventory or not parent_inventory.has_method("handle_item_drop"):
+	if not parent_inventory_UI or not parent_inventory_UI.has_method("handle_item_drop"):
 		return
-		
-	# 2. Extract our source and destination information
-	var source_inventory_id = data.inventory_id
-	var source_slot_index = data.slot_index
-	var target_slot_index = inventory_data.slot_index # The slot we are hovering over right now
-	var item_id = data.item_id
-	var quantity = data.quantity
-
-	# 3. Hand everything off to a single controller function
-	# We pass the source_inventory_id so the system knows EXACTLY where it came from
-	parent_inventory.handle_item_drop(
-		source_inventory_id, 
-		source_slot_index, 
-		target_slot_index, 
-		item_id, 
-		quantity
+	parent_inventory_UI.handle_item_drop(
+		data.inventory_id, 
+		data.slot_index, 
+		inventory_slot.slot_index, 
+		data.item_id, 
+		data.quantity
 	)
 
 func _get_drag_data(_position: Vector2):
-	if not inventory_data or inventory_data.is_empty():
+	if not inventory_slot or inventory_slot.is_empty():
 		return null
 
-	var item = ItemDatabase.get_item(inventory_data.item_id)
+	var item = ItemDatabase.get_item(inventory_slot.item_id)
 	if not item:
 		return null
 
@@ -136,7 +121,7 @@ func _get_drag_data(_position: Vector2):
 
 	item_icon.modulate = Color(0.5, 0.5, 0.5)
 
-	return inventory_data
+	return inventory_slot
 
 func _notification(what):
 	if what == NOTIFICATION_DRAG_END:

@@ -15,9 +15,7 @@ func _init(parent_component: Inventory_component):
 func _initialize_slots():
 	slots.clear()
 	for i in range(INVENTORY_SIZE):
-		var new_slot = InventorySlot.new()
-		new_slot.slot_index = i
-		new_slot.inventory_ref = self
+		var new_slot = InventorySlot.new(i, self)
 		slots.append(new_slot)
 
 func get_slot(index: int) -> InventorySlot:
@@ -47,15 +45,18 @@ func add_item(item: Item, quantity: int = 1) -> int:
 
 	return remaining  # Returns what couldn't be added
 
-func remove_item(item_id: String, quantity: int = 1) -> int:
+func remove_item(item_id: String, quantity: int = 1, slot_id: int = -1) -> int:
 	call_deferred("on_Request_UI_Update")
 	var removed = 0
-	for slot in slots:
-		if slot.item_id == item_id:
-			var slot_removed = slot.remove_item(quantity - removed)
-			removed += slot_removed
-			if removed >= quantity:
-				break
+	if slot_id == -1:
+		for slot in slots:
+			if slot.item_id == item_id:
+				var slot_removed = slot.remove_item(quantity - removed)
+				removed += slot_removed
+				if removed >= quantity:
+					break
+	else:
+		slots[slot_id].remove_item(quantity)
 	return removed
 
 func move_item(from_slot_index: int, from_slot_id: String, to_slot_index: int, quantity: int) -> bool:

@@ -3,13 +3,15 @@ extends RefCounted
 
 var item_id: String = ""
 var quantity: int = 0
-var inventory_id: int
 var slot_index: int
+var inventory_id: int
 var inventory_ref: Inventory
 
-func set_inventory_id(inID:int)->void:
-	inventory_id = inID
-	
+func _init(InSlot_index:int, InInventory_ref:Inventory) -> void:
+	slot_index = InSlot_index
+	inventory_ref = InInventory_ref
+	inventory_id = inventory_ref.get_instance_id()
+
 func is_empty() -> bool:
 	return item_id.is_empty() or quantity <= 0
 
@@ -44,9 +46,11 @@ func clear() -> void:
 	quantity = 0
 
 func to_dict() -> Dictionary:
-	return {"item_id": item_id, "quantity": quantity, "slot_index": slot_index}
+	return {"item_id": item_id, "quantity": quantity, "slot_index": slot_index, "inventory_id": inventory_id, "inventory_ref": inventory_ref}
 
 func from_dict(data: Dictionary) -> void:
 	item_id = data.get("item_id", "")
 	quantity = data.get("quantity", 0)
 	slot_index = data.get("slot_index", 0)
+	inventory_id = data.get("inventory_id", "")
+	inventory_ref = data.get("inventory_ref", Inventory)

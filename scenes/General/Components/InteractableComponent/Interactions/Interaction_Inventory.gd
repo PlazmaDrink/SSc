@@ -6,5 +6,5 @@ var required_component = GameEnums.Components.InventoryComponent
 func on_interaction(componentContainer: component_container):
 	
 	if UIManager:
-		UIManager.inventory_ui.add_non_player_inventory_to_viewport\
+		UIManager.add_non_player_inventory_to_viewport\
 		(componentContainer.get_component(required_component).get_inventory(),componentContainer.root_node.name)

@@ -24,7 +24,6 @@ func initiate_component()->void:
 		isPlayerInventory = false
 		owner_inventory = Inventory.new(self)
 		_add_starting_items()
-	print_debug(get_multiplayer_authority())
 
 func _add_starting_items():
 	if not owner_inventory:
@@ -78,7 +77,7 @@ func sync_inventory_to_all(inventory_data: Dictionary):
 		#print("Debug: Not the local player, skipping UI update")
 
 @rpc("any_peer", "call_local", "reliable")
-func request_move_item(from_slot: int, from_slot_id: String, to_slot: int, quantity: int):
+func request_move_item(source_inv_id:int, from_slot: int, item_id: String, to_slot: int, quantity: int):
 	if owner_inventory is PlayerInventory:
 		print("Debug: request_move_item called - from:", from_slot, " to:", to_slot, " on player ", name, " (authority: ", get_multiplayer_authority(), ") by client ", multiplayer.get_remote_sender_id())
 
@@ -98,22 +97,36 @@ func request_move_item(from_slot: int, from_slot_id: String, to_slot: int, quant
 			return
 
 	var success = false
-	if quantity == -1:
-		success = owner_inventory.move_item(from_slot, from_slot_id, to_slot, quantity)
-		if not success:
-			success = owner_inventory.swap_items(from_slot, to_slot)
-			print("Debug: Swapped items between slots ", from_slot, " and ", to_slot)
+	#Check if item movede within same inventory
+	var check = owner_inventory.get_instance_id()
+	if check == source_inv_id:
+		if quantity == -1:
+			success = owner_inventory.move_item(from_slot, item_id, to_slot, quantity)
+			if not success:
+				success = owner_inventory.swap_items(from_slot, to_slot)
+				print("Debug: Swapped items between slots ", from_slot, " and ", to_slot)
+			else:
+				print("Debug: Moved item from slot ", from_slot, " to ", to_slot)
 		else:
-			print("Debug: Moved item from slot ", from_slot, " to ", to_slot)
-	else:
-		success = owner_inventory.move_item(from_slot, from_slot_id, to_slot, quantity)
-		print("Debug: Moved ", quantity, " items from slot ", from_slot, " to ", to_slot)
+			success = owner_inventory.move_item(from_slot, item_id, to_slot, quantity)
+			print("Debug: Moved ", quantity, " items from slot ", from_slot, " to ", to_slot)
 
-	if success:
-		print("Debug: Move successful, syncing inventory to owner ", get_multiplayer_authority())
-		sync_inventory_to_all.rpc(owner_inventory.to_dict())
+		if success:
+			print("Debug: Move successful, syncing inventory to owner ", get_multiplayer_authority())
+			sync_inventory_to_all.rpc(owner_inventory.to_dict())
+		else:
+			print("Debug: Move/swap failed")
+	#If item moved from one inventory to another
 	else:
-		print("Debug: Move/swap failed")
+		var source_inventory = instance_from_id(source_inv_id)
+		if quantity == -1:
+			success = owner_inventory.add_item(ItemDatabase.get_item(item_id), quantity)
+			if success:
+				source_inventory.remove_item(item_id, quantity)
+		else:
+			success = owner_inventory.add_item(ItemDatabase.get_item(item_id), quantity)
+			if success:
+				source_inventory.remove_item(item_id, quantity)
 
 @rpc("any_peer", "call_local", "reliable")
 func request_add_item(slot: InventorySlot):

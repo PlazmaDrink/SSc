@@ -9,7 +9,8 @@ var game_scenes_dict = {
 	"GlobalData": "res://globals/GlobalData/Scene/GlobalData.tscn",
 	"GlobalTime": "res://globals/TimeManager/Scene/global_time.tscn",
 	"player":"res://scenes/characters/Player/Scene/player.tscn",
-	"test_outline":"res://scenes/Tests/test_outline.tscn"
+	"test_outline":"res://scenes/Tests/test_outline.tscn",
+	"ui_manager":"res://scenes/UI/UI_Manager/Scene/ui_manager.tscn"
 }
 
 func _ready() -> void:

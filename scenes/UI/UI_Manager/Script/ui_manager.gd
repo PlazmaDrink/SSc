@@ -11,33 +11,38 @@ const POP_UP_MESSAGE = preload("uid://cmi5io0cl7ms1")
 
 var UI_debug_menu_visible = false
 
-func _ready() -> void:
+func initiate_manager(id: int, player_info : Dictionary) -> void:
 	show()
+	call_deferred("initiate_children", [id, player_info])
+	
+func _input(event):
+	if is_multiplayer_authority():
+		if event.is_action_pressed("toggle_chat"):
+			multiplayer_chat_ui.toggle_chat()
+		elif multiplayer_chat_ui.visible and multiplayer_chat_ui.message.has_focus():
+			if event is InputEventKey and event.keycode == KEY_ENTER and event.pressed:
+				multiplayer_chat_ui._on_send_pressed()
+				get_viewport().set_input_as_handled()
+		elif event.is_action_pressed("inventory"):
+			if inventory_ui.current_player == null:
+				inventory_ui.set_current_player(GlobalData.get_local_player())
+			inventory_ui.toggle_inventory()
+		elif event is InputEventKey and event.pressed and event.keycode == KEY_F1:
+			inventory_ui.debug_add_item()
+		elif event is InputEventKey and event.pressed and event.keycode == KEY_F2:
+			inventory_ui.debug_print_inventory()
+		elif event.is_action_pressed("DebugMenu"):
+			ui_debug.toggle_menu()
+		check_if_mouse_on_screen_required()
+
+func initiate_children(_peer_id, _player_info):
 	multiplayer_chat_ui.hide()
 	multiplayer_chat_ui.set_process_input(true)
-	Network.player_connected.connect(_on_player_connected)
+	var local_player = GlobalData.get_local_player()
+	set_multiplayer_authority(local_player.local_client_id)
+	var inventory_to_plug_with_UI = local_player.my_component_container.get_component(GameEnums.Components.InventoryComponent).get_inventory()
+	inventory_ui.initiane_UI_element(inventory_to_plug_with_UI, local_player)
 
-func _input(event):
-	if event.is_action_pressed("toggle_chat"):
-		multiplayer_chat_ui.toggle_chat()
-	elif multiplayer_chat_ui.visible and multiplayer_chat_ui.message.has_focus():
-		if event is InputEventKey and event.keycode == KEY_ENTER and event.pressed:
-			multiplayer_chat_ui._on_send_pressed()
-			get_viewport().set_input_as_handled()
-	elif event.is_action_pressed("inventory"):
-		if inventory_ui.current_player == null:
-			inventory_ui.set_current_player(GlobalData.get_local_player())
-		inventory_ui.toggle_inventory()
-	elif event is InputEventKey and event.pressed and event.keycode == KEY_F1:
-		inventory_ui.debug_add_item()
-	elif event is InputEventKey and event.pressed and event.keycode == KEY_F2:
-		inventory_ui.debug_print_inventory()
-	elif event.is_action_pressed("DebugMenu"):
-		ui_debug.toggle_menu()
-	check_if_mouse_on_screen_required()
-
-func _on_player_connected(_peer_id, _player_info):
-	set_multiplayer_authority(GlobalData.get_local_player().local_client_id)
 ##Toggle mouse visibility and input focus between game and UI
 func check_if_mouse_on_screen_required()->void:
 	if currently_on_display.get_child_count() == 0:
@@ -67,3 +72,12 @@ func togle_pop_up_message(topLabel:String, messageLabel:String):
 	add_to_currently_on_display(pop_up_instance)
 	pop_up_instance.update_pop_up_message(topLabel, messageLabel)
 # ---------- Pop Up Message ----------
+
+func add_non_player_inventory_to_viewport(inventory: Inventory, Title:String = "Inventory")->void:
+	if inventory is not PlayerInventory:
+		var non_player_inventory = inventory_ui.INVENTORY_UI_SCENE.instantiate() as InventoryUI
+		add_to_currently_on_display(non_player_inventory)
+		non_player_inventory.add_to_group("Temp")
+		non_player_inventory.initiane_UI_element(inventory)
+		non_player_inventory.set_title(Title)
+		non_player_inventory.open_inventory()

@@ -20,25 +20,18 @@ var inventory_visible = false
 
 signal inventory_closed
 
-func _ready():
+func initiane_UI_element(inMy_inventory:Inventory, inCurrent_Player: Player_Character = null)->void:
 	slot_ui_scene = preload("uid://bglwdpf2mf7g0")
 	grid_container.columns = 4
 	close_button.pressed.connect(_on_close_pressed)
 	tooltip.visible = false
-	_create_slot_uis()
 	UI_manager_ref = get_parent() as UI_Manager
-
-func initiane_vars(inMy_inventory:Inventory, inCurrent_Player: Player_Character = null)->void:
 	if inCurrent_Player:
-		set_current_player(inCurrent_Player)
+		current_player = inCurrent_Player
 	if inMy_inventory:
 		my_inventory = inMy_inventory
-		my_inventory.Request_UI_Update.connect(update_inventory_display)
-		
-func set_current_player(inCurrent_Player: Player_Character)->void:
-	current_player = inCurrent_Player
-	my_inventory = current_player.my_component_container.get_component(GameEnums.Components.InventoryComponent).get_inventory() as PlayerInventory
-	my_inventory.Request_UI_Update.connect(update_inventory_display)
+		my_inventory.Request_UI_Update.connect(update_inventory_display_signal)
+	_create_slot_uis()
 	
 func _create_slot_uis():
 	for child in grid_container.get_children():
@@ -48,13 +41,13 @@ func _create_slot_uis():
 	for i in range(my_inventory.INVENTORY_SIZE):
 		var slot_ui = slot_ui_scene.instantiate() as InventorySlotUI
 		slot_ui.custom_minimum_size = Vector2(64, 64)
-		slot_ui.parent_inventory = self
+		slot_ui.parent_inventory_UI = self
 
 		slot_ui.slot_clicked.connect(_on_slot_clicked)
 		slot_ui.item_hovered.connect(_on_item_hovered)
 		slot_ui.item_unhovered.connect(_on_item_unhovered)
 
-		slot_ui.set_slot_data(null, i)
+		slot_ui.set_slot_data(my_inventory.get_slot(i))
 
 		grid_container.add_child(slot_ui)
 		slot_uis.append(slot_ui)
@@ -155,13 +148,12 @@ func _on_close_pressed():
 	inventory_closed.emit()
 	visible = false
 	
-#func handle_item_drop(from_slot_index: int, from_slot_id:String, to_slot_index: int, quantity:int):
-	#my_inventory.inventory_component_ref.request_move_item.rpc_id(1, from_slot_index,from_slot_id, to_slot_index, quantity)
 func handle_item_drop(source_inv_id: int, source_slot: int, target_slot: int, item_id: String, qty: int):
 	# If we are a client, send an RPC to request this move from the server
 	if not multiplayer.is_server():
 		my_inventory.inventory_component_ref.request_move_item.rpc_id(
-			1, 
+			1,
+			source_inv_id,
 			source_slot,
 			item_id,
 			target_slot,
@@ -174,23 +166,19 @@ func handle_item_drop(source_inv_id: int, source_slot: int, target_slot: int, it
 	if not source_inventory:
 		return
 
-	if source_inventory == self:
+	if source_inv_id == my_inventory.get_instance_id():
 		# SCENARIO A: Moving items within the exact same inventory
-		# (Just swap or merge the slots locally)
 		my_inventory.swap_items(source_slot, target_slot)
-		my_inventory.inventory_component_ref.request_inventory_sync.rpc() 
+		my_inventory.inventory_component_ref.sync_inventory_to_all.rpc(my_inventory.to_dict()) 
 	else:
 		# SCENARIO B: Moving from another inventory into this one
-		# 1. Try to add it to this destination inventory first
-		var add_successful = my_inventory.add_item(ItemDatabase.get_item(item_id), qty)
-		
-		# 2. ONLY if it successfully transferred, remove it from the source inventory
-		if add_successful == 0:
-			source_inventory.my_inventory.remove_item(item_id, qty)
+		var add_successful = my_inventory.add_item(ItemDatabase.get_item(item_id), qty) == 0
+		if add_successful:
+			source_inventory.remove_item(item_id, qty, source_slot)
 			my_inventory.on_Request_UI_Update()
-			source_inventory.my_inventory.inventory_component_ref.request_inventory_sync.rpc()
-func open_inventory(inInventory: Inventory):
-	my_inventory = inInventory
+			source_inventory.inventory_component_ref.sync_inventory_to_all.rpc(source_inventory.to_dict())
+			
+func open_inventory():
 	update_inventory_display()
 	visible = true
 
@@ -205,19 +193,19 @@ func toggle_inventory():
 		return
 	inventory_visible = !inventory_visible
 	if inventory_visible:
-		open_inventory(current_player.my_component_container.get_component(GameEnums.Components.InventoryComponent).get_inventory())
+		open_inventory()
 	else:
 		close_inventory()
 
 func update_inventory_display():
 	for i in range(slot_uis.size()):
 		if i < my_inventory.INVENTORY_SIZE:
-			slot_uis[i].set_slot_data(my_inventory.get_slot(i), i)
+			slot_uis[i].set_slot_data(my_inventory.get_slot(i))
 
 func update_inventory_display_signal():
 	for i in range(slot_uis.size()):
 		if i < my_inventory.INVENTORY_SIZE:
-			slot_uis[i].set_slot_data(my_inventory.get_slot(i), i)
+			slot_uis[i].set_slot_data(my_inventory.get_slot(i))
 
 func set_title(newTitle:String)->void:
 	title_label.text = newTitle
@@ -250,18 +238,6 @@ func debug_print_inventory():
 		print("=====================")
 	else:
 		print("No inventory found for local player")
-
-#TODO: I don't like this solution for adding to temp container. Think, Roman, think!
-func add_non_player_inventory_to_viewport(inventory: Inventory, Title:String = "Inventory")->void:
-	if inventory is not PlayerInventory:
-		var non_player_inventory = INVENTORY_UI_SCENE.instantiate() as InventoryUI
-		UIManager.add_to_currently_on_display(non_player_inventory)
-		non_player_inventory.add_to_group("Temp")
-		non_player_inventory.initiane_vars(inventory)
-		non_player_inventory.open_inventory(inventory)
-		non_player_inventory.set_title(Title)
-		non_player_inventory.update_inventory_display()
-
 
 func _on_visibility_changed() -> void:
 	if visible:
