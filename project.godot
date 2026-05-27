@@ -26,6 +26,7 @@ SaveLoad="*res://globals/SaveLoad/SAVE_LOAD.gd"
 SceneManager="*res://globals/SceneManager/Scene/SceneManager.tscn"
 GlobalData="*res://globals/GlobalData/Scene/GlobalData.tscn"
 GameEnums="*res://globals/GameEnums.gd"
+GameState="res://globals/GameState/GameState.tscn"
 
 [display]
 

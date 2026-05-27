@@ -7,10 +7,10 @@ class_name MultiplayerChatUI
 
 var chat_visible = false
 
-func _ready():
+func initiane_UI_element():
 	send.pressed.connect(_on_send_pressed)
 	message.text_submitted.connect(_on_send_pressed)
-
+	set_process_input(true)
 	clear_chat()
 	hide()
 

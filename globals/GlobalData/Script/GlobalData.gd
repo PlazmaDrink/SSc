@@ -6,11 +6,12 @@ extends Node3D
 @onready var my_component_container: component_container = $ComponentContainer
 
 @export var player_scene: PackedScene
-@export var UI_manager_scene: PackedScene
 
 var nickname:String = ""
 var skin:String = ""
 var adress:String = ""
+var UI_manager: UI_Manager
+var UI_managers_dict: Dictionary = {}
 
 func _ready() -> void:
 	SceneManager.current_scene.host_pressed.connect(_on_host_pressed)
@@ -18,7 +19,6 @@ func _ready() -> void:
 	
 	if not multiplayer.is_server():
 		return
-		
 	Network.player_connected.connect(_on_player_connected)
 	multiplayer.peer_disconnected.connect(_remove_player)
 
@@ -33,10 +33,7 @@ func _on_join_pressed(inNickname:String, inSkin:String, inAdress:String)-> void:
 	adress = inAdress
 	Network.join_game(nickname, skin, adress)
 
-func _on_player_connected(peer_id, player_info):
-	_add_player(peer_id, player_info)
-
-func _add_player(id: int, player_info : Dictionary):
+func _on_player_connected(id: int, player_info : Dictionary):
 	if DisplayServer.get_name() == "headless" and id == 1:
 		return
 
@@ -54,8 +51,6 @@ func _add_player(id: int, player_info : Dictionary):
 
 	var skin_enum = player_info["skin"]
 	player.set_player_skin(skin_enum)
-	var UI_manager = UI_manager_scene.instantiate()
-	UI_manager.initiate_manager(id, player_info)
 
 func get_spawn_point() -> Vector3:
 	var spawn_point = Vector2.from_angle(randf() * 2 * PI) * 10 # spawn radius
@@ -73,3 +68,6 @@ func get_local_player()->Player_Character:
 		if player.is_local_player:
 			return player as Player_Character
 	return null
+
+func get_UI_manager()->UI_Manager:
+	return UI_manager

@@ -5,17 +5,20 @@ const INVENTORY_SIZE = 20  # 4x5 grid
 var slots: Array[InventorySlot] = []
 var inventory_component_ref: Inventory_component
 var isOpen:bool = false
+##RootNodeName
+var inventory_id:String
 
 signal Request_UI_Update(Inventory)
 
 func _init(parent_component: Inventory_component):
 	inventory_component_ref = parent_component
+	inventory_id = str(parent_component.get_path()) 
 	_initialize_slots()
 
 func _initialize_slots():
 	slots.clear()
 	for i in range(INVENTORY_SIZE):
-		var new_slot = InventorySlot.new(i, self)
+		var new_slot = InventorySlot.new(i, self, inventory_id)
 		slots.append(new_slot)
 
 func get_slot(index: int) -> InventorySlot:

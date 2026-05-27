@@ -147,8 +147,8 @@ func _on_close_pressed():
 		return
 	inventory_closed.emit()
 	visible = false
-	
-func handle_item_drop(source_inv_id: int, source_slot: int, target_slot: int, item_id: String, qty: int):
+
+func handle_item_drop(source_inv_id: String, source_slot: int, target_slot: int, item_id: String, qty: int):
 	# If we are a client, send an RPC to request this move from the server
 	if not multiplayer.is_server():
 		my_inventory.inventory_component_ref.request_move_item.rpc_id(
@@ -159,25 +159,9 @@ func handle_item_drop(source_inv_id: int, source_slot: int, target_slot: int, it
 			target_slot,
 			qty)
 		return
-	# --- SERVER LOGIC RUNS HERE ---
-	# Find the actual source inventory node using its instance ID
-	var source_inventory = instance_from_id(source_inv_id)
-	
-	if not source_inventory:
-		return
-
-	if source_inv_id == my_inventory.get_instance_id():
-		# SCENARIO A: Moving items within the exact same inventory
-		my_inventory.swap_items(source_slot, target_slot)
-		my_inventory.inventory_component_ref.sync_inventory_to_all.rpc(my_inventory.to_dict()) 
 	else:
-		# SCENARIO B: Moving from another inventory into this one
-		var add_successful = my_inventory.add_item(ItemDatabase.get_item(item_id), qty) == 0
-		if add_successful:
-			source_inventory.remove_item(item_id, qty, source_slot)
-			my_inventory.on_Request_UI_Update()
-			source_inventory.inventory_component_ref.sync_inventory_to_all.rpc(source_inventory.to_dict())
-			
+		my_inventory.inventory_component_ref.move_item(source_inv_id, source_slot, item_id, target_slot, qty)
+
 func open_inventory():
 	update_inventory_display()
 	visible = true

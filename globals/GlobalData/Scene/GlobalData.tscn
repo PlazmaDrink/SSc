@@ -18,6 +18,8 @@ UI_manager_scene = ExtResource("3_jdhx1")
 
 [node name="Players_Container" type="Node3D" parent="."]
 
+[node name="UI_Managers_Container" type="Node3D" parent="."]
+
 [node name="ComponentContainer" parent="." instance=ExtResource("3_gsjgm")]
 
 [node name="SaveLoadComponent" parent="ComponentContainer" node_paths=PackedStringArray("root_node_to_save_from") instance=ExtResource("4_ki20t")]

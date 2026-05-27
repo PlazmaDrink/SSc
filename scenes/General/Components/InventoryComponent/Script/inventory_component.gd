@@ -47,7 +47,6 @@ func request_inventory_sync():
 	var requesting_client = multiplayer.get_remote_sender_id()
 	if isPlayerInventory:
 		if requesting_client != get_multiplayer_authority():
-			push_warning("Client " + str(requesting_client) + " tried to request inventory for player " + str(get_multiplayer_authority()))
 			return
 
 		if owner_inventory:
@@ -59,7 +58,6 @@ func request_inventory_sync():
 @rpc("any_peer", "call_local", "reliable")
 func sync_inventory_to_all(inventory_data: Dictionary):
 	print("Debug: sync_inventory_to_owner called on player ", name, " (authority: ", get_multiplayer_authority(), ") - local unique id: ", multiplayer.get_unique_id(), " from: ", multiplayer.get_remote_sender_id())
-
 	if multiplayer.get_remote_sender_id() != 1:
 		return
 	if isPlayerInventory:
@@ -73,33 +71,28 @@ func sync_inventory_to_all(inventory_data: Dictionary):
 		if not owner_inventory:
 			owner_inventory = Inventory.new(self)
 		owner_inventory.from_dict(inventory_data)
-	#else:
-		#print("Debug: Not the local player, skipping UI update")
 
-@rpc("any_peer", "call_local", "reliable")
-func request_move_item(source_inv_id:int, from_slot: int, item_id: String, to_slot: int, quantity: int):
+@rpc("any_peer", "call_remote", "reliable")
+func request_move_item(source_inv_id:String, from_slot: int, item_id: String, to_slot: int, quantity: int):
 	if owner_inventory is PlayerInventory:
 		print("Debug: request_move_item called - from:", from_slot, " to:", to_slot, " on player ", name, " (authority: ", get_multiplayer_authority(), ") by client ", multiplayer.get_remote_sender_id())
-
 		if not multiplayer.is_server():
 			return
-
 		var requesting_client = multiplayer.get_remote_sender_id()
 		if requesting_client != get_multiplayer_authority():
 			push_warning("Client " + str(requesting_client) + " tried to modify inventory for player " + str(get_multiplayer_authority()))
 			return
-
 		if not owner_inventory:
 			return
-
 		if from_slot < 0 or from_slot >= PlayerInventory.INVENTORY_SIZE or to_slot < 0 or to_slot >= PlayerInventory.INVENTORY_SIZE:
 			push_warning("Invalid slot indices: from=" + str(from_slot) + " to=" + str(to_slot))
 			return
+	move_item(source_inv_id, from_slot, item_id, to_slot, quantity)
 
+func move_item(source_inv_id:String, from_slot: int, item_id: String, to_slot: int, quantity: int)->void:
 	var success = false
-	#Check if item movede within same inventory
-	var check = owner_inventory.get_instance_id()
-	if check == source_inv_id:
+	if owner_inventory.inventory_id == source_inv_id:
+		# 1. Moving items within the exact same inventory
 		if quantity == -1:
 			success = owner_inventory.move_item(from_slot, item_id, to_slot, quantity)
 			if not success:
@@ -116,17 +109,22 @@ func request_move_item(source_inv_id:int, from_slot: int, item_id: String, to_sl
 			sync_inventory_to_all.rpc(owner_inventory.to_dict())
 		else:
 			print("Debug: Move/swap failed")
-	#If item moved from one inventory to another
 	else:
-		var source_inventory = instance_from_id(source_inv_id)
+		# 1. Moving items from one inventory to another inventory
+		var source_component = get_node_or_null(source_inv_id)
+		if not source_component:
+			return   
+		var source_inventory = source_component.get_inventory()
+		var actual_quantity = quantity
 		if quantity == -1:
-			success = owner_inventory.add_item(ItemDatabase.get_item(item_id), quantity)
-			if success:
-				source_inventory.remove_item(item_id, quantity)
-		else:
-			success = owner_inventory.add_item(ItemDatabase.get_item(item_id), quantity)
-			if success:
-				source_inventory.remove_item(item_id, quantity)
+			actual_quantity = source_inventory.get_slot(from_slot).quantity   
+		var remaining = owner_inventory.add_item(ItemDatabase.get_item(item_id), actual_quantity)
+		var successfully_added = actual_quantity - remaining
+		if successfully_added > 0:
+			source_inventory.remove_item(item_id, successfully_added, from_slot)
+			# Sync BOTH inventories to all clients
+			sync_inventory_to_all.rpc(owner_inventory.to_dict())
+			source_component.sync_inventory_to_all.rpc(source_inventory.to_dict())
 
 @rpc("any_peer", "call_local", "reliable")
 func request_add_item(slot: InventorySlot):

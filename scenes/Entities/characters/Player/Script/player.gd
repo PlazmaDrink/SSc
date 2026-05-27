@@ -10,7 +10,6 @@ enum SkinColor { BLUE, YELLOW, GREEN, RED }
 @onready var nickname: Label3D = $PlayerNick/Nickname
 @onready var my_component_container: component_container = $ComponentContainer
 
-
 @export_category("Objects")
 @export var _body: Node3D = null
 

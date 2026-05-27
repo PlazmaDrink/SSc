@@ -13,7 +13,8 @@ var UI_debug_menu_visible = false
 
 func initiate_manager(id: int, player_info : Dictionary) -> void:
 	show()
-	call_deferred("initiate_children", [id, player_info])
+	set_multiplayer_authority(id, true)
+	call_deferred("initiate_children", id, player_info)
 	
 func _input(event):
 	if is_multiplayer_authority():
@@ -36,12 +37,10 @@ func _input(event):
 		check_if_mouse_on_screen_required()
 
 func initiate_children(_peer_id, _player_info):
-	multiplayer_chat_ui.hide()
-	multiplayer_chat_ui.set_process_input(true)
 	var local_player = GlobalData.get_local_player()
-	set_multiplayer_authority(local_player.local_client_id)
 	var inventory_to_plug_with_UI = local_player.my_component_container.get_component(GameEnums.Components.InventoryComponent).get_inventory()
 	inventory_ui.initiane_UI_element(inventory_to_plug_with_UI, local_player)
+	multiplayer_chat_ui.initiane_UI_element()
 
 ##Toggle mouse visibility and input focus between game and UI
 func check_if_mouse_on_screen_required()->void:
