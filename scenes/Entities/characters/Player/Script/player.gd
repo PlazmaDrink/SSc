@@ -31,6 +31,7 @@ var is_local_player: bool
 var _current_speed: float
 var _respawn_point = Vector3(0, 5, 0)
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+var game_state:GameState_Local
 
 var can_double_jump = true
 var has_double_jumped = false

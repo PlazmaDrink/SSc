@@ -9,8 +9,7 @@ var isPlayerInventory:bool = true
 func initiate_component()->void:
 	root_node = get_parent().root_node
 	if root_node is Player_Character:
-		var is_local_player = root_node.is_local_player
-		if is_local_player:
+		if root_node.is_multiplayer_authority():
 			owner_inventory = PlayerInventory.new(self)
 			_add_starting_items()
 		elif multiplayer.is_server():

@@ -2,6 +2,7 @@ extends Node
 
 var current_scene = null
 
+signal scene_loaded
 
 var game_scenes_dict = {
 	"MainMenu": "res://scenes/LevelScenes/MainMenu/scene/main_menu_ui.tscn",
@@ -28,3 +29,4 @@ func _deferred_change_scene(path):
 	get_tree().root.add_child(new_scene)
 	get_tree().current_scene = new_scene
 	current_scene = new_scene
+	scene_loaded.emit()

@@ -15,10 +15,9 @@ func on_player_connected(peer_id:int, player_info:Dictionary)->void:
 	if !player:
 		set_multiplayer_authority(peer_id)
 		player = GlobalData.get_local_player()
-	if player.local_client_id == peer_id:
+		player.game_state = self
+	if player.is_multiplayer_authority() and !UI_manager:
 		initiate_UI_manager(peer_id, player_info)
-		GlobalData.UI_manager = UI_manager
-		#GlobalData.UI_managers_dict.set(player, UI_manager)
 		isStateReady = true
 
 func initiate_UI_manager(peer_id:int, player_info:Dictionary)->void:

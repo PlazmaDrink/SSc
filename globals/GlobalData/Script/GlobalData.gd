@@ -10,8 +10,6 @@ extends Node3D
 var nickname:String = ""
 var skin:String = ""
 var adress:String = ""
-var UI_manager: UI_Manager
-var UI_managers_dict: Dictionary = {}
 
 func _ready() -> void:
 	SceneManager.current_scene.host_pressed.connect(_on_host_pressed)
@@ -64,10 +62,7 @@ func _remove_player(id):
 		player_node.queue_free()
 
 func get_local_player()->Player_Character:
-	for player in players_container.get_children():
-		if player.is_local_player:
-			return player as Player_Character
+	var my_id = str(multiplayer.get_unique_id())
+	if players_container.has_node(my_id):
+		return players_container.get_node(my_id) as Player_Character
 	return null
-
-func get_UI_manager()->UI_Manager:
-	return UI_manager

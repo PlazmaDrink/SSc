@@ -8,7 +8,6 @@ var players = {}
 var player_info = {
 	"nick" : "host",
 	"skin" : Player_Character.SkinColor.BLUE,
-	"peer" : ENetMultiplayerPeer
 }
 
 signal player_connected(peer_id, player_info)
@@ -19,10 +18,9 @@ func _process(_delta):
 		get_tree().quit(0)
 
 func _ready() -> void:
-	multiplayer.server_disconnected.connect(_on_connection_failed)
-	multiplayer.connection_failed.connect(_on_server_disconnected)
+	multiplayer.server_disconnected.connect(_on_server_disconnected)
+	multiplayer.connection_failed.connect(_on_connection_failed)
 	multiplayer.peer_disconnected.connect(_on_player_disconnected)
-	multiplayer.peer_connected.connect(_on_player_connected)
 	multiplayer.connected_to_server.connect(_on_connected_ok)
 
 func start_host(nickname: String, skin_color_str: String):
@@ -66,19 +64,33 @@ func join_game(nickname: String, skin_color_str: String, address: String = SERVE
 	player_info["peer"] = peer
 
 func _on_connected_ok():
-	var peer_id = multiplayer.get_unique_id()
-	players[peer_id] = player_info
-	player_connected.emit(peer_id, player_info)
 	SceneManager.change_scene(SceneManager.game_scenes_dict.get("MainLevel"))
-
-func _on_player_connected(id):
-	if DisplayServer.get_name() == "headless":
-		return
-	_register_player.rpc_id(id, player_info)
+	await SceneManager.scene_loaded
+	_request_to_join_server.rpc_id(1, player_info)
+	
 
 @rpc("any_peer", "reliable")
-func _register_player(new_player_info):
+func _request_to_join_server(new_player_info):
+	# If a client somehow receives this, ignore it. Only the Server processes this.
+	if not multiplayer.is_server():
+		return
+		
 	var new_player_id = multiplayer.get_remote_sender_id()
+	
+	# The Server adds the new player to its master list
+	players[new_player_id] = new_player_info
+	player_connected.emit(new_player_id, new_player_info)
+	
+	# The Server tells ALL existing clients to add the new player
+	_register_player_on_clients.rpc(new_player_id, new_player_info)
+	
+	# The Server must also tell the NEW player about everyone who is ALREADY here
+	for existing_id in players:
+		if existing_id != new_player_id:
+			_register_player_on_clients.rpc_id(new_player_id, existing_id, players[existing_id])
+
+@rpc("authority", "reliable")
+func _register_player_on_clients(new_player_id, new_player_info):
 	players[new_player_id] = new_player_info
 	player_connected.emit(new_player_id, new_player_info)
 
