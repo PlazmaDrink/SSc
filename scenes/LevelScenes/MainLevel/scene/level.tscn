@@ -1,7 +1,8 @@
-[gd_scene load_steps=34 format=3 uid="uid://dugaivbj1o66n"]
+[gd_scene load_steps=33 format=4 uid="uid://dugaivbj1o66n"]
 
 [ext_resource type="Script" uid="uid://d0dgljwwl463n" path="res://scenes/Tests/script/level.gd" id="1_e1sh7"]
 [ext_resource type="Script" uid="uid://b7hxqglwotpm5" path="res://scenes/Tests/script/environment.gd" id="3_xv074"]
+[ext_resource type="PackedScene" uid="uid://cxwfmkvydqapy" path="res://scenes/UI/UI_Manager/Scene/ui_manager.tscn" id="6_vpf64"]
 [ext_resource type="ArrayMesh" uid="uid://b743gdlgnws8l" path="res://assets/kasa/kasa_Mesh_001.res" id="7_gqbg4"]
 [ext_resource type="Texture2D" uid="uid://bm5lrom2wcjhk" path="res://assets/kasa/kasa_kasa_BaseColor.png" id="8_siss4"]
 [ext_resource type="PackedScene" uid="uid://od014t1fy44i" path="res://scenes/General/Components/ComponentContainer/Scene/ComponentContainer.tscn" id="9_kni5o"]
@@ -11,33 +12,34 @@
 [ext_resource type="PackedScene" uid="uid://dmk2m8iulciae" path="res://scenes/General/Components/SaveLoadComponent/Scene/SaveLoadComponent.tscn" id="13_gqbg4"]
 [ext_resource type="Script" uid="uid://ci5jqf3fynvq7" path="res://scenes/Tests/DataToSave_OutlineTest.gd" id="14_kni5o"]
 [ext_resource type="Script" uid="uid://bqvu3ld03temc" path="res://scenes/General/Components/InteractableComponent/Interactions/Interaction_Inventory.gd" id="14_siss4"]
+[ext_resource type="PackedScene" uid="uid://qi863os44kx5" path="res://assets/Blockout_Blender_file/blockout+alik.blend" id="15_df7s7"]
 [ext_resource type="PackedScene" uid="uid://cgnevae3alfpl" path="res://scenes/General/Components/InventoryComponent/Scene/InventoryComponent.tscn" id="15_kni5o"]
 [ext_resource type="PackedScene" uid="uid://b7w684jo2g6c8" path="res://scenes/Entities/PickupItem/Scene/PickUpItem.tscn" id="15_siss4"]
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_r5xs5"]
-size = Vector2(90, 90)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o02aj"]
-albedo_color = Color(0, 0.321569, 0.172549, 1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_x3h1o"]
-size = Vector3(90, 0.05, 90)
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xv074"]
-sky_top_color = Color(0.32156864, 0.47058824, 0.70980394, 1)
-sun_angle_max = 15.0
-
-[sub_resource type="Sky" id="Sky_xv074"]
-sky_material = SubResource("ProceduralSkyMaterial_xv074")
-
-[sub_resource type="Environment" id="Environment_qb4jd"]
-background_mode = 2
-sky = SubResource("Sky_xv074")
+[sub_resource type="VoxelGIData" id="VoxelGIData_siss4"]
+_data = {
+"bounds": AABB(-372.23132, -78.921326, -400.12366, 744.46265, 157.84265, 800.2473),
+"level_counts": PackedInt32Array(1, 0, 0, 0, 0, 0, 0, 0),
+"octree_cells": PackedByteArray("//////////////////////////////////////////8="),
+"octree_data": PackedByteArray("AAAAAAAAAAAAAAAAAAAAAA=="),
+"octree_df_png": PackedByteArray("iVBORw0KGgoAAAANSUhEUgAAEAAAAACACAAAAACupvPdAAAAAXNSR0IArs4c6QAAAzxJREFUeJzt2MENABAAwEDsvzNTiETvJui7cw8AAADgd+t1AAAAAHCfAQAAAAABBgAAAAAEGAAAAAAQYAAAAABAgAEAAAAAAQYAAAAABBgAAAAAEGAAAAAAQIABAAAAAAEGAAAAAAQYAAAAABBgAAAAAECAAQAAAAABBgAAAAAEGAAAAAAQYAAAAABAgAEAAAAAAQYAAAAABBgAAAAAEGAAAAAAQIABAAAAAAEGAAAAAAQYAAAAABBgAAAAAECAAQAAAAABBgAAAAAEGAAAAAAQYAAAAABAgAEAAAAAAQYAAAAABBgAAAAAEGAAAAAAQIABAAAAAAEGAAAAAAQYAAAAABBgAAAAAECAAQAAAAABBgAAAAAEGAAAAAAQYAAAAABAgAEAAAAAAQYAAAAABBgAAAAAEGAAAAAAQIABAAAAAAEGAAAAAAQYAAAAABBgAAAAAECAAQAAAAABBgAAAAAEGAAAAAAQYAAAAABAgAEAAAAAAQYAAAAABBgAAAAAEGAAAAAAQIABAAAAAAEGAAAAAAQYAAAAABBgAAAAAECAAQAAAAABBgAAAAAEGAAAAAAQYAAAAABAgAEAAAAAAQYAAAAABBgAAAAAEGAAAAAAQIABAAAAAAEGAAAAAAQYAAAAABBgAAAAAECAAQAAAAABBgAAAAAEGAAAAAAQYAAAAABAgAEAAAAAAQYAAAAABBgAAAAAEGAAAAAAQIABAAAAAAEGAAAAAAQYAAAAABBgAAAAAECAAQAAAAABBgAAAAAEGAAAAAAQYAAAAABAgAEAAAAAAQYAAAAABBgAAAAAEGAAAAAAQIABAAAAAAEGAAAAAAQYAAAAABBgAAAAAECAAQAAAAABBgAAAAAEGAAAAAAQYAAAAABAgAEAAAAAAQYAAAAABBgAAAAAEGAAAAAAQIABAAAAAAEGAAAAAAQYAAAAABBgAAAAAECAAQAAAAABBgAAAAAEGAAAAAAQYAAAAABAgAEAAAAAAQYAAAAABBgAAAAAEGAAAAAAQIABAAAAAAEGAAAAAAQYAAAAABBgAAAAAECAAQAAAAABBgAAAAAEGAAAAAAQYAAAAABAgAEAAAAAAQYAAAAABBxzEAH/ZOnflwAAAABJRU5ErkJggg=="),
+"octree_size": Vector3(128, 32, 128),
+"to_cell_xform": Transform3D(0.15995055, 0, 0, 0, 0.15995055, 0, 0, 0, 0.15995055, 59.538605, 12.623509, 64)
+}
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_sytrn"]
 properties/0/path = NodePath("DirectionalLight3D:position")
 properties/0/spawn = true
 properties/0/replication_mode = 2
+
+[sub_resource type="Environment" id="Environment_kni5o"]
+ambient_light_source = 3
+reflected_light_source = 2
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
+glow_enabled = true
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vpf64"]
 
@@ -75,50 +77,30 @@ metadata/_custom_type_script = "uid://bqvu3ld03temc"
 script = ExtResource("14_kni5o")
 metadata/_custom_type_script = "uid://ci5jqf3fynvq7"
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_siss4"]
+
 [node name="Level" type="Node3D"]
 script = ExtResource("1_e1sh7")
 
 [node name="Environment" type="Node3D" parent="."]
 script = ExtResource("3_xv074")
 
-[node name="Floor" type="StaticBody3D" parent="Environment"]
-collision_layer = 2
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/Floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.07999182, 0, 0.06747484)
-mesh = SubResource("PlaneMesh_r5xs5")
-surface_material_override/0 = SubResource("StandardMaterial3D_o02aj")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Floor"]
-shape = SubResource("BoxShape3D_x3h1o")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
-environment = SubResource("Environment_qb4jd")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
-transform = Transform3D(1, 0, 0, 0, 0.9999995, 0, 0, 0, 0.9999995, 0, 4, 0)
-light_energy = 2.0
-shadow_enabled = true
-shadow_blur = 0.5
+[node name="VoxelGI" type="VoxelGI" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 76.25232, 68.921326, -83.43176)
+size = Vector3(744.46265, 157.84265, 800.2473)
+data = SubResource("VoxelGIData_siss4")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Environment"]
 replication_config = SubResource("SceneReplicationConfig_sytrn")
 
-[node name="PickUpItem" parent="Environment" instance=ExtResource("15_siss4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.091272, 0.7991588, -1.3211287)
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_kni5o")
 
-[node name="PickUpItem2" parent="Environment" instance=ExtResource("15_siss4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.091272, 0.7991588, -1.9945141)
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(0.49049503, 0.14722867, -0.858917, -0.075775996, 0.9890974, 0.12627037, 0.8681431, 0.0031502754, 0.49630383, 0, 7.2934685, 0)
 
-[node name="PickUpItem3" parent="Environment" instance=ExtResource("15_siss4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.091272, 0.7991588, -2.7501028)
-
-[node name="PickUpItem4" parent="Environment" instance=ExtResource("15_siss4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25410974, 0.7991588, -2.7501028)
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.35520488, 0.93478847, 0, -0.93478847, -0.35520488, 0, 20.276133, 0)
-light_energy = 4.418
+[node name="UI_Manager" parent="." instance=ExtResource("6_vpf64")]
+visible = false
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.7349163, -1.0093737)
@@ -127,11 +109,14 @@ collision_mask = 3
 physics_material_override = SubResource("PhysicsMaterial_vpf64")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.64502263)
 shape = SubResource("BoxShape3D_wcngd")
+metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.618793)
 mesh = SubResource("BoxMesh_xv074")
+metadata/_edit_group_ = true
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.044914484, 3.3951788)
@@ -141,12 +126,14 @@ physics_material_override = SubResource("PhysicsMaterial_vpf64")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
 shape = SubResource("BoxShape3D_wcngd")
+metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2"]
 layers = 3
 mesh = SubResource("BoxMesh_xv074")
 skeleton = NodePath("../../StaticBody3D2")
 surface_material_override/0 = SubResource("StandardMaterial3D_086mn")
+metadata/_edit_group_ = true
 
 [node name="Kasa" type="Node3D" parent="." groups=["DataToSave", "iInteractable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.24699, 2.5629745, -1.4397779)
@@ -160,12 +147,14 @@ collision_mask = 3
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 shape = SubResource("BoxShape3D_ybtej")
 debug_color = Color(0, 0.60038817, 0.70000815, 1)
+metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Kasa/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 mesh = ExtResource("7_gqbg4")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_crfef")
+metadata/_edit_group_ = true
 
 [node name="ComponentContainer" parent="Kasa" instance=ExtResource("9_kni5o")]
 
@@ -188,11 +177,13 @@ collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Temp/OutlineTestBlock/Area3D"]
 shape = SubResource("BoxShape3D_5to0l")
+metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Temp/OutlineTestBlock/Area3D"]
 mesh = SubResource("BoxMesh_l5gki")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_gfg01")
+metadata/_edit_group_ = true
 
 [node name="ComponentContainer" parent="Temp/OutlineTestBlock" instance=ExtResource("9_kni5o")]
 
@@ -220,11 +211,13 @@ collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Temp/OutlineTestBlock2/Area3D"]
 shape = SubResource("BoxShape3D_5to0l")
+metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Temp/OutlineTestBlock2/Area3D"]
 mesh = SubResource("BoxMesh_l5gki")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_gfg01")
+metadata/_edit_group_ = true
 
 [node name="ComponentContainer" parent="Temp/OutlineTestBlock2" instance=ExtResource("9_kni5o")]
 
@@ -243,6 +236,30 @@ resource_type = SubResource("Resource_onuxl")
 custom_node_to_save_from = NodePath("..")
 root_node_to_save_from = NodePath("../..")
 
+[node name="PickUpItem" parent="." instance=ExtResource("15_siss4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.091272, 0.7991588, -1.3211287)
+metadata/_edit_group_ = true
+
+[node name="PickUpItem2" parent="." instance=ExtResource("15_siss4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.091272, 0.7991588, -1.9945141)
+metadata/_edit_group_ = true
+
+[node name="PickUpItem3" parent="." instance=ExtResource("15_siss4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.091272, 0.7991588, -2.7501028)
+metadata/_edit_group_ = true
+
+[node name="PickUpItem4" parent="." instance=ExtResource("15_siss4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25410974, 0.7991588, -2.7501028)
+metadata/_edit_group_ = true
+
+[node name="blockout+alik" parent="." instance=ExtResource("15_df7s7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.916687, 0.20702076, -39.84603)
+
+[node name="droga" parent="blockout+alik" index="282"]
+surface_material_override/0 = SubResource("StandardMaterial3D_siss4")
+
 [connection signal="ActionFinished" from="Kasa/ComponentContainer/TimeComponent" to="Kasa" method="_on_time_component_action_finished"]
 [connection signal="ActionFinished" from="Temp/OutlineTestBlock/ComponentContainer/TimeComponent" to="Temp/OutlineTestBlock" method="_on_time_component_action_finished"]
 [connection signal="ActionFinished" from="Temp/OutlineTestBlock2/ComponentContainer/TimeComponent" to="Temp/OutlineTestBlock2" method="_on_time_component_action_finished"]
+
+[editable path="blockout+alik"]

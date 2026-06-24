@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0pj7aeo1rxtw"]
+
+[ext_resource type="PackedScene" uid="uid://qi863os44kx5" path="res://assets/Blockout_Blender_file/blockout+alik.blend" id="1_yjg58"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yjg58"]
+
+[node name="Blockout" type="Node3D"]
+
+[node name="blockout+alik" parent="." instance=ExtResource("1_yjg58")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.21610057, 0, 1.5971141)
+
+[node name="droga" parent="blockout+alik" index="146"]
+surface_material_override/0 = SubResource("StandardMaterial3D_yjg58")
+
+[editable path="blockout+alik"]
