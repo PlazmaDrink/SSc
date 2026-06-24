@@ -41,10 +41,10 @@ func check_if_mouse_on_screen_required()->void:
 		currently_on_display.visible = false
 	for child in get_children():
 		if child.visible:
-			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+			Input.mouse_mode = Input.MOUSE_MODE_CONFINED
 			mouse_filter = Control.MOUSE_FILTER_STOP
 			break
-		Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 func add_to_currently_on_display(childToAdd: Node)->void:
