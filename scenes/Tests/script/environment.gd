@@ -1,7 +1,7 @@
 extends Node3D
 
 @onready var world_environment: WorldEnvironment = $WorldEnvironment
-@onready var sun: DirectionalLight3D = $DirectionalLight3D
+@onready var sun: DirectionalLight3D = $Sun
 
 const SUN_START_POSITION_DEEGREES:int = -270
 # Called when the node enters the scene tree for the first time.
