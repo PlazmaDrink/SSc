@@ -21,7 +21,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		rotate_y(-event.relative.x * MOUSE_SENSIBILITY)
 		_spring_arm.rotate_x(-event.relative.y * MOUSE_SENSIBILITY)
 		_spring_arm.rotation.x = clamp(_spring_arm.rotation.x, deg_to_rad(-40), deg_to_rad(60))
-
+		print_debug(-event.relative.y)
 func _on_head_bob(time)->void:
 	var pos = Vector3.ZERO
 	pos.y = sin(time * BOB_FREQUENCY) * BOB_AMPLITUDE

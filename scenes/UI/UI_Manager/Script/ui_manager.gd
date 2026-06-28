@@ -25,8 +25,6 @@ func _input(event):
 				multiplayer_chat_ui._on_send_pressed()
 				get_viewport().set_input_as_handled()
 		elif event.is_action_pressed("inventory"):
-			if inventory_ui.current_player == null:
-				inventory_ui.set_current_player(GlobalData.get_local_player())
 			inventory_ui.toggle_inventory()
 		elif event is InputEventKey and event.pressed and event.keycode == KEY_F1:
 			inventory_ui.debug_add_item()
