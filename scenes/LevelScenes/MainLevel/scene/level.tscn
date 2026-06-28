@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=4 uid="uid://dugaivbj1o66n"]
+[gd_scene load_steps=34 format=4 uid="uid://dugaivbj1o66n"]
 
 [ext_resource type="Script" uid="uid://d0dgljwwl463n" path="res://scenes/Tests/script/level.gd" id="1_e1sh7"]
 [ext_resource type="PackedScene" path="res://scenes/Tests/script/sun.tscn" id="3_kni5o"]
@@ -33,14 +33,7 @@ properties/0/path = NodePath("DirectionalLight3D:position")
 properties/0/spawn = true
 properties/0/replication_mode = 2
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_kni5o"]
-
-[sub_resource type="Sky" id="Sky_df7s7"]
-sky_material = SubResource("ProceduralSkyMaterial_kni5o")
-
 [sub_resource type="Environment" id="Environment_kni5o"]
-background_mode = 2
-sky = SubResource("Sky_df7s7")
 ambient_light_source = 3
 reflected_light_source = 2
 ssr_enabled = true
@@ -103,6 +96,9 @@ replication_config = SubResource("SceneReplicationConfig_sytrn")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
 environment = SubResource("Environment_kni5o")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(0.49049503, 0.14722867, -0.858917, -0.075775996, 0.9890974, 0.12627037, 0.8681431, 0.0031502754, 0.49630383, 0, 7.2934685, 0)
 
 [node name="Sun" parent="Environment" instance=ExtResource("3_kni5o")]
 
