@@ -36,6 +36,10 @@ window/size/mode=3
 
 project/assembly_name="SSc"
 
+[filesystem]
+
+import/blender/enabled=false
+
 [global_group]
 
 DataToSave="Objects that have parameters to save and load. Node Must implement \"on_save_game()\", \"on_before_load()\" and \"on_load_game()\" functions!"

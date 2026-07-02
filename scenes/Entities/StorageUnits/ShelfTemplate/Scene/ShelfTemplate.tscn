@@ -1,0 +1,35 @@
+[gd_scene load_steps=9 format=3 uid="uid://0on3ilotj8xf"]
+
+[ext_resource type="Script" uid="uid://7kgrk0farogf" path="res://scenes/Entities/StorageUnits/ShelfTemplate/Script/shelf_template.gd" id="1_8tkeb"]
+[ext_resource type="PackedScene" uid="uid://od014t1fy44i" path="res://scenes/General/Components/ComponentContainer/Scene/ComponentContainer.tscn" id="1_mv3ki"]
+[ext_resource type="PackedScene" uid="uid://botwm1ppo741l" path="res://scenes/General/Components/InteractableComponent/Scene/InteractableComponent.tscn" id="2_b0hqm"]
+[ext_resource type="PackedScene" uid="uid://cgnevae3alfpl" path="res://scenes/General/Components/InventoryComponent/Scene/InventoryComponent.tscn" id="3_8tkeb"]
+[ext_resource type="Script" uid="uid://bqvu3ld03temc" path="res://scenes/General/Components/InteractableComponent/Interactions/Interaction_Inventory.gd" id="3_b0hqm"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mv3ki"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_mv3ki"]
+
+[sub_resource type="Resource" id="Resource_8tkeb"]
+script = ExtResource("3_b0hqm")
+metadata/_custom_type_script = "uid://bqvu3ld03temc"
+
+[node name="ShelfTemplate" type="Node3D" groups=["iInteractable"]]
+script = ExtResource("1_8tkeb")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_mv3ki")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+mesh = SubResource("BoxMesh_mv3ki")
+skeleton = NodePath("../..")
+
+[node name="ComponentContainer" parent="." instance=ExtResource("1_mv3ki")]
+
+[node name="InteractableComponent" parent="ComponentContainer" node_paths=PackedStringArray("meshToOutline") instance=ExtResource("2_b0hqm")]
+meshToOutline = NodePath("../../Area3D/MeshInstance3D")
+Action_to_do = SubResource("Resource_8tkeb")
+
+[node name="InventoryComponent" parent="ComponentContainer" instance=ExtResource("3_8tkeb")]

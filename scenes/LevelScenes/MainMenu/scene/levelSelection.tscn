@@ -1,0 +1,74 @@
+[gd_scene load_steps=3 format=3 uid="uid://7r1uplxvu3jj"]
+
+[ext_resource type="Script" uid="uid://c48u2ucis8cia" path="res://scenes/LevelScenes/MainMenu/script/level_selection.gd" id="1_mbvci"]
+[ext_resource type="FontFile" uid="uid://diapabmalpcrj" path="res://assets/fonts/Kurland.ttf" id="2_v0pd2"]
+
+[node name="LevelSelectionMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mbvci")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0901961, 0.0901961, 0.0901961, 1)
+
+[node name="MainContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -257.0
+offset_bottom = 257.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Label" type="Label" parent="MainContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("2_v0pd2")
+theme_override_font_sizes/font_size = 70
+text = "Select Level To Load"
+
+[node name="MainMenu" type="VBoxContainer" parent="MainContainer"]
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="MainLevel" type="Button" parent="MainContainer/MainMenu"]
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0, 0.52549, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0.52549, 0, 1)
+theme_override_fonts/font = ExtResource("2_v0pd2")
+theme_override_font_sizes/font_size = 35
+text = "Main Level
+"
+flat = true
+
+[node name="TestingLevel" type="Button" parent="MainContainer/MainMenu"]
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0, 0.52549, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0.525257, 0, 1)
+theme_override_fonts/font = ExtResource("2_v0pd2")
+theme_override_font_sizes/font_size = 35
+text = "Testing Level
+"
+flat = true
+
+[connection signal="pressed" from="MainContainer/MainMenu/MainLevel" to="." method="_on_main_level_pressed"]
+[connection signal="pressed" from="MainContainer/MainMenu/TestingLevel" to="." method="_on_testing_level_pressed"]

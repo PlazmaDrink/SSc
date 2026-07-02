@@ -7,7 +7,8 @@ const SUN_START_POSITION_DEEGREES:int = -270
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	GlobalTime.time_tick.connect(on_time_tick)
-	sun.set_rotation_degrees(Vector3(-270,0,0))
+	if sun:
+		sun.set_rotation_degrees(Vector3(-270,0,0))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:

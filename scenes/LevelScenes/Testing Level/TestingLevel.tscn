@@ -1,0 +1,42 @@
+[gd_scene load_steps=8 format=3 uid="uid://513wvirdlyfm"]
+
+[ext_resource type="Script" uid="uid://b7hxqglwotpm5" path="res://scenes/Tests/script/environment.gd" id="1_aspp5"]
+[ext_resource type="PackedScene" uid="uid://0on3ilotj8xf" path="res://scenes/Entities/StorageUnits/ShelfTemplate/Scene/ShelfTemplate.tscn" id="2_h5gfx"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_aspp5"]
+
+[sub_resource type="Sky" id="Sky_h5gfx"]
+sky_material = SubResource("ProceduralSkyMaterial_aspp5")
+
+[sub_resource type="Environment" id="Environment_aspp5"]
+background_mode = 2
+sky = SubResource("Sky_h5gfx")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_aspp5"]
+size = Vector2(10, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_aspp5"]
+size = Vector3(10, 0.1, 10)
+
+[node name="TestingLevel" type="Node3D"]
+
+[node name="Environment" type="Node3D" parent="."]
+script = ExtResource("1_aspp5")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_aspp5")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+
+[node name="ShelfTemplate" parent="Environment" instance=ExtResource("2_h5gfx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.19188, 2.0551023, -0.8140006)
+
+[node name="Floor" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("PlaneMesh_aspp5")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor/MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/MeshInstance3D/StaticBody3D"]
+shape = SubResource("BoxShape3D_aspp5")

@@ -42,7 +42,7 @@ func start_host(nickname: String, skin_color_str: String):
 
 	players[1] = player_info
 	player_connected.emit(1, player_info)
-	SceneManager.change_scene(SceneManager.game_scenes_dict.get("MainLevel"))
+	SceneManager.change_scene(SceneManager.game_scenes_dict.get("LevelSelection"))
 
 
 func join_game(nickname: String, skin_color_str: String, address: String = SERVER_ADDRESS):

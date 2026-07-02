@@ -14,7 +14,7 @@ var local_material_instance: ShaderMaterial
 var is_focused:= false
 
 func initiate_component()->void:
-	_prepare_local_material()	
+	_prepare_local_material()
 
 func _prepare_local_material():
 	local_material_instance = OUTLINE_SHADER_MATERIAL.duplicate()

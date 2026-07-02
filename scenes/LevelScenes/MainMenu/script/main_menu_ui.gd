@@ -16,14 +16,12 @@ func _on_host_pressed():
 	var nickname = nick_input.text.strip_edges()
 	var skin = skin_input.text.strip_edges().to_lower()
 	host_pressed.emit(nickname, skin)
-	#SceneManager.change_scene("res://scenes/level/level.tscn")
 
 func _on_join_pressed():
 	var nickname = nick_input.text.strip_edges()
 	var skin = skin_input.text.strip_edges().to_lower()
 	var address = address_input.text.strip_edges()
 	join_pressed.emit(nickname, skin, address)
-	#SceneManager.change_scene("res://scenes/level/level.tscn")
 
 func _on_quit_pressed():
 	quit_pressed.emit()
