@@ -1,7 +1,10 @@
 extends Node3D
 
+
+@export_category("Storage Settings")
 ## Choose what kind of items can be stored here
-@export var myShelfType:GameEnums.ItemTypes
+@export var myShelfType:StorageUnit
+@export var locationMarkers:Array[Marker3D]
 @onready var my_component_container: component_container = $ComponentContainer
 var inventory_ref: Inventory
 
@@ -13,5 +16,10 @@ func _ready() -> void:
 	inventory_ref.Request_UI_Update.connect(onInventoryUpdated)
 
 func onInventoryUpdated()->void:
-	print_debug("Shelf want update!!!!")
+	for slot in inventory_ref.slots:
+		if slot.is_empty(): continue
+		_sync_items_with_inventory(slot)
+		print_debug(slot.item_id)
+
+func _sync_items_with_inventory(inInv_slot: InventorySlot)->void:
 	pass

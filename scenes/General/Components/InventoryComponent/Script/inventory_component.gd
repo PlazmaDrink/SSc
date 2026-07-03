@@ -1,7 +1,8 @@
 class_name Inventory_component
 extends Node
 
-var owner_inventory: Inventory
+@export var inventory_size:int = 20
+var owner_inventory:Inventory
 var root_node: Node
 var isPlayerInventory:bool = true
 # Called when the node enters the scene tree for the first time.
@@ -10,10 +11,10 @@ func initiate_component()->void:
 	root_node = get_parent().root_node
 	if root_node is Player_Character:
 		if root_node.is_multiplayer_authority():
-			owner_inventory = PlayerInventory.new(self)
+			owner_inventory = PlayerInventory.new(self, inventory_size)
 			_add_starting_items()
 		elif multiplayer.is_server():
-			owner_inventory = PlayerInventory.new(self)
+			owner_inventory = PlayerInventory.new(self, inventory_size)
 			_add_starting_items()
 		else:
 			if root_node.get_multiplayer_authority() == root_node.local_client_id:
@@ -21,7 +22,7 @@ func initiate_component()->void:
 		return
 	else:
 		isPlayerInventory = false
-		owner_inventory = Inventory.new(self)
+		owner_inventory = Inventory.new(self, inventory_size)
 		_add_starting_items()
 
 func _add_starting_items():
@@ -83,7 +84,7 @@ func request_move_item(source_inv_id:String, from_slot: int, item_id: String, to
 			return
 		if not owner_inventory:
 			return
-		if from_slot < 0 or from_slot >= PlayerInventory.INVENTORY_SIZE or to_slot < 0 or to_slot >= PlayerInventory.INVENTORY_SIZE:
+		if from_slot < 0 or from_slot >= owner_inventory.inventory_size or to_slot < 0 or to_slot >= owner_inventory.inventory_size:
 			push_warning("Invalid slot indices: from=" + str(from_slot) + " to=" + str(to_slot))
 			return
 	move_item(source_inv_id, from_slot, item_id, to_slot, quantity)

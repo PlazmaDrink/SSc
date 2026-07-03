@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ca68jmse5hafv"]
+
+[ext_resource type="PackedScene" uid="uid://birt5t7tbqgb8" path="res://scenes/Entities/StorageUnits/ShelfTemplate/Assets/apple_box.glb" id="1_a6iy2"]
+
+[node name="Sketchfab_Scene" instance=ExtResource("1_a6iy2")]
+transform = Transform3D(0.03, 0, 0, 0, 0.03, 0, 0, 0, 0.03, 0, 0, 0)

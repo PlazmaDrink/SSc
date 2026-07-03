@@ -93,6 +93,17 @@ func _create_sample_items():
 	oranzada_bottle.value = 25
 	oranzada_bottle.icon = placeholder_icon
 	items[oranzada_bottle.id] = oranzada_bottle
+	
+	var apple = Item.new()
+	apple.id = "apple"
+	apple.name = "Apple"
+	apple.description = "Deffinitely not poisoned"
+	apple.item_type = Item.ItemType.CONSUMABLE
+	apple.rarity = Item.ItemRarity.COMMON
+	apple.stackable = true
+	apple.value = 25
+	apple.icon = placeholder_icon
+	items[apple.id] = apple
 
 func add_item_to_database(item: Item) -> bool:
 	if item.id.is_empty():

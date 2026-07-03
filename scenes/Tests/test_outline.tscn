@@ -1,5 +1,6 @@
-[gd_scene load_steps=14 format=3 uid="uid://x0fgn0okf41d"]
+[gd_scene load_steps=15 format=3 uid="uid://x0fgn0okf41d"]
 
+[ext_resource type="PackedScene" uid="uid://d1os8t20knsvy" path="res://scenes/Entities/StorageUnits/ShelfTemplate/Scene/storage_rack.tscn" id="1_onuxl"]
 [ext_resource type="PackedScene" uid="uid://c01xn2plqcvv1" path="res://scenes/General/Components/Time_Component/Scene/time_component.tscn" id="3_2hwpd"]
 [ext_resource type="PackedScene" uid="uid://od014t1fy44i" path="res://scenes/General/Components/ComponentContainer/Scene/ComponentContainer.tscn" id="4_2hwpd"]
 [ext_resource type="PackedScene" uid="uid://botwm1ppo741l" path="res://scenes/General/Components/InteractableComponent/Scene/InteractableComponent.tscn" id="5_2hwpd"]
@@ -7,15 +8,12 @@
 [ext_resource type="Script" uid="uid://bqvu3ld03temc" path="res://scenes/General/Components/InteractableComponent/Interactions/Interaction_Inventory.gd" id="5_onuxl"]
 [ext_resource type="PackedScene" uid="uid://dmk2m8iulciae" path="res://scenes/General/Components/SaveLoadComponent/Scene/SaveLoadComponent.tscn" id="7_axoal"]
 [ext_resource type="Script" uid="uid://ci5jqf3fynvq7" path="res://scenes/Tests/DataToSave_OutlineTest.gd" id="8_onuxl"]
+[ext_resource type="PackedScene" uid="uid://bgreqrww3ag8u" path="res://scenes/Entities/StorageUnits/ShelfTemplate/Scene/Apple-MID.tscn" id="9_xvu8u"]
+[ext_resource type="PackedScene" uid="uid://7ngam13e0b5x" path="res://scenes/Entities/StorageUnits/ShelfTemplate/Scene/Apple_SMALL.tscn" id="10_ef2am"]
+[ext_resource type="PackedScene" uid="uid://ca68jmse5hafv" path="res://scenes/Entities/StorageUnits/ShelfTemplate/Scene/Apple-BIG.tscn" id="11_4obgq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5to0l"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_l5gki"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2hwpd"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gfg01"]
-next_pass = SubResource("ShaderMaterial_2hwpd")
+size = Vector3(2, 2, 1)
 
 [sub_resource type="Resource" id="Resource_2eg87"]
 script = ExtResource("5_onuxl")
@@ -32,19 +30,18 @@ collision_layer = 2
 collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1009225, 0.27327025, -0.3414111)
 shape = SubResource("BoxShape3D_5to0l")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
-mesh = SubResource("BoxMesh_l5gki")
-skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("StandardMaterial3D_gfg01")
+[node name="Storage rack" parent="Area3D" instance=ExtResource("1_onuxl")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1.0528464, 0, -0.48002076)
 
 [node name="ComponentContainer" parent="." instance=ExtResource("4_2hwpd")]
 
 [node name="TimeComponent" parent="ComponentContainer" instance=ExtResource("3_2hwpd")]
 
-[node name="InteractableComponent" parent="ComponentContainer" node_paths=PackedStringArray("meshToOutline") instance=ExtResource("5_2hwpd")]
-meshToOutline = NodePath("../../Area3D/MeshInstance3D")
+[node name="InteractableComponent" parent="ComponentContainer" node_paths=PackedStringArray("target_to_outline") instance=ExtResource("5_2hwpd")]
+target_to_outline = NodePath("../../Area3D/Storage rack")
 OutlineColor = Color(0.31241986, 0.9999996, 0.8632624, 1)
 OutlineWidth = 5.0
 Action_to_do = SubResource("Resource_2eg87")
@@ -55,5 +52,14 @@ Action_to_do = SubResource("Resource_2eg87")
 resource_type = SubResource("Resource_onuxl")
 custom_node_to_save_from = NodePath("..")
 root_node_to_save_from = NodePath("../..")
+
+[node name="Sketchfab_Scene2" parent="." instance=ExtResource("9_xvu8u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.408237, 0, 4.3769503)
+
+[node name="Sketchfab_Scene3" parent="." instance=ExtResource("10_ef2am")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.848665, 0, -7.3237915)
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("11_4obgq")]
+transform = Transform3D(0.03, 0, 0, 0, 0.03, 0, 0, 0, 0.03, -2.7239676, 0, 0.6492336)
 
 [connection signal="ActionFinished" from="ComponentContainer/TimeComponent" to="." method="_on_time_component_action_finished"]

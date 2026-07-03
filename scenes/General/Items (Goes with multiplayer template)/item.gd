@@ -1,6 +1,12 @@
 class_name Item
 extends Resource
 
+enum ItemTypes{
+	Food,
+	Stationery,
+	Parts,
+}
+
 @export var id: String = ""
 @export var name: String = ""
 @export var description: String = ""

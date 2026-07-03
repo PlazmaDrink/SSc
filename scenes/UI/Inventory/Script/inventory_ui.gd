@@ -38,7 +38,7 @@ func _create_slot_uis():
 		child.queue_free()
 	slot_uis.clear()
 
-	for i in range(my_inventory.INVENTORY_SIZE):
+	for i in range(my_inventory.inventory_size):
 		var slot_ui = slot_ui_scene.instantiate() as InventorySlotUI
 		slot_ui.custom_minimum_size = Vector2(64, 64)
 		slot_ui.parent_inventory_UI = self
@@ -183,12 +183,12 @@ func toggle_inventory():
 
 func update_inventory_display():
 	for i in range(slot_uis.size()):
-		if i < my_inventory.INVENTORY_SIZE:
+		if i < my_inventory.inventory_size:
 			slot_uis[i].set_slot_data(my_inventory.get_slot(i))
 
 func update_inventory_display_signal():
 	for i in range(slot_uis.size()):
-		if i < my_inventory.INVENTORY_SIZE:
+		if i < my_inventory.inventory_size:
 			slot_uis[i].set_slot_data(my_inventory.get_slot(i))
 
 func set_title(newTitle:String)->void:

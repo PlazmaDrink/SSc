@@ -7,9 +7,3 @@ enum Components{
 	InteractableComponent,
 	InventoryComponent
 }
-
-enum ItemTypes{
-	Food,
-	Stationery,
-	Parts,
-}

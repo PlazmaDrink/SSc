@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://d1os8t20knsvy"]
+
+[ext_resource type="PackedScene" uid="uid://durgo8xuellrn" path="res://scenes/Entities/StorageUnits/ShelfTemplate/Assets/Storage rack.fbx" id="1_plr2s"]
+
+[node name="Storage rack" instance=ExtResource("1_plr2s")]

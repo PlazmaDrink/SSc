@@ -1,7 +1,7 @@
 class_name Inventory
 extends RefCounted
 
-const INVENTORY_SIZE = 20  # 4x5 grid
+var inventory_size = 20  # 4x5 grid
 var slots: Array[InventorySlot] = []
 var inventory_component_ref: Inventory_component
 var isOpen:bool = false
@@ -10,14 +10,15 @@ var inventory_id:String
 
 signal Request_UI_Update(Inventory)
 
-func _init(parent_component: Inventory_component):
+func _init(parent_component: Inventory_component, inv_size:int = 20):
+	inventory_size = inv_size
 	inventory_component_ref = parent_component
 	inventory_id = str(parent_component.get_path()) 
 	_initialize_slots()
 
 func _initialize_slots():
 	slots.clear()
-	for i in range(INVENTORY_SIZE):
+	for i in range(inventory_size):
 		var new_slot = InventorySlot.new(i, self, inventory_id)
 		slots.append(new_slot)
 
