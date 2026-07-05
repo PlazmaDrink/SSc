@@ -3,3 +3,4 @@
 [ext_resource type="PackedScene" uid="uid://dc8dx8eurmhq5" path="res://scenes/Entities/StorageUnits/ShelfTemplate/Assets/royal_gala_apples.glb" id="1_bav25"]
 
 [node name="Sketchfab_Scene" instance=ExtResource("1_bav25")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)

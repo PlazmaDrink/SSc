@@ -1,7 +1,9 @@
 extends Node
 
 var items: Dictionary = {}
-
+const APPLE_1 = "uid://ca68jmse5hafv"
+const APPLE_2 = "uid://bgreqrww3ag8u"
+const APPLE_3 = "uid://7ngam13e0b5x"
 func _ready():
 	_load_items()
 
@@ -25,7 +27,6 @@ func _create_sample_items():
 	iron_sword.id = "iron_sword"
 	iron_sword.name = "Iron Sword"
 	iron_sword.description = "A sturdy iron sword. Good for combat."
-	iron_sword.item_type = Item.ItemType.WEAPON
 	iron_sword.rarity = Item.ItemRarity.COMMON
 	iron_sword.stackable = false
 	iron_sword.value = 50
@@ -37,7 +38,6 @@ func _create_sample_items():
 	health_potion.id = "health_potion"
 	health_potion.name = "Health Potion"
 	health_potion.description = "Restores health when consumed."
-	health_potion.item_type = Item.ItemType.CONSUMABLE
 	health_potion.rarity = Item.ItemRarity.COMMON
 	health_potion.stackable = true
 	health_potion.max_stack = 10
@@ -50,7 +50,6 @@ func _create_sample_items():
 	leather_armor.id = "leather_armor"
 	leather_armor.name = "Leather Armor"
 	leather_armor.description = "Basic protection made from leather."
-	leather_armor.item_type = Item.ItemType.ARMOR
 	leather_armor.rarity = Item.ItemRarity.UNCOMMON
 	leather_armor.stackable = false
 	leather_armor.value = 75
@@ -62,7 +61,6 @@ func _create_sample_items():
 	magic_gem.id = "magic_gem"
 	magic_gem.name = "Magic Gem"
 	magic_gem.description = "A mysterious gem that glows with inner light."
-	magic_gem.item_type = Item.ItemType.MISC
 	magic_gem.rarity = Item.ItemRarity.RARE
 	magic_gem.stackable = true
 	magic_gem.max_stack = 5
@@ -75,7 +73,6 @@ func _create_sample_items():
 	pickaxe.id = "iron_pickaxe"
 	pickaxe.name = "Iron Pickaxe"
 	pickaxe.description = "A mining tool for gathering resources."
-	pickaxe.item_type = Item.ItemType.TOOL
 	pickaxe.rarity = Item.ItemRarity.COMMON
 	pickaxe.stackable = false
 	pickaxe.value = 100
@@ -87,7 +84,7 @@ func _create_sample_items():
 	oranzada_bottle.id = "oranzada_bottle"
 	oranzada_bottle.name = "Bottle of Oranzada"
 	oranzada_bottle.description = "So fresh"
-	oranzada_bottle.item_type = Item.ItemType.CONSUMABLE
+	oranzada_bottle.item_type = Item.ItemType.Food
 	oranzada_bottle.rarity = Item.ItemRarity.COMMON
 	oranzada_bottle.stackable = true
 	oranzada_bottle.value = 25
@@ -98,11 +95,14 @@ func _create_sample_items():
 	apple.id = "apple"
 	apple.name = "Apple"
 	apple.description = "Deffinitely not poisoned"
-	apple.item_type = Item.ItemType.CONSUMABLE
+	apple.item_type = Item.ItemType.Food
 	apple.rarity = Item.ItemRarity.COMMON
 	apple.stackable = true
 	apple.value = 25
 	apple.icon = placeholder_icon
+	apple.assetsRef[apple.AssetType.Small] = APPLE_1
+	apple.assetsRef[apple.AssetType.Medium] = APPLE_2
+	apple.assetsRef[apple.AssetType.Large] = APPLE_3
 	items[apple.id] = apple
 
 func add_item_to_database(item: Item) -> bool:
