@@ -1,11 +1,14 @@
 extends Node
 
 var items: Dictionary = {}
-const APPLE_1 = "uid://ca68jmse5hafv"
-const APPLE_2 = "uid://bgreqrww3ag8u"
-const APPLE_3 = "uid://7ngam13e0b5x"
+
 func _ready():
 	_load_items()
+	_request_assets_loading()
+
+func _request_assets_loading():
+	for item in items:
+		get_item(item).load_assets()
 
 func get_item(item_id: String) -> Item:
 	return items.get(item_id)
@@ -21,7 +24,6 @@ func _load_items():
 
 func _create_sample_items():
 	var placeholder_icon = load("res://icon.png")
-
 	# Basic sword
 	var iron_sword = Item.new()
 	iron_sword.id = "iron_sword"
@@ -100,9 +102,9 @@ func _create_sample_items():
 	apple.stackable = true
 	apple.value = 25
 	apple.icon = placeholder_icon
-	apple.assetsRef[apple.AssetType.Small] = APPLE_1
-	apple.assetsRef[apple.AssetType.Medium] = APPLE_2
-	apple.assetsRef[apple.AssetType.Large] = APPLE_3
+	apple.assetsRef[apple.AssetType.Small] = "uid://7ngam13e0b5x"
+	apple.assetsRef[apple.AssetType.Medium] = "uid://bgreqrww3ag8u"
+	apple.assetsRef[apple.AssetType.Large] = "uid://ca68jmse5hafv"
 	items[apple.id] = apple
 
 func add_item_to_database(item: Item) -> bool:

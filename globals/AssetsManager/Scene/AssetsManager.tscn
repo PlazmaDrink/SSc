@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://biqh38o7kr2eh"]
+
+[ext_resource type="Script" uid="uid://b3s8tmtdu8rbd" path="res://globals/AssetsManager/Script/assets_manager.gd" id="1_40yyp"]
+
+[node name="AssetsManager" type="Node"]
+script = ExtResource("1_40yyp")

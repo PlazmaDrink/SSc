@@ -64,7 +64,7 @@ func join_game(nickname: String, skin_color_str: String, address: String = SERVE
 	player_info["peer"] = peer
 
 func _on_connected_ok():
-	SceneManager.change_scene(SceneManager.game_scenes_dict.get("MainLevel"))
+	SceneManager.change_scene(SceneManager.game_scenes_dict.get("LevelSelection"))
 	await SceneManager.scene_loaded
 	_request_to_join_server.rpc_id(1, player_info)
 	

@@ -22,9 +22,12 @@ func onInventoryUpdated()->void:
 		print_debug(slot.item_id)
 
 func _sync_items_with_inventory(inInv_slot: InventorySlot)->void:
-	var targetLocation = locationMarkers[inInv_slot.slot_index]
-	for child in targetLocation.get_children():
-		child.queue_free()
-	var item:Item = ItemDatabase.get_item(inInv_slot.item_id)
-	var assetScene = preload(item.getAssetByQuantity(inInv_slot.quantity))
+	var item = ItemDatabase.get_item(inInv_slot.item_id)
+	var item_scene: PackedScene = item.getAsset(inInv_slot.quantity)
+	if item_scene:
+		var item_instance = item_scene.instantiate()
+		var targetMarker = locationMarkers.get(inInv_slot.slot_index)
+		item_instance.position = targetMarker.position
+		targetMarker.add_child(item_instance)
+	
 	

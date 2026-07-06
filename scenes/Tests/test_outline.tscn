@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://x0fgn0okf41d"]
+[gd_scene load_steps=12 format=3 uid="uid://x0fgn0okf41d"]
 
 [ext_resource type="PackedScene" uid="uid://d1os8t20knsvy" path="res://scenes/Entities/StorageUnits/ShelfTemplate/Scene/storage_rack.tscn" id="1_onuxl"]
 [ext_resource type="PackedScene" uid="uid://c01xn2plqcvv1" path="res://scenes/General/Components/Time_Component/Scene/time_component.tscn" id="3_2hwpd"]
@@ -8,9 +8,6 @@
 [ext_resource type="Script" uid="uid://bqvu3ld03temc" path="res://scenes/General/Components/InteractableComponent/Interactions/Interaction_Inventory.gd" id="5_onuxl"]
 [ext_resource type="PackedScene" uid="uid://dmk2m8iulciae" path="res://scenes/General/Components/SaveLoadComponent/Scene/SaveLoadComponent.tscn" id="7_axoal"]
 [ext_resource type="Script" uid="uid://ci5jqf3fynvq7" path="res://scenes/Tests/DataToSave_OutlineTest.gd" id="8_onuxl"]
-[ext_resource type="PackedScene" uid="uid://bgreqrww3ag8u" path="res://scenes/Entities/StorageUnits/ShelfTemplate/Scene/Apple-MID.tscn" id="9_xvu8u"]
-[ext_resource type="PackedScene" uid="uid://7ngam13e0b5x" path="res://scenes/Entities/StorageUnits/ShelfTemplate/Scene/Apple_SMALL.tscn" id="10_ef2am"]
-[ext_resource type="PackedScene" uid="uid://ca68jmse5hafv" path="res://scenes/Entities/StorageUnits/ShelfTemplate/Scene/Apple-BIG.tscn" id="11_4obgq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5to0l"]
 size = Vector3(2, 2, 1)
@@ -52,14 +49,5 @@ Action_to_do = SubResource("Resource_2eg87")
 resource_type = SubResource("Resource_onuxl")
 custom_node_to_save_from = NodePath("..")
 root_node_to_save_from = NodePath("../..")
-
-[node name="Sketchfab_Scene2" parent="." instance=ExtResource("9_xvu8u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.408237, 0, 4.3769503)
-
-[node name="Sketchfab_Scene3" parent="." instance=ExtResource("10_ef2am")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.848665, 0, -7.3237915)
-
-[node name="Sketchfab_Scene" parent="." instance=ExtResource("11_4obgq")]
-transform = Transform3D(0.03, 0, 0, 0, 0.03, 0, 0, 0, 0.03, -2.7239676, 0, 0.6492336)
 
 [connection signal="ActionFinished" from="ComponentContainer/TimeComponent" to="." method="_on_time_component_action_finished"]

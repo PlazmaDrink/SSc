@@ -22,7 +22,7 @@ metadata/_custom_type_script = "uid://bqvu3ld03temc"
 [node name="ShelfTemplate" type="Node3D" node_paths=PackedStringArray("locationMarkers") groups=["iInteractable"]]
 script = ExtResource("1_8tkeb")
 myShelfType = SubResource("Resource_uc8e4")
-locationMarkers = [NodePath("Area3D/Storage rack/Marker3D"), NodePath("Area3D/Storage rack/Marker3D2"), NodePath("Area3D/Storage rack/Marker3D3"), NodePath("Area3D/Storage rack/Marker3D4")]
+locationMarkers = [NodePath("Area3D/Storage rack/Marker3D")]
 
 [node name="Area3D" type="Area3D" parent="."]
 
@@ -32,16 +32,8 @@ shape = SubResource("BoxShape3D_mv3ki")
 [node name="Storage rack" parent="Area3D" instance=ExtResource("3_uc8e4")]
 
 [node name="Marker3D" type="Marker3D" parent="Area3D/Storage rack"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15395749, -0.7931782)
-
-[node name="Marker3D2" type="Marker3D" parent="Area3D/Storage rack"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.30791497, 0.5989692)
-
-[node name="Marker3D3" type="Marker3D" parent="Area3D/Storage rack"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9070607, -0.78385055)
-
-[node name="Marker3D4" type="Marker3D" parent="Area3D/Storage rack"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.923867, 0.8117347)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15395749, -0.6722054)
+gizmo_extents = 0.0
 
 [node name="ComponentContainer" parent="." instance=ExtResource("1_mv3ki")]
 

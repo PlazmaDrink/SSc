@@ -29,13 +29,10 @@ func _add_starting_items():
 	if not owner_inventory:
 		return
 
-	var sword = ItemDatabase.get_item("iron_sword")
-	var potion = ItemDatabase.get_item("health_potion")
+	var apple = ItemDatabase.get_item("apple")
 
-	if sword:
-		owner_inventory.add_item(sword, 1)
-	if potion:
-		owner_inventory.add_item(potion, 3)
+	if apple:
+		owner_inventory.add_item(apple, 8)
 
 # Inventory Network Functions - Server authoritative, client-specific
 @rpc("any_peer", "call_local", "reliable")

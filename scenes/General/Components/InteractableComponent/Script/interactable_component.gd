@@ -35,16 +35,12 @@ func getOutlineMaterial()->ShaderMaterial:
 
 func raytrace_enter()->void:
 	for mesh in meshes_to_outline:
-
 		for surface_idx in range(mesh.mesh.get_surface_count()):
 			var mat = mesh.get_surface_override_material(surface_idx)
 			if mat == null:
 				mat = StandardMaterial3D.new()
 				mesh.set_surface_override_material(surface_idx, mat)
 			mat.next_pass = local_material_instance
-	#if meshToOutline.get_surface_override_material(0) == null:
-		#meshToOutline.set_surface_override_material(0, StandardMaterial3D.new())
-	#meshToOutline.get_surface_override_material(0).next_pass = local_material_instance
 	is_focused = true
 	
 func raytrace_exit()->void:
@@ -55,7 +51,6 @@ func raytrace_exit()->void:
 			var mat = mesh.get_surface_override_material(surface_idx)
 			if mat != null:
 				mat.next_pass = null
-	#meshToOutline.get_surface_override_material(0).set_next_pass(null)
 	is_focused = false
 
 func try_interact(func_name:String = "on_interaction")->void:

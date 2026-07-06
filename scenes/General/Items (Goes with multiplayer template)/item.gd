@@ -57,12 +57,19 @@ func from_dict(data: Dictionary) -> void:
 func can_stack_with(other_item: Item) -> bool:
 	return stackable && other_item.stackable && id == other_item.id
 
-func getAssetByQuantity(amount: int)->String:
-	var assetToReturn:AssetType
+##Returns path to load the asset, based on provided quantity
+func getAsset(amount: int)->PackedScene:
+	var scene:PackedScene = null
+	var assetToReturn: AssetType
 	if amount <3:
 		assetToReturn = AssetType.Small
 	elif amount >2 and amount<10:
 		assetToReturn = AssetType.Medium
 	else:
 		assetToReturn = AssetType.Large
-	return assetsRef.get(assetToReturn)
+	scene = AssetsManager.get_asset(assetsRef.get(assetToReturn))
+	return scene
+
+func load_assets()->void:
+	for asset in assetsRef:
+		AssetsManager.request_load(assetsRef.get(asset))

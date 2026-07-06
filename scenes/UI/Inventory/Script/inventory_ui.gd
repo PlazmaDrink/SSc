@@ -120,11 +120,9 @@ func _position_tooltip_smartly():
 
 func _get_item_type_string(type: Item.ItemType) -> String:
 	match type:
-		Item.ItemType.WEAPON: return "Weapon"
-		Item.ItemType.ARMOR: return "Armor"
-		Item.ItemType.CONSUMABLE: return "Consumable"
-		Item.ItemType.TOOL: return "Tool"
-		Item.ItemType.MISC: return "Miscellaneous"
+		Item.ItemType.Food: return "Food"
+		Item.ItemType.Stationery: return "Stationery"
+		Item.ItemType.Parts: return "Parts"
 		_: return "Unknown"
 
 func _get_rarity_string(rarity: Item.ItemRarity) -> String:
