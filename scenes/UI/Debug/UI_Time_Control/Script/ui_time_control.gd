@@ -1,4 +1,4 @@
-extends Control
+extends CustomControl
 class_name UI_Time_Control
 
 @onready var add_time_input: LineEdit = $ColorRect/MainContainer/TimeMenu/Option1/AddTimeInput

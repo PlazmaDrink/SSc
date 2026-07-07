@@ -1,11 +1,12 @@
 class_name UI_Manager
-extends Control
+extends CustomControl
 
 @onready var inventory_ui: InventoryUI = $InventoryUI
 @onready var multiplayer_chat_ui: MultiplayerChatUI = $MultiplayerChatUI
 @onready var ui_debug: UI_Debug = $UI_Debug
 @onready var survival_bars: Control = $SurvivalBars
 @onready var currently_on_display: HBoxContainer = $CurrentlyOnDisplay
+@onready var main_menu_ui: MainMenuUI = $MainMenu/MainMenuUI
 
 const POP_UP_MESSAGE = preload("uid://cmi5io0cl7ms1")
 

@@ -1,4 +1,4 @@
-extends Control
+extends CustomControl
 class_name UI_Debug
 
 @onready var ui_time_control: UI_Time_Control = $SubMenus/UI_TimeControl

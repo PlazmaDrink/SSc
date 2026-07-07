@@ -11,25 +11,11 @@ var nickname:String = ""
 var skin:String = ""
 var adress:String = ""
 
-func _ready() -> void:
-	SceneManager.current_scene.host_pressed.connect(_on_host_pressed)
-	SceneManager.current_scene.join_pressed.connect(_on_join_pressed)
-	
+func _ready() -> void:	
 	if not multiplayer.is_server():
 		return
 	Network.player_connected.connect(_on_player_connected)
 	multiplayer.peer_disconnected.connect(_remove_player)
-
-func _on_host_pressed(inNickname:String, inSkin:String)-> void:
-	nickname = inNickname
-	skin = inSkin
-	Network.start_host(nickname, skin)
-
-func _on_join_pressed(inNickname:String, inSkin:String, inAdress:String)-> void:
-	nickname = inNickname
-	skin = inSkin
-	adress = inAdress
-	Network.join_game(nickname, skin, adress)
 
 func _on_player_connected(id: int, player_info : Dictionary):
 	if DisplayServer.get_name() == "headless" and id == 1:

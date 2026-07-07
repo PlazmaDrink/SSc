@@ -1,4 +1,4 @@
-extends Control
+extends CustomControl
 class_name MultiplayerChatUI
 
 @onready var message: LineEdit = $Panel/MarginContainer/VBoxContainer/HBoxContainer/Message

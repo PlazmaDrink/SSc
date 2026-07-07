@@ -1,4 +1,4 @@
-extends Control
+extends CustomControl
 class_name InventoryUI
 
 const INVENTORY_UI_SCENE = preload("uid://bclq8vh1x2goy")
@@ -223,8 +223,7 @@ func debug_print_inventory():
 
 func _on_visibility_changed() -> void:
 	if visible:
-		self.reparent(UI_manager_ref.currently_on_display)
 		my_inventory.isOpen = true
 	else:
-		self.reparent(UI_manager_ref)
 		my_inventory.isOpen = false
+	reparentOnVisibilityChange()

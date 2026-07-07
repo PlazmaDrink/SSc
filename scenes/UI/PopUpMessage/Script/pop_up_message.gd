@@ -1,4 +1,4 @@
-extends Control
+extends CustomControl
 
 @onready var window_name_label: Label = $ColorRect/VBoxContainer/WindowNameLabel
 @onready var message_label: Label = $ColorRect/VBoxContainer/MessageLabel

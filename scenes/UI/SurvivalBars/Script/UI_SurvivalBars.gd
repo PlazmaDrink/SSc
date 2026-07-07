@@ -1,4 +1,4 @@
-extends Control
+extends CustomControl
 
 @onready var hunger_bar: ProgressBar = $ColorRect/VBoxContainer/HungerBar
 @onready var thirst_bar: ProgressBar = $ColorRect/VBoxContainer/ThirstBar

@@ -19,6 +19,7 @@ var game_scenes_dict = {
 func _ready() -> void:
 	var root = get_tree().root
 	current_scene = root.get_child(root.get_child_count() - 1)
+	pass
 
 func change_scene(path: String):
 	call_deferred("_deferred_change_scene", path)

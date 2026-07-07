@@ -1,4 +1,4 @@
-extends Control
+extends CustomControl
 class_name UI_Save_Load_Menu
 
 @onready var save_name_input: LineEdit = $ColorRect/MainContainer/TimeMenu/Option1/NewSave_HContainer/SaveNameInput
