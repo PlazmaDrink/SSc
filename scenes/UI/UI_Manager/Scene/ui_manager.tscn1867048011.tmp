@@ -70,6 +70,7 @@ script = ExtResource("6_7eldn")
 metadata/_custom_type_script = "uid://bms2ak21c65fb"
 
 [node name="MainMenuUI" parent="MainMenu" node_paths=PackedStringArray("VisibleParent", "InvisibleParent") instance=ExtResource("6_8jfxu")]
+visible = false
 layout_mode = 1
 VisibleParent = NodePath("../../CurrentlyOnDisplay")
 InvisibleParent = NodePath("")

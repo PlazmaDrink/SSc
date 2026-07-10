@@ -20,16 +20,17 @@ var inventory_visible = false
 
 signal inventory_closed
 
-func initiane_UI_element(inMy_inventory:Inventory, inCurrent_Player: Player_Character = null)->void:
+func initiane_vars(inMy_inventory:Inventory, inCurrent_Player: Player_Character = null)->void:
+	my_inventory = inMy_inventory
+	current_player = inCurrent_Player
+	
+func initiane_UI_element()->void:
 	slot_ui_scene = preload("uid://bglwdpf2mf7g0")
 	grid_container.columns = 4
 	close_button.pressed.connect(_on_close_pressed)
 	tooltip.visible = false
 	UI_manager_ref = get_parent() as UI_Manager
-	if inCurrent_Player:
-		current_player = inCurrent_Player
-	if inMy_inventory:
-		my_inventory = inMy_inventory
+	if my_inventory:
 		my_inventory.Request_UI_Update.connect(update_inventory_display_signal)
 	_create_slot_uis()
 	

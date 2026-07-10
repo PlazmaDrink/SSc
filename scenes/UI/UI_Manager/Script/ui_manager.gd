@@ -10,8 +10,11 @@ extends CustomControl
 
 const POP_UP_MESSAGE = preload("uid://cmi5io0cl7ms1")
 
+var CurrentlyVisible:Array[Control] = []
 var UI_debug_menu_visible = false
 
+func _ready() -> void:
+	show()
 func initiate_manager(id: int, player_info : Dictionary) -> void:
 	show()
 	set_multiplayer_authority(id, true)
@@ -35,25 +38,29 @@ func _input(event):
 			inventory_ui.debug_print_inventory()
 		elif event.is_action_pressed("DebugMenu"):
 			ui_debug.toggle_menu()
-		check_if_mouse_on_screen_required()
 
 func initiate_children(_peer_id, _player_info):
 	var local_player = GlobalData.get_local_player()
 	var inventory_to_plug_with_UI = local_player.my_component_container.get_component(GameEnums.Components.InventoryComponent).get_inventory()
-	inventory_ui.initiane_UI_element(inventory_to_plug_with_UI, local_player)
-	multiplayer_chat_ui.initiane_UI_element()
+	inventory_ui.initiane_vars(inventory_to_plug_with_UI, local_player)
+	for child in get_children():
+		child.initiane_UI_element()
+	check_if_mouse_on_screen_required()
 
 ##Toggle mouse visibility and input focus between game and UI
 func check_if_mouse_on_screen_required()->void:
-	if currently_on_display.get_child_count() == 0:
-		currently_on_display.visible = false
 	for child in get_children():
 		if child.visible:
-			Input.mouse_mode = Input.MOUSE_MODE_CONFINED
-			mouse_filter = Control.MOUSE_FILTER_STOP
-			break
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		mouse_filter = Control.MOUSE_FILTER_IGNORE
+			pass
+	#if currently_on_display.get_child_count() == 0:
+		#currently_on_display.visible = false
+	#for child in get_children():
+		#if child.visible:
+			#Input.mouse_mode = Input.MOUSE_MODE_CONFINED
+			#mouse_filter = Control.MOUSE_FILTER_STOP
+			#break
+		#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		#mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 func add_to_currently_on_display(childToAdd: Node)->void:
 	if childToAdd.get_parent() == null:
@@ -62,6 +69,9 @@ func add_to_currently_on_display(childToAdd: Node)->void:
 
 func _on_currently_on_display_child_entered_tree(_node: Node) -> void:
 		currently_on_display.visible = true	
+
+func _on_currently_on_display_visibility_changed() -> void:
+	check_if_mouse_on_screen_required()
 
 # ---------- Pop Up Message ----------
 func togle_pop_up_message(topLabel:String, messageLabel:String):
@@ -78,6 +88,7 @@ func add_non_player_inventory_to_viewport(inventory: Inventory, Title:String = "
 		var non_player_inventory = inventory_ui.INVENTORY_UI_SCENE.instantiate() as InventoryUI
 		add_to_currently_on_display(non_player_inventory)
 		non_player_inventory.add_to_group("Temp")
-		non_player_inventory.initiane_UI_element(inventory)
+		non_player_inventory.initiane_vars(inventory)
+		non_player_inventory.initiane_UI_element()
 		non_player_inventory.set_title(Title)
 		non_player_inventory.open_inventory()

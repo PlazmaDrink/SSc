@@ -16,7 +16,7 @@ var game_scenes_dict = {
 	"ui_manager":"res://scenes/UI/UI_Manager/Scene/ui_manager.tscn"
 }
 
-func _ready() -> void:
+func initiane_UI_element() -> void:
 	var root = get_tree().root
 	current_scene = root.get_child(root.get_child_count() - 1)
 	pass

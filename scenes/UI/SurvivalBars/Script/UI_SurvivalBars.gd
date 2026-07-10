@@ -5,8 +5,8 @@ extends CustomControl
 @onready var sleep_bar: ProgressBar = $ColorRect/VBoxContainer/SleepBar
 
 var playersSurvivalComponent: Node
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
+
+func initiane_UI_element()-> void:
 	if is_multiplayer_authority():
 		pass
 		#var temp:Array = get_tree().get_nodes_in_group("Player")

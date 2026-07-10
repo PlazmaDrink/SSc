@@ -6,6 +6,9 @@ class_name CustomControl
 @export var InvisibleParent:Control
 # Called when the node enters the scene tree for the first time.
 
+func initiane_UI_element():
+	pass
+
 func reparentOnVisibilityChange()->void:
 	if visible and VisibleParent:
 		self.reparent(VisibleParent)

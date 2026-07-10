@@ -9,7 +9,7 @@ signal quit_pressed
 @onready var UI_manager_ref: UI_Manager = $"../.."
 @onready var main_menu: Control = $".."
 
-func _ready() -> void:
+func initiane_UI_element() -> void:
 	visible = true
 func _on_host_pressed():
 	var nickname = nick_input.text.strip_edges()

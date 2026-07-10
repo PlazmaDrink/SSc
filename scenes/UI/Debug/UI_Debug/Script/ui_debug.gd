@@ -6,7 +6,7 @@ class_name UI_Debug
 @onready var main_container: VBoxContainer = $ColorRect/MainContainer
 
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
+func initiane_UI_element() -> void:
 	ui_time_control.hide()
 	ui_time_control.on_Close.connect(_on_submenu_toggle)
 	ui_save_load.on_Close.connect(_on_submenu_toggle)
