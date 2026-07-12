@@ -1,16 +1,15 @@
 class_name UI_Manager
-extends CustomControl
+extends Control
 
 @onready var inventory_ui: InventoryUI = $InventoryUI
 @onready var multiplayer_chat_ui: MultiplayerChatUI = $MultiplayerChatUI
 @onready var ui_debug: UI_Debug = $UI_Debug
-@onready var survival_bars: Control = $SurvivalBars
-@onready var currently_on_display: HBoxContainer = $CurrentlyOnDisplay
-@onready var main_menu_ui: MainMenuUI = $MainMenu/MainMenuUI
+@onready var survival_bars: CustomControl = $SurvivalBars
+@onready var temp: Control = $Temp
 
 const POP_UP_MESSAGE = preload("uid://cmi5io0cl7ms1")
 
-var CurrentlyVisible:Array[Control] = []
+var CurrentlyVisible:Array[CustomControl] = []
 var UI_debug_menu_visible = false
 
 func _ready() -> void:
@@ -19,7 +18,7 @@ func initiate_manager(id: int, player_info : Dictionary) -> void:
 	show()
 	set_multiplayer_authority(id, true)
 	call_deferred("initiate_children", id, player_info)
-	
+
 func _input(event):
 	if is_multiplayer_authority():
 		if event.is_action_pressed("toggle_chat"):
@@ -29,8 +28,6 @@ func _input(event):
 				multiplayer_chat_ui._on_send_pressed()
 				get_viewport().set_input_as_handled()
 		elif event.is_action_pressed("inventory"):
-			if inventory_ui.current_player == null:
-				inventory_ui.set_current_player(GlobalData.get_local_player())
 			inventory_ui.toggle_inventory()
 		elif event is InputEventKey and event.pressed and event.keycode == KEY_F1:
 			inventory_ui.debug_add_item()
@@ -44,31 +41,40 @@ func initiate_children(_peer_id, _player_info):
 	var inventory_to_plug_with_UI = local_player.my_component_container.get_component(GameEnums.Components.InventoryComponent).get_inventory()
 	inventory_ui.initiane_vars(inventory_to_plug_with_UI, local_player)
 	for child in get_children():
-		child.initiane_UI_element()
+		if child is CustomControl:
+			child.initiane_UI_element()
+			register_ui_element(child)
+	check_if_mouse_on_screen_required()
+
+func register_ui_element(element:CustomControl)->void:
+	if not element.visibility_changed.is_connected(UpdateCurrentlyVisible):
+		element.visibility_changed.connect(UpdateCurrentlyVisible.bind(element))
+
+func UpdateCurrentlyVisible(inUIElement: CustomControl):
+	if inUIElement.visible:
+		if not inUIElement in CurrentlyVisible:
+			CurrentlyVisible.append(inUIElement)
+	else:
+		CurrentlyVisible.erase(inUIElement)
 	check_if_mouse_on_screen_required()
 
 ##Toggle mouse visibility and input focus between game and UI
 func check_if_mouse_on_screen_required()->void:
-	for child in get_children():
-		if child.visible:
-			pass
-	#if currently_on_display.get_child_count() == 0:
-		#currently_on_display.visible = false
-	#for child in get_children():
-		#if child.visible:
-			#Input.mouse_mode = Input.MOUSE_MODE_CONFINED
-			#mouse_filter = Control.MOUSE_FILTER_STOP
-			#break
-		#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		#mouse_filter = Control.MOUSE_FILTER_IGNORE
+	if CurrentlyVisible.is_empty():
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		mouse_filter = Control.MOUSE_FILTER_PASS
+	else:
+		Input.mouse_mode = Input.MOUSE_MODE_CONFINED
+		mouse_filter = Control.MOUSE_FILTER_STOP
+	print("Visible UI elements count: ", CurrentlyVisible.size(), " | Array contents: ", CurrentlyVisible)
 
 func add_to_currently_on_display(childToAdd: Node)->void:
 	if childToAdd.get_parent() == null:
-		currently_on_display.add_child(childToAdd)
-		childToAdd.reparent(currently_on_display)
+		temp.add_child(childToAdd)
+		childToAdd.reparent(temp)
 
 func _on_currently_on_display_child_entered_tree(_node: Node) -> void:
-		currently_on_display.visible = true	
+		temp.visible = true
 
 func _on_currently_on_display_visibility_changed() -> void:
 	check_if_mouse_on_screen_required()

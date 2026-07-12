@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bx7mq8t8hjn7q"]
+[gd_scene load_steps=5 format=3 uid="uid://bx7mq8t8hjn7q"]
 
 [ext_resource type="FontFile" uid="uid://diapabmalpcrj" path="res://assets/fonts/Kurland.ttf" id="1_font"]
 [ext_resource type="Script" uid="uid://wfj6b11wkwx2" path="res://scenes/LevelScenes/MainMenu/script/main_menu_ui.gd" id="2_script"]
+[ext_resource type="PackedScene" uid="uid://7r1uplxvu3jj" path="res://scenes/LevelScenes/MainMenu/scene/levelSelection.tscn" id="3_qj62m"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_npnbc"]
 color = Color(0, 0, 0, 0)
@@ -163,6 +164,9 @@ theme_override_fonts/font = ExtResource("1_font")
 theme_override_font_sizes/font_size = 35
 text = "QUIT"
 flat = true
+
+[node name="LevelSelectionMenu" parent="." instance=ExtResource("3_qj62m")]
+layout_mode = 1
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="MainContainer/MainMenu/Buttons/Host" to="." method="_on_host_pressed"]

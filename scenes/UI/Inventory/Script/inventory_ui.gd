@@ -9,8 +9,6 @@ const INVENTORY_UI_SCENE = preload("uid://bclq8vh1x2goy")
 @onready var tooltip: Control = $ItemTooltip
 @onready var tooltip_label: RichTextLabel = $ItemTooltip/Panel/MarginContainer/TooltipText
 
-var UI_manager_ref: UI_Manager
-
 var current_player: Player_Character
 var my_inventory: Inventory
 
@@ -29,7 +27,7 @@ func initiane_UI_element()->void:
 	grid_container.columns = 4
 	close_button.pressed.connect(_on_close_pressed)
 	tooltip.visible = false
-	UI_manager_ref = get_parent() as UI_Manager
+	set_process_input(true)
 	if my_inventory:
 		my_inventory.Request_UI_Update.connect(update_inventory_display_signal)
 	_create_slot_uis()
@@ -227,4 +225,3 @@ func _on_visibility_changed() -> void:
 		my_inventory.isOpen = true
 	else:
 		my_inventory.isOpen = false
-	reparentOnVisibilityChange()

@@ -1,17 +1,14 @@
 extends Control
 class_name CustomControl
 
-@export_category("Visibility Parents")
-@export var VisibleParent:Control
-@export var InvisibleParent:Control
-# Called when the node enters the scene tree for the first time.
+@export var UI_Manager_Ref: UI_Manager
 
-func initiane_UI_element():
+func _ready() -> void:
 	pass
-
-func reparentOnVisibilityChange()->void:
-	if visible and VisibleParent:
-		self.reparent(VisibleParent)
-	else:
-		if InvisibleParent:
-			self.reparent(InvisibleParent)
+	#visibility_changed.connect(OnVisibilityChange)
+##Deprecated
+#func OnVisibilityChange()->void:
+	#if UI_Manager_Ref:
+		#UI_Manager_Ref.UpdateCurrentlyVisible(self)
+	#else:
+		#push_error(self.name + " Has no UI_Manager_Ref assigned. Please chexck Inspector.")

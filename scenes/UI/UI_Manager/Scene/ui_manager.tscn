@@ -1,13 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://cxwfmkvydqapy"]
+[gd_scene load_steps=6 format=3 uid="uid://cxwfmkvydqapy"]
 
 [ext_resource type="Script" uid="uid://cx573aw8w4xdt" path="res://scenes/UI/UI_Manager/Script/ui_manager.gd" id="1_rsvx4"]
 [ext_resource type="PackedScene" uid="uid://bclq8vh1x2goy" path="res://scenes/UI/Inventory/Scene/inventory_ui.tscn" id="4_jpjtr"]
 [ext_resource type="PackedScene" uid="uid://ccencq0lcd3ph" path="res://scenes/UI/Multiplayer/Scene/multiplayer_chat_ui.tscn" id="5_chw1p"]
-[ext_resource type="Script" uid="uid://bms2ak21c65fb" path="res://scenes/UI/CustomControl.gd" id="6_7eldn"]
-[ext_resource type="PackedScene" uid="uid://bx7mq8t8hjn7q" path="res://scenes/LevelScenes/MainMenu/scene/main_menu_ui.tscn" id="6_8jfxu"]
 [ext_resource type="PackedScene" uid="uid://5511hivetyfu" path="res://scenes/UI/Debug/UI_Debug/Scene/ui_debug.tscn" id="6_65b07"]
 [ext_resource type="PackedScene" uid="uid://c0v8f83flada2" path="res://scenes/UI/SurvivalBars/Scene/UI_SurvivalBars.tscn" id="6_ua3iv"]
-[ext_resource type="PackedScene" uid="uid://7r1uplxvu3jj" path="res://scenes/LevelScenes/MainMenu/scene/levelSelection.tscn" id="7_8jfxu"]
 
 [node name="UI_Manager" type="Control"]
 layout_mode = 3
@@ -18,68 +15,42 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 1
 script = ExtResource("1_rsvx4")
 
-[node name="CurrentlyOnDisplay" type="HBoxContainer" parent="."]
+[node name="InventoryUI" parent="." node_paths=PackedStringArray("UI_Manager_Ref") instance=ExtResource("4_jpjtr")]
 visible = false
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 350
-alignment = 1
+mouse_filter = 1
+UI_Manager_Ref = NodePath("..")
 
-[node name="InventoryUI" parent="." node_paths=PackedStringArray("VisibleParent", "InvisibleParent") instance=ExtResource("4_jpjtr")]
-visible = false
-layout_mode = 1
-VisibleParent = NodePath("../CurrentlyOnDisplay")
-InvisibleParent = NodePath("..")
-
-[node name="MultiplayerChatUI" parent="." node_paths=PackedStringArray("VisibleParent", "InvisibleParent") instance=ExtResource("5_chw1p")]
+[node name="MultiplayerChatUI" parent="." node_paths=PackedStringArray("UI_Manager_Ref") instance=ExtResource("5_chw1p")]
 visible = false
 layout_mode = 0
 offset_left = 0.0
 offset_top = 0.0
 offset_right = 384.0
 offset_bottom = 434.0
-VisibleParent = NodePath("../CurrentlyOnDisplay")
-InvisibleParent = NodePath("..")
+mouse_filter = 1
+UI_Manager_Ref = NodePath("..")
 
-[node name="UI_Debug" parent="." node_paths=PackedStringArray("VisibleParent", "InvisibleParent") instance=ExtResource("6_65b07")]
+[node name="UI_Debug" parent="." node_paths=PackedStringArray("UI_Manager_Ref") instance=ExtResource("6_65b07")]
 visible = false
 layout_mode = 1
-VisibleParent = NodePath("../CurrentlyOnDisplay")
-InvisibleParent = NodePath("..")
+mouse_filter = 1
+UI_Manager_Ref = NodePath("..")
 
-[node name="SurvivalBars" parent="." node_paths=PackedStringArray("VisibleParent", "InvisibleParent") instance=ExtResource("6_ua3iv")]
+[node name="SurvivalBars" parent="." node_paths=PackedStringArray("UI_Manager_Ref") instance=ExtResource("6_ua3iv")]
 visible = false
 layout_mode = 1
-VisibleParent = NodePath("../CurrentlyOnDisplay")
-InvisibleParent = NodePath("..")
+mouse_filter = 1
+UI_Manager_Ref = NodePath("..")
 
-[node name="MainMenu" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("6_7eldn")
-metadata/_custom_type_script = "uid://bms2ak21c65fb"
-
-[node name="MainMenuUI" parent="MainMenu" node_paths=PackedStringArray("VisibleParent", "InvisibleParent") instance=ExtResource("6_8jfxu")]
-layout_mode = 1
-VisibleParent = NodePath("../../CurrentlyOnDisplay")
-InvisibleParent = NodePath("")
-
-[node name="LevelSelectionMenu" parent="MainMenu" node_paths=PackedStringArray("VisibleParent", "InvisibleParent") instance=ExtResource("7_8jfxu")]
+[node name="Temp" type="Control" parent="."]
 visible = false
-layout_mode = 1
-VisibleParent = NodePath("../../CurrentlyOnDisplay")
-InvisibleParent = NodePath("")
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 1
 
-[connection signal="child_entered_tree" from="CurrentlyOnDisplay" to="." method="_on_currently_on_display_child_entered_tree"]
-[connection signal="visibility_changed" from="CurrentlyOnDisplay" to="." method="_on_currently_on_display_visibility_changed"]
 [connection signal="visibility_changed" from="InventoryUI" to="InventoryUI" method="_on_visibility_changed"]

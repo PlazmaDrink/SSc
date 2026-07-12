@@ -17,7 +17,7 @@ func _ready() -> void:
 	player.HeadBob.connect(_on_head_bob)
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		rotate_y(-event.relative.x * MOUSE_SENSIBILITY)
 		_spring_arm.rotate_x(-event.relative.y * MOUSE_SENSIBILITY)
 		_spring_arm.rotation.x = clamp(_spring_arm.rotation.x, deg_to_rad(-40), deg_to_rad(60))

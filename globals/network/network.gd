@@ -42,7 +42,7 @@ func start_host(nickname: String, skin_color_str: String):
 
 	players[1] = player_info
 	player_connected.emit(1, player_info)
-	SceneManager.change_scene(SceneManager.game_scenes_dict.get("LevelSelection"))
+	#SceneManager.change_scene(SceneManager.game_scenes_dict.get("LevelSelection"))
 
 
 func join_game(nickname: String, skin_color_str: String, address: String = SERVER_ADDRESS):
@@ -64,8 +64,8 @@ func join_game(nickname: String, skin_color_str: String, address: String = SERVE
 	player_info["peer"] = peer
 
 func _on_connected_ok():
-	SceneManager.change_scene(SceneManager.game_scenes_dict.get("LevelSelection"))
-	await SceneManager.scene_loaded
+	#SceneManager.change_scene(SceneManager.game_scenes_dict.get("LevelSelection"))
+	#await SceneManager.scene_loaded
 	_request_to_join_server.rpc_id(1, player_info)
 	
 

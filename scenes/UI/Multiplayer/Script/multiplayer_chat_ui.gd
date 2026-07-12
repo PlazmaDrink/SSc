@@ -18,8 +18,8 @@ func toggle_chat():
 	chat_visible = !chat_visible
 	if chat_visible:
 		show()
-		await get_tree().process_frame
-		message.grab_focus()
+		#await get_tree().process_frame
+		#message.grab_focus()
 	else:
 		hide()
 		message.text = ""
@@ -35,7 +35,7 @@ func _on_send_pressed():
 	var nick = Network.players[multiplayer.get_unique_id()]["nick"]
 	rpc("add_message", nick, message_text)
 	message.text = ""
-	message.grab_focus()
+	#message.grab_focus()
 
 @rpc("any_peer", "call_local")
 func add_message(nick: String, msg: String):
