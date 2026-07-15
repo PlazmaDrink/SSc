@@ -21,13 +21,15 @@ func onInventoryUpdated()->void:
 		_sync_items_with_inventory(slot)
 		print_debug(slot.item_id)
 
+#TODO: Its updating every time. Needs optimisation + safe check for null
 func _sync_items_with_inventory(inInv_slot: InventorySlot)->void:
 	var item = ItemDatabase.get_item(inInv_slot.item_id)
 	var item_scene: PackedScene = item.getAsset(inInv_slot.quantity)
 	if item_scene:
 		var item_instance = item_scene.instantiate()
 		var targetMarker = locationMarkers.get(inInv_slot.slot_index)
-		item_instance.position = targetMarker.position
-		targetMarker.add_child(item_instance)
+		if targetMarker:
+			item_instance.position = targetMarker.position
+			targetMarker.add_child(item_instance)
 	
 	

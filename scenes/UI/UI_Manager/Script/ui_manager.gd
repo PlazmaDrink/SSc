@@ -14,6 +14,8 @@ var UI_debug_menu_visible = false
 
 func _ready() -> void:
 	show()
+
+##Called from game_state.gd
 func initiate_manager(id: int, player_info : Dictionary) -> void:
 	show()
 	set_multiplayer_authority(id, true)
@@ -71,13 +73,6 @@ func check_if_mouse_on_screen_required()->void:
 func add_to_currently_on_display(childToAdd: Node)->void:
 	if childToAdd.get_parent() == null:
 		temp.add_child(childToAdd)
-		childToAdd.reparent(temp)
-
-func _on_currently_on_display_child_entered_tree(_node: Node) -> void:
-		temp.visible = true
-
-func _on_currently_on_display_visibility_changed() -> void:
-	check_if_mouse_on_screen_required()
 
 # ---------- Pop Up Message ----------
 func togle_pop_up_message(topLabel:String, messageLabel:String):
@@ -96,5 +91,20 @@ func add_non_player_inventory_to_viewport(inventory: Inventory, Title:String = "
 		non_player_inventory.add_to_group("Temp")
 		non_player_inventory.initiane_vars(inventory)
 		non_player_inventory.initiane_UI_element()
-		non_player_inventory.set_title(Title)
+		non_player_inventory.set_title(Title) 
 		non_player_inventory.open_inventory()
+		UpdateCurrentlyVisible(non_player_inventory)
+		check_if_mouse_on_screen_required()
+
+func _on_temp_child_entered_tree(_node: Node) -> void:
+	temp.visible = true
+	temp.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+func _on_temp_visibility_changed() -> void:
+	check_if_mouse_on_screen_required()
+
+func _on_temp_child_exiting_tree(_node: Node) -> void:
+	if temp.get_children().size() == 1:
+		CurrentlyVisible.erase(_node)
+		temp.visible = false
+		

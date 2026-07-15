@@ -7,7 +7,6 @@ var player:Player_Character
 var UI_manager:UI_Manager
 var isStateReady:bool = false
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Network.player_connected.connect(on_player_connected)
 
