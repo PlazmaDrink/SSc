@@ -1,4 +1,5 @@
-extends Node
+class_name Save_Load_component
+extends Component
 
 #Choose resource file to write save data in (If requirs unique data, create new script based ob DataToSave_Custom
 @export var resource_type: data_to_save

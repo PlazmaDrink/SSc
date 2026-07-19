@@ -1,4 +1,5 @@
-extends Node
+class_name Survival_component
+extends Component
 
 var _hunger: SurvivalProperty = SurvivalProperty.new("hunger", 15)
 var _thirst: SurvivalProperty = SurvivalProperty.new("thirst", 24)

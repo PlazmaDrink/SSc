@@ -1,5 +1,5 @@
-extends Node
-
+class_name Interaction_component
+extends Component
 
 ##Assign MeshInstance3D of parent, so component can control outline appearence
 @export_category("Outline")

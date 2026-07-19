@@ -5,5 +5,11 @@ enum Components{
 	SaveLoadComponent,
 	TimeComponent,
 	InteractableComponent,
-	InventoryComponent
+	InventoryComponent,
+	CameraComponent
+}
+
+enum CameraMode{
+	FirstPerson,
+	Isometric
 }

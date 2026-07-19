@@ -8,8 +8,7 @@ extends Node3D
 @export var _spring_arm: SpringArm3D = null
 
 const MOUSE_SENSIBILITY: float = 0.005
-
-#bob variables
+#headbob variables
 const BOB_FREQUENCY = 2.0
 const BOB_AMPLITUDE = 0.08
 

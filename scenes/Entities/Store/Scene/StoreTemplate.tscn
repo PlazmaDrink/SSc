@@ -1,0 +1,106 @@
+[gd_scene load_steps=16 format=3 uid="uid://8m8nmx6l3yru"]
+
+[ext_resource type="PackedScene" uid="uid://od014t1fy44i" path="res://scenes/General/Components/ComponentContainer/Scene/ComponentContainer.tscn" id="1_1nda8"]
+[ext_resource type="PackedScene" uid="uid://botwm1ppo741l" path="res://scenes/General/Components/InteractableComponent/Scene/InteractableComponent.tscn" id="2_7rkry"]
+[ext_resource type="Script" uid="uid://d1mk50u12f7eg" path="res://scenes/General/Components/InteractableComponent/Interactions/Interaction_CameraMode.gd" id="3_7rkry"]
+[ext_resource type="PackedScene" uid="uid://dnosx16x0svds" path="res://scenes/General/Components/CameraComponent/Scene/CameraComponent.tscn" id="4_bk6af"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_veyuw"]
+size = Vector2(10, 10)
+
+[sub_resource type="BoxMesh" id="BoxMesh_veyuw"]
+size = Vector3(10, 2, 0.2)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_1nda8"]
+data = PackedVector3Array(-5, 1, 0.099999994, 5, 1, 0.099999994, -5, -1, 0.099999994, 5, 1, 0.099999994, 5, -1, 0.099999994, -5, -1, 0.099999994, 5, 1, -0.099999994, -5, 1, -0.099999994, 5, -1, -0.099999994, -5, 1, -0.099999994, -5, -1, -0.099999994, 5, -1, -0.099999994, 5, 1, 0.099999994, 5, 1, -0.099999994, 5, -1, 0.099999994, 5, 1, -0.099999994, 5, -1, -0.099999994, 5, -1, 0.099999994, -5, 1, -0.099999994, -5, 1, 0.099999994, -5, -1, -0.099999994, -5, 1, 0.099999994, -5, -1, 0.099999994, -5, -1, -0.099999994, 5, 1, 0.099999994, -5, 1, 0.099999994, 5, 1, -0.099999994, -5, 1, 0.099999994, -5, 1, -0.099999994, 5, 1, -0.099999994, -5, -1, 0.099999994, 5, -1, 0.099999994, -5, -1, -0.099999994, 5, -1, 0.099999994, 5, -1, -0.099999994, -5, -1, -0.099999994)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_7rkry"]
+data = PackedVector3Array(-5, 1, 0.099999994, 5, 1, 0.099999994, -5, -1, 0.099999994, 5, 1, 0.099999994, 5, -1, 0.099999994, -5, -1, 0.099999994, 5, 1, -0.099999994, -5, 1, -0.099999994, 5, -1, -0.099999994, -5, 1, -0.099999994, -5, -1, -0.099999994, 5, -1, -0.099999994, 5, 1, 0.099999994, 5, 1, -0.099999994, 5, -1, 0.099999994, 5, 1, -0.099999994, 5, -1, -0.099999994, 5, -1, 0.099999994, -5, 1, -0.099999994, -5, 1, 0.099999994, -5, -1, -0.099999994, -5, 1, 0.099999994, -5, -1, 0.099999994, -5, -1, -0.099999994, 5, 1, 0.099999994, -5, 1, 0.099999994, 5, 1, -0.099999994, -5, 1, 0.099999994, -5, 1, -0.099999994, 5, 1, -0.099999994, -5, -1, 0.099999994, 5, -1, 0.099999994, -5, -1, -0.099999994, 5, -1, 0.099999994, 5, -1, -0.099999994, -5, -1, -0.099999994)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_iukvo"]
+data = PackedVector3Array(-5, 1, 0.099999994, 5, 1, 0.099999994, -5, -1, 0.099999994, 5, 1, 0.099999994, 5, -1, 0.099999994, -5, -1, 0.099999994, 5, 1, -0.099999994, -5, 1, -0.099999994, 5, -1, -0.099999994, -5, 1, -0.099999994, -5, -1, -0.099999994, 5, -1, -0.099999994, 5, 1, 0.099999994, 5, 1, -0.099999994, 5, -1, 0.099999994, 5, 1, -0.099999994, 5, -1, -0.099999994, 5, -1, 0.099999994, -5, 1, -0.099999994, -5, 1, 0.099999994, -5, -1, -0.099999994, -5, 1, 0.099999994, -5, -1, 0.099999994, -5, -1, -0.099999994, 5, 1, 0.099999994, -5, 1, 0.099999994, 5, 1, -0.099999994, -5, 1, 0.099999994, -5, 1, -0.099999994, 5, 1, -0.099999994, -5, -1, 0.099999994, 5, -1, 0.099999994, -5, -1, -0.099999994, 5, -1, 0.099999994, 5, -1, -0.099999994, -5, -1, -0.099999994)
+
+[sub_resource type="BoxMesh" id="BoxMesh_iq1wy"]
+size = Vector3(8, 2, 0.2)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_bk6af"]
+data = PackedVector3Array(-4, 1, 0.099999994, 4, 1, 0.099999994, -4, -1, 0.099999994, 4, 1, 0.099999994, 4, -1, 0.099999994, -4, -1, 0.099999994, 4, 1, -0.099999994, -4, 1, -0.099999994, 4, -1, -0.099999994, -4, 1, -0.099999994, -4, -1, -0.099999994, 4, -1, -0.099999994, 4, 1, 0.099999994, 4, 1, -0.099999994, 4, -1, 0.099999994, 4, 1, -0.099999994, 4, -1, -0.099999994, 4, -1, 0.099999994, -4, 1, -0.099999994, -4, 1, 0.099999994, -4, -1, -0.099999994, -4, 1, 0.099999994, -4, -1, 0.099999994, -4, -1, -0.099999994, 4, 1, 0.099999994, -4, 1, 0.099999994, 4, 1, -0.099999994, -4, 1, 0.099999994, -4, 1, -0.099999994, 4, 1, -0.099999994, -4, -1, 0.099999994, 4, -1, 0.099999994, -4, -1, -0.099999994, 4, -1, 0.099999994, 4, -1, -0.099999994, -4, -1, -0.099999994)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1nda8"]
+albedo_color = Color(0.9247606, 0, 0.23536038, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7rkry"]
+material = SubResource("StandardMaterial3D_1nda8")
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_7y8pb"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[sub_resource type="Resource" id="Resource_iukvo"]
+script = ExtResource("3_7rkry")
+metadata/_custom_type_script = "uid://d1mk50u12f7eg"
+
+[node name="StoreTemplate" type="Node3D"]
+
+[node name="Meshes" type="Node3D" parent="."]
+
+[node name="Floor" type="MeshInstance3D" parent="Meshes"]
+mesh = SubResource("PlaneMesh_veyuw")
+skeleton = NodePath("../..")
+
+[node name="Wall" type="MeshInstance3D" parent="Meshes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9782754, 5.10085)
+mesh = SubResource("BoxMesh_veyuw")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Meshes/Wall"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Meshes/Wall/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_1nda8")
+
+[node name="Wall2" type="MeshInstance3D" parent="Meshes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9782754, -4.971177)
+mesh = SubResource("BoxMesh_veyuw")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Meshes/Wall2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Meshes/Wall2/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_7rkry")
+
+[node name="Wall3" type="MeshInstance3D" parent="Meshes"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -5, 0.9782754, 0.028822899)
+mesh = SubResource("BoxMesh_veyuw")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Meshes/Wall3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Meshes/Wall3/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_iukvo")
+
+[node name="Wall4" type="MeshInstance3D" parent="Meshes"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 5, 0.9782754, 1.0288229)
+mesh = SubResource("BoxMesh_iq1wy")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Meshes/Wall4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Meshes/Wall4/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_bk6af")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.064, 1.5, 0.165)
+
+[node name="StoreControlePanel" type="MeshInstance3D" parent="." groups=["iInteractable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3445673, 0.65659285, -3.7859516)
+mesh = SubResource("BoxMesh_7rkry")
+skeleton = NodePath("../Meshes")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="StoreControlePanel"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StoreControlePanel/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_7y8pb")
+
+[node name="ComponentContainer" parent="StoreControlePanel" instance=ExtResource("1_1nda8")]
+
+[node name="CameraComponent" parent="StoreControlePanel/ComponentContainer" node_paths=PackedStringArray("myCamera") instance=ExtResource("4_bk6af")]
+myCamera = NodePath("../../../Camera3D")
+
+[node name="InteractableComponent" parent="StoreControlePanel/ComponentContainer" node_paths=PackedStringArray("target_to_outline") instance=ExtResource("2_7rkry")]
+target_to_outline = NodePath("../..")
+Action_to_do = SubResource("Resource_iukvo")

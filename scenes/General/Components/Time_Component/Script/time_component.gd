@@ -1,4 +1,5 @@
-extends Node
+class_name Time_component
+extends Component
 
 var CurrentTime:float = 0
 var isBusy:bool = false

@@ -3,6 +3,7 @@ extends Node
 
 const UI_MANAGER = preload("uid://cxwfmkvydqapy")
 
+
 var player:Player_Character
 var UI_manager:UI_Manager
 var isStateReady:bool = false

@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://513wvirdlyfm"]
 
 [ext_resource type="Script" uid="uid://b7hxqglwotpm5" path="res://scenes/Tests/script/environment.gd" id="1_aspp5"]
-[ext_resource type="PackedScene" uid="uid://0on3ilotj8xf" path="res://scenes/Entities/StorageUnits/ShelfTemplate/Scene/ShelfTemplate.tscn" id="2_h5gfx"]
+[ext_resource type="PackedScene" uid="uid://8m8nmx6l3yru" path="res://scenes/Entities/Store/Scene/StoreTemplate.tscn" id="2_h5gfx"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_aspp5"]
 
@@ -13,10 +13,10 @@ background_mode = 2
 sky = SubResource("Sky_h5gfx")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_aspp5"]
-size = Vector2(10, 10)
+size = Vector2(50, 50)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_aspp5"]
-size = Vector3(10, 0.1, 10)
+size = Vector3(50.104614, 0.1, 50.232605)
 
 [node name="TestingLevel" type="Node3D"]
 
@@ -28,15 +28,17 @@ environment = SubResource("Environment_aspp5")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
 
-[node name="ShelfTemplate" parent="Environment" instance=ExtResource("2_h5gfx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.19188, 1.0535929, -0.8140006)
-
 [node name="Floor" type="Node3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0137319565, 0.050430298, 0.115046024)
 mesh = SubResource("PlaneMesh_aspp5")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Floor/MeshInstance3D"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/MeshInstance3D/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.11029053, 0, -0.11398363)
 shape = SubResource("BoxShape3D_aspp5")
+
+[node name="StoreTemplate" parent="Floor/MeshInstance3D" instance=ExtResource("2_h5gfx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.0289717, -0.565753, -2.9821396)

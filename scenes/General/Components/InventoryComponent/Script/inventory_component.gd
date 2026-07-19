@@ -1,5 +1,5 @@
 class_name Inventory_component
-extends Node
+extends Component
 
 @export var inventory_size:int = 20
 var owner_inventory:Inventory
