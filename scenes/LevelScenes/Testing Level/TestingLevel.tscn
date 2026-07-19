@@ -29,7 +29,7 @@ environment = SubResource("Environment_aspp5")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
 
 [node name="ShelfTemplate" parent="Environment" instance=ExtResource("2_h5gfx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.19188, 2.0551023, -0.8140006)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.19188, 1.0535929, -0.8140006)
 
 [node name="Floor" type="Node3D" parent="."]
 
