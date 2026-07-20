@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://8m8nmx6l3yru"]
+[gd_scene load_steps=17 format=3 uid="uid://8m8nmx6l3yru"]
 
 [ext_resource type="PackedScene" uid="uid://od014t1fy44i" path="res://scenes/General/Components/ComponentContainer/Scene/ComponentContainer.tscn" id="1_1nda8"]
 [ext_resource type="PackedScene" uid="uid://botwm1ppo741l" path="res://scenes/General/Components/InteractableComponent/Scene/InteractableComponent.tscn" id="2_7rkry"]
 [ext_resource type="Script" uid="uid://d1mk50u12f7eg" path="res://scenes/General/Components/InteractableComponent/Interactions/Interaction_CameraMode.gd" id="3_7rkry"]
 [ext_resource type="PackedScene" uid="uid://dnosx16x0svds" path="res://scenes/General/Components/CameraComponent/Scene/CameraComponent.tscn" id="4_bk6af"]
+[ext_resource type="Script" uid="uid://bl0hidjy5fcmn" path="res://scenes/Entities/Store/Script/store_camera.gd" id="5_bk6af"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_veyuw"]
 size = Vector2(10, 10)
@@ -83,9 +84,6 @@ mesh = SubResource("BoxMesh_iq1wy")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Meshes/Wall4/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_bk6af")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.064, 1.5, 0.165)
-
 [node name="StoreControlePanel" type="MeshInstance3D" parent="." groups=["iInteractable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3445673, 0.65659285, -3.7859516)
 mesh = SubResource("BoxMesh_7rkry")
@@ -98,9 +96,20 @@ shape = SubResource("ConcavePolygonShape3D_7y8pb")
 
 [node name="ComponentContainer" parent="StoreControlePanel" instance=ExtResource("1_1nda8")]
 
-[node name="CameraComponent" parent="StoreControlePanel/ComponentContainer" node_paths=PackedStringArray("myCamera") instance=ExtResource("4_bk6af")]
-myCamera = NodePath("../../../Camera3D")
-
 [node name="InteractableComponent" parent="StoreControlePanel/ComponentContainer" node_paths=PackedStringArray("target_to_outline") instance=ExtResource("2_7rkry")]
 target_to_outline = NodePath("../..")
 Action_to_do = SubResource("Resource_iukvo")
+
+[node name="CameraComponent" parent="StoreControlePanel/ComponentContainer" node_paths=PackedStringArray("spring_arm_3d") instance=ExtResource("4_bk6af")]
+spring_arm_3d = NodePath("../../SpringArm3D")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="StoreControlePanel" node_paths=PackedStringArray("target_object")]
+transform = Transform3D(-0.31966615, -0.6899176, 0.64948237, -0.019914532, 0.69018817, 0.72335595, -0.947321, 0.21829827, -0.23436914, 6.266969, 5.5532064, -2.9125507)
+spring_length = 0.0
+script = ExtResource("5_bk6af")
+target_object = NodePath("../..")
+
+[node name="myCamera" type="Camera3D" parent="StoreControlePanel/SpringArm3D"]
+transform = Transform3D(0.9999999, 0, 2.9802322e-08, -1.4901161e-08, 0.99999994, -7.450581e-09, 1.4901161e-08, 1.4901161e-08, 0.9999999, 0, 0, 0)
+
+[editable path="StoreControlePanel/ComponentContainer/CameraComponent"]

@@ -1,7 +1,7 @@
 extends RayCast3D
 
 const COMPONENT_CONTAINER_TREE_NAME: String = "/ComponentContainer"
-@onready var player_input: Node3D = $"../../../../PlayerInput"
+@onready var player_input: Node3D = $"../../../PlayerInput"
 
 ##Tracks if raycast hit anything. Required to track when raycast stops heating current object
 var rayCastCollisionState: bool = false

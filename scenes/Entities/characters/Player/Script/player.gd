@@ -13,7 +13,7 @@ enum SkinColor { BLUE, YELLOW, GREEN, RED }
 @export_category("Objects")
 @export var _body: Node3D = null
 
-@onready var spring_arm_character: Node = $SpringArmCharacter
+@onready var spring_arm_character: SpringArm3D = $SpringArm3D
 
 @export_category("Skin Colors")
 @export var blue_texture : CompressedTexture2D
@@ -36,13 +36,9 @@ var game_state:GameState_Local
 var can_double_jump = true
 var has_double_jumped = false
 
-#head bob
-var t_bob: float = 0.0
-signal HeadBob(time: float)
-
 func _enter_tree():
 	set_multiplayer_authority(str(name).to_int())
-	$"SpringArmCharacter/SpringArm3D/Camera3D".current = is_multiplayer_authority()
+	$"SpringArm3D/Camera3D".current = is_multiplayer_authority()
 
 func _ready():
 	is_local_player = is_multiplayer_authority()
@@ -64,7 +60,6 @@ func _physics_process(delta):
 			return
 
 	if is_on_floor():
-		t_bob += delta * velocity.length()
 		can_double_jump = true
 		has_double_jumped = false
 		if Input.is_action_just_pressed("jump"):
@@ -81,7 +76,6 @@ func _physics_process(delta):
 			_body.play_jump_animation("Jump2")
 
 	velocity.y -= gravity * delta
-	HeadBob.emit(t_bob)
 	_move()
 
 	move_and_slide()

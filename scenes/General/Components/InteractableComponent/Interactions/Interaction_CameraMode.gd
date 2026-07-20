@@ -4,4 +4,4 @@ extends Interaction
 func on_interaction(_componentContainer: component_container):
 	var camera_component:Camera_component = _componentContainer.get_component(GameEnums.Components.CameraComponent)
 	if camera_component:
-		camera_component.myCamera.make_current()
+		camera_component.cameraTransition()

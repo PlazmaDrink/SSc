@@ -4,3 +4,5 @@
 
 [node name="CameraComponent" type="Node"]
 script = ExtResource("1_uib5d")
+
+[node name="TransitionCamera" type="Camera3D" parent="."]

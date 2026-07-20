@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=4 uid="uid://cffjduipbb3s5"]
+[gd_scene load_steps=54 format=4 uid="uid://cffjduipbb3s5"]
 
 [ext_resource type="Script" uid="uid://c2si8gkbnde0c" path="res://scenes/Entities/characters/Player/Script/player.gd" id="1_tr1su"]
 [ext_resource type="Texture2D" uid="uid://fpmmv2oxjcdv" path="res://assets/characters/player/GodotRobotPaletteSwap/GodotPalette.png" id="2_1uix6"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://brp1gy30s4rks" path="res://assets/characters/player/GodotRobotPaletteSwap/GodotRedPalette.png" id="5_mky50"]
 [ext_resource type="Script" uid="uid://v8j54rbc0ik" path="res://scenes/Entities/characters/Player/Script/3d_godot_robot.gd" id="6_ydo37"]
 [ext_resource type="Texture2D" uid="uid://bdg48m6l86q8i" path="res://assets/characters/player/3DGodotRobot_GodotPalette.png" id="7_d7fg4"]
+[ext_resource type="Script" uid="uid://d4mmferc721pb" path="res://scenes/Entities/characters/Player/Tests/weapon.gd" id="8_x6ekh"]
+[ext_resource type="PackedScene" uid="uid://c6aeq685vna12" path="res://scenes/Tests/projectile.tscn" id="9_5n8rk"]
 [ext_resource type="Script" uid="uid://glqhmfnxywjc" path="res://scenes/Entities/characters/Player/Tests/player_input.gd" id="10_xj4b2"]
 [ext_resource type="Script" uid="uid://bnwtu38clv4jd" path="res://scenes/Entities/characters/Player/Script/spring_arm_character.gd" id="11_q41dq"]
 [ext_resource type="Script" uid="uid://dnw0depfpbi4" path="res://scenes/Entities/characters/Player/Script/player_ray_cast_3d.gd" id="12_1uix6"]
@@ -5027,11 +5029,26 @@ text = "player name test"
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_wb3a5")
 
+[node name="Weapon" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.74228e-08, 1, 1)
+script = ExtResource("8_x6ekh")
+projectileScene = ExtResource("9_5n8rk")
+
+[node name="Marker3D" type="Marker3D" parent="Weapon"]
+
+[node name="ProjectileSpawnPath" type="Node3D" parent="Weapon"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1, -1)
+top_level = true
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="Weapon"]
+_spawnable_scenes = PackedStringArray("uid://c6aeq685vna12")
+spawn_path = NodePath("../ProjectileSpawnPath")
+
 [node name="PlayerInput" type="Node3D" parent="."]
 script = ExtResource("10_xj4b2")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0.165)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.064, 1.5, 0.165)
 spring_length = 0.0
 script = ExtResource("11_q41dq")
 
@@ -5051,5 +5068,5 @@ script = ExtResource("12_1uix6")
 
 [node name="InventoryComponent" parent="ComponentContainer" instance=ExtResource("17_d7fg4")]
 
-[node name="CameraComponent" parent="ComponentContainer" node_paths=PackedStringArray("spring_arm_3d") instance=ExtResource("16_6hdon")]
-spring_arm_3d = NodePath("../../SpringArm3D")
+[node name="CameraComponent" parent="ComponentContainer/InventoryComponent" node_paths=PackedStringArray("spring_arm_3d") instance=ExtResource("16_6hdon")]
+spring_arm_3d = NodePath("../../../SpringArm3D")
