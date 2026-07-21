@@ -3,6 +3,8 @@ extends SpringArm3D
 
 @onready var my_camera: Camera3D = $myCamera
 
+@export var move_speed: float = 10.0
+
 @export_group("Orbit Settings")
 @export var mouse_sensitivity: float = 0.003
 
@@ -37,9 +39,22 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _process(_delta: float) -> void:
 	if my_camera.current:
-		# Clamp camera target position within object bounds
-		my_camera.global_position.x = clamp(my_camera.global_position.x, min_bounds.x, max_bounds.x)
-		my_camera.global_position.z = clamp(my_camera.global_position.z, min_bounds.z, max_bounds.z)
+		handle_input_movement(_delta)
+
+func handle_input_movement(delta:float)->void:
+	var direction := Input.get_vector(
+			"move_left", "move_right",
+			"move_forward", "move_backward"
+			)
+		#Rotate the local direction vector relative to the camera's rotation
+	var _direction: Vector3 = transform.basis * Vector3(direction.x, 0, direction.y)
+	#Flatten Y
+	_direction.y = 0
+	global_position += _direction * move_speed * delta
+	
+	# Clamp camera target position within object bounds
+	global_position.x = clamp(global_position.x, min_bounds.x, max_bounds.x)
+	global_position.z = clamp(global_position.z, min_bounds.z, max_bounds.z)
 
 func update_camera_bounds() -> void:
 	var bounds: AABB = setCameraBounds(target_object)

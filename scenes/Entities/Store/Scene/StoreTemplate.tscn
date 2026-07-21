@@ -104,7 +104,7 @@ Action_to_do = SubResource("Resource_iukvo")
 spring_arm_3d = NodePath("../../SpringArm3D")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="StoreControlePanel" node_paths=PackedStringArray("target_object")]
-transform = Transform3D(-0.31966615, -0.6899176, 0.64948237, -0.019914532, 0.69018817, 0.72335595, -0.947321, 0.21829827, -0.23436914, 6.266969, 5.5532064, -2.9125507)
+transform = Transform3D(-0.31966615, -0.6899176, 0.64948237, -0.019914532, 0.69018817, 0.72335595, -0.947321, 0.21829827, -0.23436914, 5.199709, 5.5532064, -2.912551)
 spring_length = 0.0
 script = ExtResource("5_bk6af")
 target_object = NodePath("../..")

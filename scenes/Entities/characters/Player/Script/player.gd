@@ -33,6 +33,7 @@ var _respawn_point = Vector3(0, 5, 0)
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var game_state:GameState_Local
 
+var can_move = true
 var can_double_jump = true
 var has_double_jumped = false
 
@@ -90,10 +91,11 @@ func freeze():
 	velocity.z = 0
 	_current_speed = 0
 	_body.animate(Vector3.ZERO)
-
+func check_is_current_camera():
+	can_move = spring_arm_character.my_camera.current
 func _move() -> void:
 	var _input_direction: Vector2 = Vector2.ZERO
-	if is_multiplayer_authority():
+	if is_multiplayer_authority() and can_move:
 		_input_direction = Input.get_vector(
 			"move_left", "move_right",
 			"move_forward", "move_backward"
