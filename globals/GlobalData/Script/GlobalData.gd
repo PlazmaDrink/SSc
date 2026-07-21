@@ -4,7 +4,6 @@ extends Node3D
 
 @onready var players_container: Node3D = $Players_Container
 @onready var my_component_container: component_container = $ComponentContainer
-
 @export var player_scene: PackedScene
 
 var nickname:String = ""

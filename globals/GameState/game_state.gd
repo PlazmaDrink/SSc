@@ -1,7 +1,7 @@
 class_name GameState_Local
 extends Node
 
-const UI_MANAGER = preload("uid://cxwfmkvydqapy")
+const UI_MANAGER_SCENE = preload("uid://cxwfmkvydqapy")
 
 
 var player:Player_Character
@@ -21,6 +21,9 @@ func on_player_connected(peer_id:int, player_info:Dictionary)->void:
 		isStateReady = true
 
 func initiate_UI_manager(peer_id:int, player_info:Dictionary)->void:
-	UI_manager = UI_MANAGER.instantiate() as UI_Manager
+	UI_manager = UI_MANAGER_SCENE.instantiate() as UI_Manager
 	self.add_child(UI_manager)
 	UI_manager.initiate_manager(peer_id, player_info)
+
+func getUI_manager()->UI_Manager:
+	return UI_manager

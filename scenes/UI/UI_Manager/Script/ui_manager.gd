@@ -6,6 +6,7 @@ extends Control
 @onready var ui_debug: UI_Debug = $UI_Debug
 @onready var survival_bars: CustomControl = $SurvivalBars
 @onready var temp: Control = $Temp
+@onready var store_ui: Store_UI = $StoreUi
 
 const POP_UP_MESSAGE = preload("uid://cmi5io0cl7ms1")
 

@@ -5,3 +5,6 @@ class_name CustomControl
 
 func _ready() -> void:
 	pass
+
+func initiane_UI_element()->void:
+	pass
