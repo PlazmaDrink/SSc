@@ -20,7 +20,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Network="*res://globals/network/network.gd"
-ItemDatabase="*res://scenes/General/Items (Goes with multiplayer template)/item_database.gd"
+ItemDatabase="*res://scenes/General/Items/item_database.gd"
 GlobalTime="*res://globals/TimeManager/Scene/global_time.tscn"
 SaveLoad="*res://globals/SaveLoad/SAVE_LOAD.gd"
 SceneManager="*res://globals/SceneManager/Scene/SceneManager.tscn"

@@ -1,18 +1,12 @@
-extends Control
+extends SlotUI
 class_name InventorySlotUI
 
-@onready var background: NinePatchRect = $Background
-@onready var item_icon: TextureRect = $ItemIcon
 @onready var quantity_label: Label = $QuantityLabel
-@onready var rarity_border: NinePatchRect = $RarityBorder
 
-var slot_index: int = 0
-var inventory_slot: InventorySlot
-var parent_inventory_UI: Control
-
-signal slot_clicked(slot_index: int, button: int)
 signal item_hovered(slot_index: int, item: Item)
 signal item_unhovered
+var inventory_slot: InventorySlot
+var parent_inventory_UI: Control
 
 const RARITY_COLORS = {
 	Item.ItemRarity.COMMON: Color.WHITE,
@@ -22,12 +16,7 @@ const RARITY_COLORS = {
 	Item.ItemRarity.LEGENDARY: Color.ORANGE
 }
 
-func _ready():
-	gui_input.connect(_on_gui_input)
-	mouse_entered.connect(_on_mouse_entered)
-	mouse_exited.connect(_on_mouse_exited)
-
-func set_slot_data(slot_data: InventorySlot):
+func set_inventory_slot_data(slot_data: InventorySlot):
 	inventory_slot = slot_data
 	if inventory_slot:
 		slot_index = slot_data.slot_index
@@ -38,6 +27,17 @@ func update_display():
 		_show_empty_slot()
 	else:
 		_show_item_slot()
+
+func _on_mouse_exited():
+	item_unhovered.emit()
+	background.modulate = Color.WHITE
+
+func _on_mouse_entered():
+	if inventory_slot and not inventory_slot.is_empty():
+		var item = ItemDatabase.get_item(inventory_slot.item_id)
+		if item:
+			item_hovered.emit(slot_index, item)
+	background.modulate = Color(1.2, 1.2, 1.2)
 
 func _show_empty_slot():
 	if item_icon:
@@ -68,24 +68,6 @@ func _show_item_slot():
 		rarity_border.visible = true
 	else:
 		rarity_border.visible = false
-
-func _on_gui_input(event: InputEvent):
-	if event is InputEventMouseButton:
-		if event.pressed:
-			slot_clicked.emit(slot_index, event.button_index)
-
-func _on_mouse_entered():
-	if inventory_slot and not inventory_slot.is_empty():
-		var item = ItemDatabase.get_item(inventory_slot.item_id)
-		if item:
-			item_hovered.emit(slot_index, item)
-
-	background.modulate = Color(1.2, 1.2, 1.2)
-
-func _on_mouse_exited():
-	item_unhovered.emit()
-
-	background.modulate = Color.WHITE
 
 func _can_drop_data(_position: Vector2, data) -> bool:
 	return data is InventorySlot

@@ -1,10 +1,13 @@
 extends Node
 
+signal ItemsLoaded
 var items: Dictionary = {}
+var store_items: Dictionary = {}
 
-func _ready():
+func start():
 	_load_items()
 	_request_assets_loading()
+	ItemsLoaded.emit()
 
 func _request_assets_loading():
 	for item in items:
@@ -21,8 +24,19 @@ func get_all_items() -> Dictionary:
 
 func _load_items():
 	_create_sample_items()
+	_create_store_items()
 
-func _create_sample_items():
+func _create_store_items()->void:
+	var cube = StoreItem.new()
+	cube.id = "cube"
+	cube.name = "Cube"
+	cube.description = "Deffinitely not poisoned"
+	cube.value = 25
+	cube.icon = load("uid://cupj4ninr264x")
+	cube.assetsRef = "uid://dfj341reepu58"
+	store_items[cube.id] = cube
+
+func _create_sample_items()->void:
 	var placeholder_icon = load("res://icon.png")
 	# Basic sword
 	var iron_sword = Item.new()

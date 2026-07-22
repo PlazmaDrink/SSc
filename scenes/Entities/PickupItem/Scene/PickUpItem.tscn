@@ -1,11 +1,11 @@
 [gd_scene load_steps=11 format=3 uid="uid://b7w684jo2g6c8"]
 
-[ext_resource type="ArrayMesh" uid="uid://dwormhw5e5v27" path="res://assets/butelka/butelka_Circle_001.res" id="1_7qskr"]
+[ext_resource type="ArrayMesh" uid="uid://cy2pfhctrx2r8" path="res://assets/butelka/butelka_Circle_001.res" id="1_7qskr"]
 [ext_resource type="PackedScene" uid="uid://od014t1fy44i" path="res://scenes/General/Components/ComponentContainer/Scene/ComponentContainer.tscn" id="1_vluis"]
 [ext_resource type="PackedScene" uid="uid://botwm1ppo741l" path="res://scenes/General/Components/InteractableComponent/Scene/InteractableComponent.tscn" id="2_7qskr"]
 [ext_resource type="Material" uid="uid://3dj7c4t6at2n" path="res://assets/butelka/new_standard_material_3d.tres" id="2_lh2dx"]
 [ext_resource type="Script" uid="uid://dumos62w7ersu" path="res://scenes/General/Components/InteractableComponent/Interactions/Interaction_PickUp_Item.gd" id="8_6hhqa"]
-[ext_resource type="Script" uid="uid://bbq3lkpgmwr1t" path="res://scenes/General/Items (Goes with multiplayer template)/item.gd" id="8_xscw5"]
+[ext_resource type="Script" uid="uid://bbq3lkpgmwr1t" path="res://scenes/General/Items/item.gd" id="8_xscw5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vluis"]
 size = Vector3(0.1, 0.3, 0.1)

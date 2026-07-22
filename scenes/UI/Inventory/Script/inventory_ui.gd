@@ -23,7 +23,7 @@ func initiane_vars(inMy_inventory:Inventory, inCurrent_Player: Player_Character 
 	current_player = inCurrent_Player
 	
 func initiane_UI_element()->void:
-	slot_ui_scene = preload("uid://bglwdpf2mf7g0")
+	slot_ui_scene = preload("uid://cg7ujcav2fvqq")
 	grid_container.columns = 4
 	close_button.pressed.connect(_on_close_pressed)
 	tooltip.visible = false
@@ -46,7 +46,7 @@ func _create_slot_uis():
 		slot_ui.item_hovered.connect(_on_item_hovered)
 		slot_ui.item_unhovered.connect(_on_item_unhovered)
 
-		slot_ui.set_slot_data(my_inventory.get_slot(i))
+		slot_ui.set_inventory_slot_data(my_inventory.get_slot(i))
 
 		grid_container.add_child(slot_ui)
 		slot_uis.append(slot_ui)
@@ -181,12 +181,12 @@ func toggle_inventory():
 func update_inventory_display():
 	for i in range(slot_uis.size()):
 		if i < my_inventory.inventory_size:
-			slot_uis[i].set_slot_data(my_inventory.get_slot(i))
+			slot_uis[i].set_inventory_slot_data(my_inventory.get_slot(i))
 
 func update_inventory_display_signal():
 	for i in range(slot_uis.size()):
 		if i < my_inventory.inventory_size:
-			slot_uis[i].set_slot_data(my_inventory.get_slot(i))
+			slot_uis[i].set_inventory_slot_data(my_inventory.get_slot(i))
 
 func set_title(newTitle:String)->void:
 	title_label.text = newTitle
