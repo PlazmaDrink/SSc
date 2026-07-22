@@ -6,7 +6,5 @@ func on_interaction(_componentContainer: component_container):
 	var camera_component:Camera_component = _componentContainer.get_component(GameEnums.Components.CameraComponent)
 	if camera_component:
 		camera_component.cameraTransition()
-		#Turns off player movement
-		local_player.check_is_current_camera()
 		#requestUIupdate
 		local_player.game_state.getUI_manager().store_ui.toggle_visibility()

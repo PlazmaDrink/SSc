@@ -63,13 +63,16 @@ func UpdateCurrentlyVisible(inUIElement: CustomControl):
 
 ##Toggle mouse visibility and input focus between game and UI
 func check_if_mouse_on_screen_required()->void:
+	#If there is no ui elements visible - hide mouse coursore
 	if CurrentlyVisible.is_empty():
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		mouse_filter = Control.MOUSE_FILTER_PASS
 	else:
 		Input.mouse_mode = Input.MOUSE_MODE_CONFINED
-		mouse_filter = Control.MOUSE_FILTER_STOP
-	print("Visible UI elements count: ", CurrentlyVisible.size(), " | Array contents: ", CurrentlyVisible)
+		mouse_filter = Control.MOUSE_FILTER_PASS
+		#Checks if current camera is Players so it can set filter for mouse input
+		if CameraManager.isPlayerCameraActive:
+			mouse_filter = Control.MOUSE_FILTER_STOP
 
 func add_to_currently_on_display(childToAdd: Node)->void:
 	if childToAdd.get_parent() == null:

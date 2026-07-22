@@ -91,8 +91,10 @@ func freeze():
 	velocity.z = 0
 	_current_speed = 0
 	_body.animate(Vector3.ZERO)
+
 func check_is_current_camera():
 	can_move = spring_arm_character.my_camera.current
+
 func _move() -> void:
 	var _input_direction: Vector2 = Vector2.ZERO
 	if is_multiplayer_authority() and can_move:

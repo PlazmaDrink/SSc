@@ -28,6 +28,7 @@ GlobalData="*res://globals/GlobalData/Scene/GlobalData.tscn"
 GameEnums="*res://globals/GameEnums.gd"
 GameState="res://globals/GameState/GameState.tscn"
 AssetsManager="*res://globals/AssetsManager/Scene/AssetsManager.tscn"
+CameraManager="*res://globals/CameraManager/CameraManager.tscn"
 
 [display]
 
