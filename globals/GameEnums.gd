@@ -6,7 +6,8 @@ enum Components{
 	TimeComponent,
 	InteractableComponent,
 	InventoryComponent,
-	CameraComponent
+	CameraComponent,
+	PreviewComponent
 }
 
 enum CameraMode{

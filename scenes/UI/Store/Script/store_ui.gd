@@ -2,6 +2,7 @@ extends CustomControl
 class_name Store_UI
 
 @onready var store_slot_container: HBoxContainer = $StoreItems/MarginContainer/VBoxContainer/HBoxContainer
+const PREVIEW_COMPONENT = preload("uid://cpc13ap3bgilr")
 
 var slot_ui_scene: PackedScene
 var slot_uis: Array[StoreSlotUI] = []
@@ -31,13 +32,14 @@ func _create_store_slot_uis():
 	for child in store_slot_container.get_children():
 		child.queue_free()
 	slot_uis.clear()
-
+	var item_index:int = 0
 	for i in ItemDatabase.store_items:
 		var slot_ui = slot_ui_scene.instantiate() as StoreSlotUI
 		slot_ui.custom_minimum_size = Vector2(128, 128)
 		slot_ui.slot_clicked.connect(_on_slot_clicked)
 
-		slot_ui.set_store_slot_data(ItemDatabase.store_items.get(i))
+		slot_ui.set_store_slot_data(ItemDatabase.store_items.get(i), item_index)
+		item_index+= 1
 		store_slot_container.add_child(slot_ui)
 		slot_uis.append(slot_ui)
 
@@ -47,4 +49,10 @@ func _on_slot_clicked(slot_index: int, button: int):
 	var store_item = clicked_slot.store_item
 	var scene = store_item.getAsset()
 	var item = scene.instantiate()
+	store_ref.items_container.add_child(item)
+	var priev_component = PREVIEW_COMPONENT.instantiate()
+	item.my_component_container.add_child(priev_component)
+	priev_component.set_Target_node(item)
+	priev_component.initiate_component()
+	
 	store_ref.add_new_store_item(item)

@@ -10,7 +10,7 @@ var nickname:String = ""
 var skin:String = ""
 var adress:String = ""
 
-func _ready() -> void:	
+func _ready() -> void:
 	if not multiplayer.is_server():
 		return
 	Network.player_connected.connect(_on_player_connected)

@@ -3,8 +3,9 @@ class_name StoreSlotUI
 
 var store_item: StoreItem
 
-func set_store_slot_data(inStore_item: StoreItem):
+func set_store_slot_data(inStore_item: StoreItem, inSlot_index):
 	store_item = inStore_item
+	slot_index = inSlot_index
 	call_deferred("setSlotIcon")
 
 func setSlotIcon()->void:
