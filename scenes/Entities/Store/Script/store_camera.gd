@@ -1,4 +1,4 @@
-class_name nonPlayerCamera
+class_name store_camera
 extends SpringArm3D
 
 @onready var my_camera: Camera3D = $myCamera
@@ -55,29 +55,3 @@ func handle_input_movement(delta:float)->void:
 	# Clamp camera target position within object bounds
 	global_position.x = clamp(global_position.x, min_bounds.x, max_bounds.x)
 	global_position.z = clamp(global_position.z, min_bounds.z, max_bounds.z)
-
-func update_camera_bounds() -> void:
-	var bounds: AABB = setCameraBounds(target_object)
-	
-	# Shrink/Expand boundaries using padding
-	min_bounds = bounds.position - Vector3(padding, padding, padding)
-	max_bounds = bounds.end + Vector3(padding, padding, padding)
-
-func setCameraBounds(inTarget_object: Node3D)->AABB:
-	var combined_aabb := AABB()
-	var has_initial_mesh := false
-	
-	# Recursively find all MeshInstance3D nodes under the target
-	var meshes :Array[Node] = inTarget_object.find_children("*", "MeshInstance3D", true, false)
-	
-	for mesh_node in meshes:
-		if mesh_node is MeshInstance3D and mesh_node.visible and mesh_node.mesh:
-			# Get local AABB and convert it to world space coordinates
-			var world_aabb: AABB = mesh_node.global_transform * mesh_node.get_aabb()
-			
-			if not has_initial_mesh:
-				combined_aabb = world_aabb
-				has_initial_mesh = true
-			else:
-				combined_aabb = combined_aabb.merge(world_aabb)
-	return combined_aabb

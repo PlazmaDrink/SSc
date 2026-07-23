@@ -13,6 +13,7 @@ func initiane_UI_element()->void:
 	set_process_input(true)
 	_create_store_slot_uis()
 	hide()
+
 func toggle_visibility()->void:
 	visible = !visible
 	if visible:
@@ -50,9 +51,7 @@ func _on_slot_clicked(slot_index: int, button: int):
 	var scene = store_item.getAsset()
 	var item = scene.instantiate()
 	store_ref.items_container.add_child(item)
-	var priev_component = PREVIEW_COMPONENT.instantiate()
-	item.my_component_container.add_child(priev_component)
-	priev_component.set_Target_node(item)
-	priev_component.initiate_component()
-	
+	var preview_component = PREVIEW_COMPONENT.instantiate()
+	item.my_component_container.add_child(preview_component)
+	preview_component.set_preview_bonds(CameraManager.update_camera_bounds(store_ref))
 	store_ref.add_new_store_item(item)

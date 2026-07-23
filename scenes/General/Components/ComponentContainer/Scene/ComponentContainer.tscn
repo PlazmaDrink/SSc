@@ -4,3 +4,5 @@
 
 [node name="ComponentContainer" type="Node"]
 script = ExtResource("1_d783l")
+
+[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]

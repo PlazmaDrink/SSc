@@ -26,6 +26,7 @@ func initiate_component_container()->void:
 
 func initiate_children_components()->void:
 	for component in components_dict:
+		components_dict.get(component).set_component_container(self)
 		components_dict.get(component).initiate_component()
 
 func send_message_to_component(inComponent:GameEnums.Components, func_name:String)->void:
@@ -38,3 +39,9 @@ func get_component(inComponent:GameEnums.Components)->Node:
 	if component:
 		return component
 	return null
+
+##Func called if component is added during gameplay
+func _on_child_entered_tree(node: Node) -> void:
+	components_dict[node] = node
+	components_dict.get(node).set_component_container(self)
+	components_dict.get(node).initiate_component()

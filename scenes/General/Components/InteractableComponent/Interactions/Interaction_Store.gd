@@ -25,14 +25,11 @@ func check_player()->void:
 
 func find_store_node(node: Node) -> Node:
 	var parent = node.get_parent()
-	
 	# Base case 1: Reached the top of the tree
 	if parent == null:
 		return null
-		
 	# Base case 2: Found a parent matching the type
 	if is_instance_of(parent, StoreTemplate):
 		return parent
-		
 	# Recursive step: Keep checking up the chain
 	return find_store_node(parent)

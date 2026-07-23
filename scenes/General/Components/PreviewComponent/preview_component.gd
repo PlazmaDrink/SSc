@@ -11,11 +11,29 @@ var area_to_track:Area3D
 
 var is_following_mouse := true
 @onready var camera: Camera3D = get_viewport().get_camera_3d()
+var min_bounds:Vector3
+var max_bounds:Vector3
+
+func initiate_component()->void:
+	target_node = my_component_container.root_node
+	if target_node:
+		_gather_all_meshes(target_node)
+		find_area_to_track(target_node)
+		check_required_material()
+	else:
+		print_debug("No target node selected")
+
+#TODO: bounds need to take in count size of item itself
+func set_preview_bonds(BoundsDict:Dictionary)->void:
+	min_bounds = BoundsDict["min_bounds"]
+	max_bounds = BoundsDict["max_bounds"]
+	
+func set_Target_node(inTargetNode:Node)->void:
+	target_node = inTargetNode
 
 func _physics_process(_delta: float) -> void:
 	if not is_following_mouse or not camera:
 		return
-		
 	# 1. Get 2D mouse position on the screen
 	var mouse_pos = get_viewport().get_mouse_position()
 	
@@ -30,18 +48,9 @@ func _physics_process(_delta: float) -> void:
 	var intersection = ground_plane.intersects_ray(ray_origin, ray_normal)
 	
 	if intersection != null:
+		intersection.x = clamp(intersection.x, min_bounds.x, max_bounds.x)
+		intersection.z = clamp(intersection.z, min_bounds.z, max_bounds.z)
 		area_to_track.global_position = intersection
-
-func set_Target_node(inTargetNode:Node)->void:
-	target_node = inTargetNode
-	
-func initiate_component()->void:
-	if target_node:
-		_gather_all_meshes(target_node)
-		find_area_to_track(target_node)
-		check_required_material()
-	else:
-		print_debug("No target node selected")
 
 func _gather_all_meshes(target: Node) -> void:
 	if target is MeshInstance3D:
