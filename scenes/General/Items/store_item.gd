@@ -9,8 +9,7 @@ extends Resource
 @export var assetsRef:String
 
 func load_assets()->void:
-	for asset in assetsRef:
-		AssetsManager.request_load(assetsRef)
+	AssetsManager.request_load(assetsRef)
 
 func getAsset()->PackedScene:
 	var scene:PackedScene = AssetsManager.get_asset(assetsRef)

@@ -5,6 +5,7 @@ class_name Store_UI
 
 var slot_ui_scene: PackedScene
 var slot_uis: Array[StoreSlotUI] = []
+var store_ref:StoreTemplate
 
 func initiane_UI_element()->void:
 	slot_ui_scene = preload("uid://bglwdpf2mf7g0")
@@ -37,10 +38,13 @@ func _create_store_slot_uis():
 		slot_ui.slot_clicked.connect(_on_slot_clicked)
 
 		slot_ui.set_store_slot_data(ItemDatabase.store_items.get(i))
-		print_debug(slot_ui.store_item.name)
-		slot_ui.item_icon.texture = slot_ui.store_item.icon
 		store_slot_container.add_child(slot_ui)
 		slot_uis.append(slot_ui)
 
 func _on_slot_clicked(slot_index: int, button: int):
-	print("Slot ", slot_index, " clicked with button ", button)
+	print_debug("Slot ", slot_index, " clicked with button ", button)
+	var clicked_slot = slot_uis.get(slot_index)
+	var store_item = clicked_slot.store_item
+	var scene = store_item.getAsset()
+	var item = scene.instantiate()
+	store_ref.add_new_store_item(item)

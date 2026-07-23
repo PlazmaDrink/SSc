@@ -11,7 +11,9 @@ func start():
 
 func _request_assets_loading():
 	for item in items:
-		get_item(item).load_assets()
+		items.get(item).load_assets()
+	for item in store_items:
+		store_items.get(item).load_assets()
 
 func get_item(item_id: String) -> Item:
 	return items.get(item_id)
@@ -35,6 +37,15 @@ func _create_store_items()->void:
 	cube.icon = load("uid://cupj4ninr264x")
 	cube.assetsRef = "uid://dfj341reepu58"
 	store_items[cube.id] = cube
+	
+	var shelf = StoreItem.new()
+	shelf.id = "shelf"
+	shelf.name = "Shelf"
+	shelf.description = "Storage for items"
+	shelf.value = 25
+	shelf.icon = load("uid://dkyxru8es7iu2")
+	shelf.assetsRef = "uid://0on3ilotj8xf"
+	store_items[shelf.id] = shelf
 
 func _create_sample_items()->void:
 	var placeholder_icon = load("res://icon.png")

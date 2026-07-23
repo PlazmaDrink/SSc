@@ -2,6 +2,7 @@ extends SlotUI
 class_name InventorySlotUI
 
 @onready var quantity_label: Label = $QuantityLabel
+@onready var rarity_border: NinePatchRect = $RarityBorder
 
 signal item_hovered(slot_index: int, item: Item)
 signal item_unhovered

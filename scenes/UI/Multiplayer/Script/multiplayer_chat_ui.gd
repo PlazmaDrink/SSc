@@ -18,8 +18,6 @@ func toggle_chat():
 	chat_visible = !chat_visible
 	if chat_visible:
 		show()
-		#await get_tree().process_frame
-		#message.grab_focus()
 	else:
 		hide()
 		message.text = ""

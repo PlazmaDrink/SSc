@@ -1,8 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://8m8nmx6l3yru"]
+[gd_scene load_steps=18 format=3 uid="uid://8m8nmx6l3yru"]
 
 [ext_resource type="PackedScene" uid="uid://od014t1fy44i" path="res://scenes/General/Components/ComponentContainer/Scene/ComponentContainer.tscn" id="1_1nda8"]
+[ext_resource type="Script" uid="uid://lqjmdh4jqvm7" path="res://scenes/Entities/Store/Script/store_template.gd" id="1_7y8pb"]
 [ext_resource type="PackedScene" uid="uid://botwm1ppo741l" path="res://scenes/General/Components/InteractableComponent/Scene/InteractableComponent.tscn" id="2_7rkry"]
-[ext_resource type="Script" uid="uid://d1mk50u12f7eg" path="res://scenes/General/Components/InteractableComponent/Interactions/Interaction_CameraMode.gd" id="3_7rkry"]
+[ext_resource type="Script" uid="uid://d1mk50u12f7eg" path="res://scenes/General/Components/InteractableComponent/Interactions/Interaction_Store.gd" id="3_7rkry"]
 [ext_resource type="PackedScene" uid="uid://dnosx16x0svds" path="res://scenes/General/Components/CameraComponent/Scene/CameraComponent.tscn" id="4_bk6af"]
 [ext_resource type="Script" uid="uid://bl0hidjy5fcmn" path="res://scenes/Entities/Store/Script/store_camera.gd" id="5_bk6af"]
 
@@ -41,6 +42,7 @@ script = ExtResource("3_7rkry")
 metadata/_custom_type_script = "uid://d1mk50u12f7eg"
 
 [node name="StoreTemplate" type="Node3D"]
+script = ExtResource("1_7y8pb")
 
 [node name="Meshes" type="Node3D" parent="."]
 
@@ -111,5 +113,7 @@ target_object = NodePath("../..")
 
 [node name="myCamera" type="Camera3D" parent="StoreControlePanel/SpringArm3D"]
 transform = Transform3D(0.9999999, 0, 2.9802322e-08, -1.4901161e-08, 0.99999994, -7.450581e-09, 1.4901161e-08, 1.4901161e-08, 0.9999999, 0, 0, 0)
+
+[node name="StorePurchasedItems" type="Node3D" parent="."]
 
 [editable path="StoreControlePanel/ComponentContainer/CameraComponent"]

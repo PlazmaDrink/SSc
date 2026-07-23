@@ -5,7 +5,6 @@ signal slot_clicked(slot_index: int, button: int)
 
 @onready var background: NinePatchRect = $Background
 @onready var item_icon: TextureRect = $ItemIcon
-@onready var rarity_border: NinePatchRect = $RarityBorder
 
 var slot_index: int = 0
 
