@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://cpc13ap3bgilr"]
+[gd_scene load_steps=4 format=3 uid="uid://cpc13ap3bgilr"]
 
 [ext_resource type="Script" uid="uid://0jj6y0p361b3" path="res://scenes/General/Components/PreviewComponent/preview_component.gd" id="1_s2h8o"]
+[ext_resource type="Material" uid="uid://da2wvf2fsefm7" path="res://scenes/General/Components/PreviewComponent/Materials/Valid_mat.tres" id="2_rrwcs"]
+[ext_resource type="Material" uid="uid://cfpbsmojgtrtw" path="res://scenes/General/Components/PreviewComponent/Materials/Invalid_mat.tres" id="3_d4kwx"]
 
 [node name="PreviewComponent" type="Node"]
 script = ExtResource("1_s2h8o")
+valid_mat = ExtResource("3_d4kwx")
+invalid_mat = ExtResource("2_rrwcs")

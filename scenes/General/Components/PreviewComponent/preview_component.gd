@@ -61,14 +61,16 @@ func _gather_all_meshes(target: Node) -> void:
 func find_area_to_track(target: Node)->void:
 	if target is Area3D:
 		area_to_track = target
-	for child in target.get_children():
-		find_area_to_track(child)
-	#if area_to_track:
-		#connect_to_area()
+	else:
+		for child in target.get_children():
+			find_area_to_track(child)
+	if area_to_track:
+		connect_to_area()
 
 func connect_to_area():
-	area_to_track.area_entered.connect(check_required_material)
-	area_to_track.area_exited.connect(check_required_material)
+	if !area_to_track.has_connections("area_entered") and !area_to_track.has_connections("area_exited"):
+		area_to_track.area_entered.connect(check_required_material)
+		area_to_track.area_exited.connect(check_required_material)
 
 func check_required_material():
 	var final_material:StandardMaterial3D

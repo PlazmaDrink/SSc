@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://gufx02gd414j"]
+
+[ext_resource type="PackedScene" uid="uid://c5u6aurw0hi1c" path="res://TempAssets(Has to be deleted later!!!)/FurnitureBits(fbx)/armchair.fbx" id="1_g1g6u"]
+
+[node name="armchair" instance=ExtResource("1_g1g6u")]
+
+[node name="armchair" parent="." index="0"]
+transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0.041858673, 0.84750736, -0.18994808)
