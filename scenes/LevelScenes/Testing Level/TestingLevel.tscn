@@ -28,6 +28,9 @@ environment = SubResource("Environment_aspp5")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
 
+[node name="StoreTemplate" parent="Environment" instance=ExtResource("2_h5gfx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.0427036, -0.5153227, -2.8670936)
+
 [node name="Floor" type="Node3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
@@ -39,6 +42,3 @@ mesh = SubResource("PlaneMesh_aspp5")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/MeshInstance3D/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.11029053, 0, -0.11398363)
 shape = SubResource("BoxShape3D_aspp5")
-
-[node name="StoreTemplate" parent="Floor/MeshInstance3D" instance=ExtResource("2_h5gfx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.0289717, -0.565753, -2.9821396)

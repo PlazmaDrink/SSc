@@ -1,5 +1,6 @@
 extends Node3D
 
+@export var store_item_scene:PackedScene
 
 @export_category("Storage Settings")
 ## Choose what kind of items can be stored here
@@ -14,6 +15,8 @@ func _ready() -> void:
 	var inv_comp:Inventory_component = my_component_container.get_component(GameEnums.Components.InventoryComponent)
 	inventory_ref = inv_comp.get_inventory()
 	inventory_ref.Request_UI_Update.connect(onInventoryUpdated)
+	var store_item_inst = store_item_scene.instantiate()
+	add_child(store_item_inst)
 
 func onInventoryUpdated()->void:
 	for slot in inventory_ref.slots:

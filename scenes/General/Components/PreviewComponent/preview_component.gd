@@ -50,7 +50,8 @@ func _physics_process(_delta: float) -> void:
 	if intersection != null:
 		intersection.x = clamp(intersection.x, min_bounds.x, max_bounds.x)
 		intersection.z = clamp(intersection.z, min_bounds.z, max_bounds.z)
-		area_to_track.global_position = intersection
+		target_node.global_position = intersection
+
 
 func _gather_all_meshes(target: Node) -> void:
 	if target is MeshInstance3D:
@@ -68,28 +69,22 @@ func find_area_to_track(target: Node)->void:
 		connect_to_area()
 
 func connect_to_area():
-	if !area_to_track.has_connections("area_entered") and !area_to_track.has_connections("area_exited"):
+	if not area_to_track.area_entered.is_connected(check_required_material) and not area_to_track.body_entered.is_connected(check_required_material):
 		area_to_track.area_entered.connect(check_required_material)
+		area_to_track.body_entered.connect(check_required_material)
+	if not area_to_track.area_exited.is_connected(check_required_material)and not area_to_track.body_exited.is_connected(check_required_material):
 		area_to_track.area_exited.connect(check_required_material)
+		area_to_track.body_exited.connect(check_required_material)
 
-func check_required_material():
+func check_required_material(_area: Area3D = null):
+	if not is_inside_tree():
+		return
+	await get_tree().physics_frame
 	var final_material:StandardMaterial3D
-	if area_to_track and area_to_track.has_overlapping_areas():
+	if area_to_track and (area_to_track.has_overlapping_areas() or area_to_track.has_overlapping_bodies()):
 		final_material = invalid_mat
 	else:
 		final_material = valid_mat
 	for mesh in meshes_to_prieviw:
 		for surface_idx in range(mesh.mesh.get_surface_count()):
-			var mat = mesh.get_surface_override_material(surface_idx)
-			if mat == null:
-				mat = StandardMaterial3D.new()
-				mesh.set_surface_override_material(surface_idx, mat)
-			mat.next_pass = final_material
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+			mesh.set_surface_override_material(surface_idx, final_material)

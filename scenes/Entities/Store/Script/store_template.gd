@@ -5,4 +5,5 @@ class_name StoreTemplate
 @onready var my_component_container: component_container = $StoreControlePanel/ComponentContainer
 
 func add_new_store_item(store_item:Node)->void:
-	items_container.add_child(store_item)
+	if is_multiplayer_authority():
+		items_container.add_child(store_item)
