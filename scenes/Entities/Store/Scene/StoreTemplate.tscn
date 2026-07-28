@@ -118,6 +118,6 @@ target_object = NodePath("../..")
 [node name="myCamera" type="Camera3D" parent="StoreControlePanel/SpringArm3D"]
 transform = Transform3D(0.9999999, 0, 2.9802322e-08, -1.4901161e-08, 0.99999994, -7.450581e-09, 1.4901161e-08, 1.4901161e-08, 0.9999999, 0, 0, 0)
 
-[node name="StorePurchasedItems" type="Node3D" parent="."]
+[node name="StoreInteriorItems" type="Node3D" parent="."]
 
 [editable path="StoreControlePanel/ComponentContainer/CameraComponent"]

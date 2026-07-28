@@ -76,12 +76,13 @@ func connect_to_area():
 		area_to_track.area_exited.connect(check_required_material)
 		area_to_track.body_exited.connect(check_required_material)
 
-func check_required_material(_area: Area3D = null):
+func check_required_material(_area: CollisionObject3D = null):
 	if not is_inside_tree():
 		return
 	await get_tree().physics_frame
 	var final_material:StandardMaterial3D
-	if area_to_track and (area_to_track.has_overlapping_areas() or area_to_track.has_overlapping_bodies()):
+	var isOverlapping:bool = area_to_track.has_overlapping_areas() or area_to_track.has_overlapping_bodies()
+	if area_to_track and isOverlapping:
 		final_material = invalid_mat
 	else:
 		final_material = valid_mat

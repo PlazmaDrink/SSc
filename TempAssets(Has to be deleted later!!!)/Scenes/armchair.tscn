@@ -3,17 +3,16 @@
 [ext_resource type="PackedScene" uid="uid://c5u6aurw0hi1c" path="res://TempAssets(Has to be deleted later!!!)/FurnitureBits(fbx)/armchair.fbx" id="1_g1g6u"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_g1g6u"]
+size = Vector3(2, 1, 1.8)
 
 [node name="armchair" instance=ExtResource("1_g1g6u")]
 
-[node name="Area3D" type="Area3D" parent="." index="0"]
-transform = Transform3D(1, 0, 0, 0, -0.984, 1.093659e-07, 0, -8.6024016e-08, -1.251, 0, 0.45802227, 0)
-collision_layer = 3
-collision_mask = 3
+[node name="armchair" parent="." index="0"]
+transform = Transform3D(100.15557, 0, 0, 0, -1.19394745e-05, 100.15556, 0, -100.15556, -1.19394745e-05, 0.041858673, 0.3822068, -0.18994808)
+
+[node name="Area3D" type="Area3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6113223, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" index="0"]
-transform = Transform3D(-0.009410774, 0, 0, 0, 0.009561835, 0, 0, 0, 0.007519974, -0.0001746841, -0.0002378684, -0.00067486486)
+transform = Transform3D(1, 0, 0, 0, 1, -8.742277e-08, 0, 8.742277e-08, 1, 0.021716312, 0.38732523, -0.18570544)
 shape = SubResource("BoxShape3D_g1g6u")
-
-[node name="armchair" parent="." index="1"]
-transform = Transform3D(100.15557, 0, 0, 0, -1.19394745e-05, 100.15556, 0, -100.15556, -1.19394745e-05, 0.041858673, -0.22911549, -0.18994808)

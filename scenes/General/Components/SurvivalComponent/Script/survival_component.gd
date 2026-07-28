@@ -10,7 +10,7 @@ var _survi_properties: Array[SurvivalProperty] = [_hunger, _thirst, _sleep]
 signal value_changed(new_value:SurvivalProperty)
 # Called when the node enters the scene tree for the first time.
 func initiate_component()->void:
-	if !has_connections("time_tick"):
+	if !GlobalTime.time_tick.is_connected(_on_time_tick):
 		GlobalTime.time_tick.connect(_on_time_tick)
 
 func alter_property(property, value)->void:
