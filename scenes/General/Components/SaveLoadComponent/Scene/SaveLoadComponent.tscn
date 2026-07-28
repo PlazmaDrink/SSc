@@ -4,3 +4,4 @@
 
 [node name="SaveLoadComponent" type="Node" groups=["DataToSave"]]
 script = ExtResource("1_1t3j7")
+my_component_type = 1

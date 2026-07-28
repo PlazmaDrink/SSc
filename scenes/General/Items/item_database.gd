@@ -44,7 +44,7 @@ func _create_store_items()->void:
 	shelf.description = "Storage for items"
 	shelf.value = 25
 	shelf.icon = load("uid://dkyxru8es7iu2")
-	shelf.assetsRef = "uid://0on3ilotj8xf"
+	shelf.assetsRef = "uid://gufx02gd414j"
 	store_items[shelf.id] = shelf
 
 func _create_sample_items()->void:

@@ -4,3 +4,4 @@
 
 [node name="TimeComponent" type="Node"]
 script = ExtResource("1_jhw1r")
+my_component_type = 2

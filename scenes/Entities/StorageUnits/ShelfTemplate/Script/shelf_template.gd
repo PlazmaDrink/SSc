@@ -8,6 +8,7 @@ extends Node3D
 @export var locationMarkers:Array[Marker3D]
 @onready var my_component_container: component_container = $ComponentContainer
 var inventory_ref: Inventory
+var canBePlaced:bool = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

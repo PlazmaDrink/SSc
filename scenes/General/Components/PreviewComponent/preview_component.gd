@@ -9,8 +9,10 @@ class_name Preview_component
 var meshes_to_prieviw:Array[MeshInstance3D]
 var area_to_track:Area3D
 
-var is_following_mouse := true
 @onready var camera: Camera3D = get_viewport().get_camera_3d()
+var isInPreview := true
+var isOverlapping:bool = false
+
 var min_bounds:Vector3
 var max_bounds:Vector3
 
@@ -31,8 +33,11 @@ func set_preview_bonds(BoundsDict:Dictionary)->void:
 func set_Target_node(inTargetNode:Node)->void:
 	target_node = inTargetNode
 
+func toggle_isInPreview()->void:
+	isInPreview = !isInPreview
+	
 func _physics_process(_delta: float) -> void:
-	if not is_following_mouse or not camera:
+	if not isInPreview or not camera:
 		return
 	# 1. Get 2D mouse position on the screen
 	var mouse_pos = get_viewport().get_mouse_position()
@@ -81,11 +86,18 @@ func check_required_material(_area: CollisionObject3D = null):
 		return
 	await get_tree().physics_frame
 	var final_material:StandardMaterial3D
-	var isOverlapping:bool = area_to_track.has_overlapping_areas() or area_to_track.has_overlapping_bodies()
-	if area_to_track and isOverlapping:
-		final_material = invalid_mat
-	else:
-		final_material = valid_mat
+	isOverlapping = area_to_track.has_overlapping_areas() or area_to_track.has_overlapping_bodies()
+	if area_to_track:
+		if isOverlapping:
+			final_material = invalid_mat
+		else:
+			final_material = valid_mat
 	for mesh in meshes_to_prieviw:
 		for surface_idx in range(mesh.mesh.get_surface_count()):
 			mesh.set_surface_override_material(surface_idx, final_material)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.pressed:
+			if !isOverlapping:
+				toggle_isInPreview()

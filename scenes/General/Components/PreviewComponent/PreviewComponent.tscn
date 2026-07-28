@@ -8,3 +8,4 @@
 script = ExtResource("1_s2h8o")
 valid_mat = ExtResource("3_d4kwx")
 invalid_mat = ExtResource("2_rrwcs")
+my_component_type = 6

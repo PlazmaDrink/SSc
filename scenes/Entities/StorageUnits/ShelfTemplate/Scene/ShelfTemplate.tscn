@@ -21,12 +21,11 @@ metadata/_custom_type_script = "uid://bqvu3ld03temc"
 script = ExtResource("1_8tkeb")
 store_item_scene = ExtResource("2_uc8e4")
 myShelfType = SubResource("Resource_uc8e4")
-locationMarkers = [NodePath("")]
+locationMarkers = [null]
 
 [node name="ComponentContainer" parent="." instance=ExtResource("1_mv3ki")]
 
-[node name="InteractableComponent" parent="ComponentContainer" node_paths=PackedStringArray("target_to_outline") instance=ExtResource("2_b0hqm")]
-target_to_outline = NodePath("")
+[node name="InteractableComponent" parent="ComponentContainer" instance=ExtResource("2_b0hqm")]
 Action_to_do = SubResource("Resource_8tkeb")
 
 [node name="InventoryComponent" parent="ComponentContainer" instance=ExtResource("3_8tkeb")]

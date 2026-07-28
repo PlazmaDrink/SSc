@@ -5,3 +5,4 @@
 [node name="InteractableComponent" type="Node" groups=["iInteractable"]]
 script = ExtResource("1_ka23q")
 OutlineColor = Color(0.9275334, 0.9078322, 0, 1)
+my_component_type = 3

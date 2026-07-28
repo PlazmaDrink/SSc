@@ -40,8 +40,9 @@ func get_component(inComponent:GameEnums.Components)->Node:
 		return component
 	return null
 
-##Func called if component is added during gameplay
+##Add component to dict if it was added after initialization of container
 func _on_child_entered_tree(node: Node) -> void:
-	components_dict[node] = node
-	components_dict.get(node).set_component_container(self)
-	components_dict.get(node).initiate_component()
+	if is_initialized:
+		components_dict[GameEnums.Components.find_key(node.my_component_type)] = node
+		node.set_component_container(self)
+		node.initiate_component()

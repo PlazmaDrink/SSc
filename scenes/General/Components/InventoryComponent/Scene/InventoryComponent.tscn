@@ -4,3 +4,4 @@
 
 [node name="InventoryComponent" type="Node"]
 script = ExtResource("1_if8h8")
+my_component_type = 4
