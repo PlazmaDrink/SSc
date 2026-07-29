@@ -49,3 +49,10 @@ func _on_slot_clicked(slot_index: int, button: int):
 		var clicked_slot = slot_uis.get(slot_index)
 		var store_item = clicked_slot.store_item
 		store_ref.spawn_store_item(store_item)
+		store_ref.isInPreview = true
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and visible:
+		if event.pressed:
+			if store_ref.item_currently_in_preview:
+				store_ref.item_currently_in_preview.try_to_place_item()

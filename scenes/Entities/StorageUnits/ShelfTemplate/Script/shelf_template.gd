@@ -36,4 +36,10 @@ func _sync_items_with_inventory(inInv_slot: InventorySlot)->void:
 			item_instance.position = targetMarker.position
 			targetMarker.add_child(item_instance)
 	
-	
+func try_to_place_item()->bool:
+	if canBePlaced:
+		#turn of preview component process func
+		my_component_container.get_component(GameEnums.Components.PreviewComponent).isInPreview = false
+		return true
+	else:
+		return false

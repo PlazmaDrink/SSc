@@ -10,7 +10,7 @@ var meshes_to_prieviw:Array[MeshInstance3D]
 var area_to_track:Area3D
 
 @onready var camera: Camera3D = get_viewport().get_camera_3d()
-var isInPreview := true
+var isInPreview := false
 var isOverlapping:bool = false
 
 var min_bounds:Vector3
@@ -22,6 +22,7 @@ func initiate_component()->void:
 		_gather_all_meshes(target_node)
 		find_area_to_track(target_node)
 		check_required_material()
+		isInPreview = true
 	else:
 		print_debug("No target node selected")
 
@@ -33,9 +34,6 @@ func set_preview_bonds(BoundsDict:Dictionary)->void:
 func set_Target_node(inTargetNode:Node)->void:
 	target_node = inTargetNode
 
-func toggle_isInPreview()->void:
-	isInPreview = !isInPreview
-	
 func _physics_process(_delta: float) -> void:
 	if not isInPreview or not camera:
 		return
@@ -90,14 +88,11 @@ func check_required_material(_area: CollisionObject3D = null):
 	if area_to_track:
 		if isOverlapping:
 			final_material = invalid_mat
+			target_node.canBePlaced = false
 		else:
 			final_material = valid_mat
+			target_node.canBePlaced = true
+
 	for mesh in meshes_to_prieviw:
 		for surface_idx in range(mesh.mesh.get_surface_count()):
 			mesh.set_surface_override_material(surface_idx, final_material)
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
-		if event.pressed:
-			if !isOverlapping:
-				toggle_isInPreview()
