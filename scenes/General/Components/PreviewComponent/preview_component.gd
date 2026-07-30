@@ -3,14 +3,12 @@ class_name Preview_component
 
 @export var valid_mat:StandardMaterial3D
 @export var invalid_mat:StandardMaterial3D
-@export var normal_mat:StandardMaterial3D
+var mesh_origin_material_dict:Dictionary = {}
 
 @export var target_node: Node3D
-var meshes_to_prieviw:Array[MeshInstance3D]
 var area_to_track:Area3D
 
 @onready var camera: Camera3D = get_viewport().get_camera_3d()
-var isInPreview := false
 var isOverlapping:bool = false
 
 var min_bounds:Vector3
@@ -22,7 +20,6 @@ func initiate_component()->void:
 		_gather_all_meshes(target_node)
 		find_area_to_track(target_node)
 		check_required_material()
-		isInPreview = true
 	else:
 		print_debug("No target node selected")
 
@@ -35,7 +32,7 @@ func set_Target_node(inTargetNode:Node)->void:
 	target_node = inTargetNode
 
 func _physics_process(_delta: float) -> void:
-	if not isInPreview or not camera:
+	if not camera:
 		return
 	# 1. Get 2D mouse position on the screen
 	var mouse_pos = get_viewport().get_mouse_position()
@@ -55,12 +52,25 @@ func _physics_process(_delta: float) -> void:
 		intersection.z = clamp(intersection.z, min_bounds.z, max_bounds.z)
 		target_node.global_position = intersection
 
-
-func _gather_all_meshes(target: Node) -> void:
-	if target is MeshInstance3D:
-		meshes_to_prieviw.append(target)
-	for child in target.get_children():
+##Collects model meshes and origin materials
+func _gather_all_meshes(target_mesh: Node) -> void:
+	if target_mesh is MeshInstance3D:
+		#Loop to get all materials on the selected mesh
+		var temp_array_mat = []
+		for surface_idx in range(target_mesh.mesh.get_surface_count()):
+			temp_array_mat.append(target_mesh.get_surface_override_material(surface_idx))
+		mesh_origin_material_dict[target_mesh] = temp_array_mat
+	for child in target_mesh.get_children():
 		_gather_all_meshes(child)
+		
+func set_origin_mat_to_mesh()->void:
+	for mesh_instance in mesh_origin_material_dict.keys():
+		if is_instance_valid(mesh_instance):
+			var saved_materials = mesh_origin_material_dict[mesh_instance]
+			# Loop through the saved array and apply the materials back
+			for surface_idx in range(saved_materials.size()):
+				var mat = saved_materials[surface_idx]
+				mesh_instance.set_surface_override_material(surface_idx, mat)
 
 func find_area_to_track(target: Node)->void:
 	if target is Area3D:
@@ -88,11 +98,13 @@ func check_required_material(_area: CollisionObject3D = null):
 	if area_to_track:
 		if isOverlapping:
 			final_material = invalid_mat
-			target_node.canBePlaced = false
+			target_node.set_canBePlaced(false)
 		else:
 			final_material = valid_mat
-			target_node.canBePlaced = true
-
-	for mesh in meshes_to_prieviw:
+			target_node.set_canBePlaced(true)
+	for mesh in mesh_origin_material_dict.keys():
 		for surface_idx in range(mesh.mesh.get_surface_count()):
 			mesh.set_surface_override_material(surface_idx, final_material)
+
+func update_process_node(input:Node.ProcessMode)->void:
+	process_mode = input

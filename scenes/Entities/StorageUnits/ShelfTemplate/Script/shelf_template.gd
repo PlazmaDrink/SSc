@@ -35,11 +35,13 @@ func _sync_items_with_inventory(inInv_slot: InventorySlot)->void:
 		if targetMarker:
 			item_instance.position = targetMarker.position
 			targetMarker.add_child(item_instance)
-	
-func try_to_place_item()->bool:
+
+func set_canBePlaced(input:bool)->void:
+	canBePlaced = input
+
+func try_to_place_item()->void:
 	if canBePlaced:
 		#turn of preview component process func
-		my_component_container.get_component(GameEnums.Components.PreviewComponent).isInPreview = false
-		return true
-	else:
-		return false
+		var preview_comp_ref = my_component_container.get_component(GameEnums.Components.PreviewComponent)
+		preview_comp_ref.set_origin_mat_to_mesh()
+		preview_comp_ref.update_process_node(Node.PROCESS_MODE_DISABLED)

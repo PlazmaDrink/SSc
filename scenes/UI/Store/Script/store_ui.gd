@@ -5,6 +5,7 @@ class_name Store_UI
 
 var slot_ui_scene: PackedScene
 var slot_uis: Array[StoreSlotUI] = []
+##Store ref is set in Interaction_Store.gd
 var store_ref:StoreTemplate
 
 func initiane_UI_element()->void:
@@ -49,10 +50,9 @@ func _on_slot_clicked(slot_index: int, button: int):
 		var clicked_slot = slot_uis.get(slot_index)
 		var store_item = clicked_slot.store_item
 		store_ref.spawn_store_item(store_item)
-		store_ref.isInPreview = true
 
+##Input is handled in UI and send to store ref
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and visible:
 		if event.pressed:
-			if store_ref.item_currently_in_preview:
-				store_ref.item_currently_in_preview.try_to_place_item()
+			store_ref.item_currently_in_preview.try_to_place_item()
