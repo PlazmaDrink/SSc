@@ -39,9 +39,15 @@ func _sync_items_with_inventory(inInv_slot: InventorySlot)->void:
 func set_canBePlaced(input:bool)->void:
 	canBePlaced = input
 
-func try_to_place_item()->void:
+func try_to_place_item()->bool:
 	if canBePlaced:
 		#turn of preview component process func
 		var preview_comp_ref = my_component_container.get_component(GameEnums.Components.PreviewComponent)
 		preview_comp_ref.set_origin_mat_to_mesh()
 		preview_comp_ref.update_process_node(Node.PROCESS_MODE_DISABLED)
+		return true
+	return false
+
+func rotate_self(inRotationDir:float)->void:
+	var rotation_speed = 10 * get_process_delta_time()
+	rotate_object_local(Vector3.UP, inRotationDir * rotation_speed)

@@ -14,6 +14,10 @@ var isOverlapping:bool = false
 var min_bounds:Vector3
 var max_bounds:Vector3
 
+##If false - ignore input
+#TODO:implement isCurrentlySelected
+var isCurrentlySelected:bool = false
+
 func initiate_component()->void:
 	target_node = my_component_container.root_node
 	if target_node:
@@ -62,7 +66,7 @@ func _gather_all_meshes(target_mesh: Node) -> void:
 		mesh_origin_material_dict[target_mesh] = temp_array_mat
 	for child in target_mesh.get_children():
 		_gather_all_meshes(child)
-		
+
 func set_origin_mat_to_mesh()->void:
 	for mesh_instance in mesh_origin_material_dict.keys():
 		if is_instance_valid(mesh_instance):
@@ -108,3 +112,4 @@ func check_required_material(_area: CollisionObject3D = null):
 
 func update_process_node(input:Node.ProcessMode)->void:
 	process_mode = input
+	

@@ -53,6 +53,10 @@ func _on_slot_clicked(slot_index: int, button: int):
 
 ##Input is handled in UI and send to store ref
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and visible:
-		if event.pressed:
-			store_ref.item_currently_in_preview.try_to_place_item()
+	if visible:
+		if event is InputEventMouseButton:
+			if event.pressed:
+				store_ref.try_to_place_item()
+		if event.is_action_pressed("rotate_clockwise", true) or event.is_action_pressed("rotate_contr_clockwise", true):
+			var rotation_dir = Input.get_axis("rotate_contr_clockwise", "rotate_clockwise")
+			store_ref.rotate_current_item(rotation_dir)

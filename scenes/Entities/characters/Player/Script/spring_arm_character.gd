@@ -3,6 +3,7 @@ extends SpringArm3D
 @onready var player: Player_Character = $".."
 @onready var my_camera: Camera3D = $Camera3D
 @onready var ray_cast_3d: RayCast3D = $Camera3D/RayCast3D
+@onready var player_input: Node3D = $"../PlayerInput"
 
 const MOUSE_SENSIBILITY: float = 0.005
 #headbob variables
@@ -11,6 +12,7 @@ const BOB_AMPLITUDE = 0.08
 
 func _ready() -> void:
 	CameraManager.camera_changed.connect(on_camera_changed)
+	player_input.InteractInput.connect(on_interact_input)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
@@ -20,3 +22,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func on_camera_changed(_camera:Camera3D)->void:
 	player.check_is_current_camera()
+
+func on_interact_input()->void:
+	if my_camera.current:
+		ray_cast_3d.on_interact_input()

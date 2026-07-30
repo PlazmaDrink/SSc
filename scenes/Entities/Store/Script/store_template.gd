@@ -21,3 +21,12 @@ func spawn_store_item(inStoreItem:StoreItem)->void:
 	preview_component.set_preview_bonds(CameraManager.update_camera_bounds(self))
 	#assigne ref to temp var
 	item_currently_in_preview = item
+
+func try_to_place_item()->void:
+	if item_currently_in_preview:
+		if item_currently_in_preview.try_to_place_item():
+			item_currently_in_preview = null
+
+func rotate_current_item(inRotationDir:float)->void:
+	if item_currently_in_preview:
+		item_currently_in_preview.rotate_self(inRotationDir)
