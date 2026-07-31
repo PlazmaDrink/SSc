@@ -15,7 +15,6 @@ var min_bounds:Vector3
 var max_bounds:Vector3
 
 ##If false - ignore input
-#TODO:implement isCurrentlySelected
 var isCurrentlySelected:bool = false
 
 func initiate_component()->void:
@@ -24,6 +23,7 @@ func initiate_component()->void:
 		_gather_all_meshes(target_node)
 		find_area_to_track(target_node)
 		check_required_material()
+		isCurrentlySelected = true
 	else:
 		print_debug("No target node selected")
 
@@ -36,7 +36,7 @@ func set_Target_node(inTargetNode:Node)->void:
 	target_node = inTargetNode
 
 func _physics_process(_delta: float) -> void:
-	if not camera:
+	if not camera or not isCurrentlySelected:
 		return
 	# 1. Get 2D mouse position on the screen
 	var mouse_pos = get_viewport().get_mouse_position()
@@ -94,7 +94,7 @@ func connect_to_area():
 		area_to_track.body_exited.connect(check_required_material)
 
 func check_required_material(_area: CollisionObject3D = null):
-	if not is_inside_tree():
+	if not is_inside_tree() or not isCurrentlySelected:
 		return
 	await get_tree().physics_frame
 	var final_material:StandardMaterial3D
@@ -112,4 +112,8 @@ func check_required_material(_area: CollisionObject3D = null):
 
 func update_process_node(input:Node.ProcessMode)->void:
 	process_mode = input
-	
+
+func place_item()->void:
+	set_origin_mat_to_mesh()
+	update_process_node(Node.PROCESS_MODE_DISABLED)
+	isCurrentlySelected = false

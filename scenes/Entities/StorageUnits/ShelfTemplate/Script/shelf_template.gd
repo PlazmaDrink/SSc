@@ -43,8 +43,7 @@ func try_to_place_item()->bool:
 	if canBePlaced:
 		#turn of preview component process func
 		var preview_comp_ref = my_component_container.get_component(GameEnums.Components.PreviewComponent)
-		preview_comp_ref.set_origin_mat_to_mesh()
-		preview_comp_ref.update_process_node(Node.PROCESS_MODE_DISABLED)
+		preview_comp_ref.place_item()
 		return true
 	return false
 
