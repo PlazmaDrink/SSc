@@ -104,6 +104,7 @@ shape = SubResource("ConcavePolygonShape3D_7y8pb")
 
 [node name="InteractableComponent" parent="StoreControlePanel/ComponentContainer" node_paths=PackedStringArray("target_to_outline") instance=ExtResource("2_7rkry")]
 target_to_outline = NodePath("../..")
+OutlineWidth = 1.0
 Action_to_do = SubResource("Resource_iukvo")
 
 [node name="CameraComponent" parent="StoreControlePanel/ComponentContainer" node_paths=PackedStringArray("spring_arm_3d") instance=ExtResource("4_bk6af")]

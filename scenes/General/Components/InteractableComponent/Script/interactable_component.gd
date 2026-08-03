@@ -53,7 +53,7 @@ func raytrace_exit()->void:
 		if mesh.mesh == null:
 			continue
 		for surface_idx in range(mesh.mesh.get_surface_count()):
-			var mat = mesh.get_surface_override_material(surface_idx)
+			var mat = mesh.get_active_material(surface_idx)
 			if mat != null:
 				mat.next_pass = null
 	is_focused = false
