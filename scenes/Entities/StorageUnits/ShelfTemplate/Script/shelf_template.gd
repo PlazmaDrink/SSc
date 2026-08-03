@@ -18,6 +18,8 @@ func _ready() -> void:
 	inventory_ref.Request_UI_Update.connect(onInventoryUpdated)
 	var store_item_inst = store_item_scene.instantiate()
 	add_child(store_item_inst)
+	#Set Mesh to outline
+	my_component_container.get_component(GameEnums.Components.InteractableComponent).set_target_to_outline(store_item_inst)
 
 func onInventoryUpdated()->void:
 	for slot in inventory_ref.slots:

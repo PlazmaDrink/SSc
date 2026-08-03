@@ -30,13 +30,18 @@ func _gather_all_meshes(target: Node) -> void:
 	for child in target.get_children():
 		_gather_all_meshes(child)
 
+func set_target_to_outline(inTarget: Node)->void:
+	target_to_outline = inTarget
+	_gather_all_meshes(target_to_outline)
+
 func getOutlineMaterial()->ShaderMaterial:
 	return local_material_instance
 
 func raytrace_enter()->void:
 	for mesh in meshes_to_outline:
 		for surface_idx in range(mesh.mesh.get_surface_count()):
-			var mat = mesh.get_surface_override_material(surface_idx)
+			#var mat = mesh.get_surface_override_material(surface_idx)
+			var mat = mesh.get_active_material(surface_idx)
 			if mat == null:
 				mat = StandardMaterial3D.new()
 				mesh.set_surface_override_material(surface_idx, mat)
