@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://cw5kedkye8xxc"]
+
+[ext_resource type="ArrayMesh" uid="uid://bnh3onopofu4j" path="res://TempAssets(Has to be deleted later!!!)/Shelving01.res" id="1_a2qr2"]
+[ext_resource type="Script" uid="uid://xm2jsd3x4rer" path="res://TempAssets(Has to be deleted later!!!)/store_item_asset.gd" id="1_dc170"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_mq5wr"]
+points = PackedVector3Array(-0.8281978, 0.074805535, -0.25599483, -0.82511824, 0.0005132844, -0.28103778, -0.8281978, 0.074805535, 0.255927, -0.8281978, 0.07752958, -0.2611135, 0.8242027, 0.0005132844, -0.28103778, -0.82511824, 0.0005132844, 0.28124514, -0.82511824, 2.530412, -0.28103778, -0.8281978, 0.07752958, 0.26104566, -0.8281978, 2.5044098, -0.2611135, 0.82744426, 0.07752958, -0.2611135, 0.82744426, 0.074805535, -0.25599483, 0.8242027, 0.0005132844, 0.28119013, 0.8242027, 2.5301642, -0.28103778, -0.7923782, 0.0005132844, 0.28124514, -0.82511824, 0.05028909, 0.28124514, -0.8281978, 2.5073814, -0.25599483, -0.82511824, 2.530412, 0.28119013, -0.7923782, 2.530412, -0.28103778, -0.8281978, 2.5044098, 0.26104566, 0.82744426, 2.5044098, -0.2611135, 0.82744426, 0.074805535, 0.255927, 0.82744426, 0.07752958, 0.26104566, 0.8242027, 2.5301642, 0.28119013, 0.82744426, 2.5073814, -0.25599483, -0.7923782, 0.05028909, 0.28124514, -0.8281978, 2.5073814, 0.255927, -0.7923782, 2.530412, 0.28119013, 0.82744426, 2.5044098, 0.26104566, 0.82744426, 2.5073814, 0.255927)
+
+[node name="Shelf_1" type="Node3D" node_paths=PackedStringArray("locationMarkers")]
+script = ExtResource("1_dc170")
+locationMarkers = [NodePath("TargetMarkers/Marker3D"), NodePath("TargetMarkers/Marker3D2"), NodePath("TargetMarkers/Marker3D3")]
+
+[node name="Shelving01" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.9999999, 0, 0, 0, 1, 0, 0, 0, 0.9999999, 0, 0, 0)
+mesh = ExtResource("1_a2qr2")
+skeleton = NodePath("")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6113223, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(0.9999999, 0, 0, 0, 1, 0, 0, 0, 0.9999999, 0, -0.45718157, 0)
+shape = SubResource("ConvexPolygonShape3D_mq5wr")
+
+[node name="TargetMarkers" type="Node3D" parent="."]
+
+[node name="Marker3D" type="Marker3D" parent="TargetMarkers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+
+[node name="Marker3D2" type="Marker3D" parent="TargetMarkers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Marker3D3" type="Marker3D" parent="TargetMarkers"]

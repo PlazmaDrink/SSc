@@ -17,11 +17,10 @@ metadata/_custom_type_script = "uid://b1cwp8tgdjh43"
 script = ExtResource("3_b0hqm")
 metadata/_custom_type_script = "uid://bqvu3ld03temc"
 
-[node name="ShelfTemplate" type="Node3D" node_paths=PackedStringArray("locationMarkers") groups=["iInteractable"]]
+[node name="ShelfTemplate" type="Node3D" groups=["iInteractable"]]
 script = ExtResource("1_8tkeb")
 store_item_scene = ExtResource("2_uc8e4")
 myShelfType = SubResource("Resource_uc8e4")
-locationMarkers = [null]
 
 [node name="ComponentContainer" parent="." instance=ExtResource("1_mv3ki")]
 
