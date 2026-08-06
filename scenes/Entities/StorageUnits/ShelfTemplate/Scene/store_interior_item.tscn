@@ -1,0 +1,31 @@
+[gd_scene load_steps=10 format=3 uid="uid://0on3ilotj8xf"]
+
+[ext_resource type="Script" uid="uid://7kgrk0farogf" path="res://scenes/Entities/StorageUnits/ShelfTemplate/Script/store_interior_item.gd" id="1_x8on4"]
+[ext_resource type="PackedScene" uid="uid://gufx02gd414j" path="res://TempAssets(Has to be deleted later!!!)/Scenes/armchair.tscn" id="2_ycmyy"]
+[ext_resource type="Script" uid="uid://b1cwp8tgdjh43" path="res://scenes/Entities/StorageUnits/ShelfTemplate/Script/StorageUnit.gd" id="3_0y3t7"]
+[ext_resource type="PackedScene" uid="uid://od014t1fy44i" path="res://scenes/General/Components/ComponentContainer/Scene/ComponentContainer.tscn" id="4_6jc7r"]
+[ext_resource type="PackedScene" uid="uid://botwm1ppo741l" path="res://scenes/General/Components/InteractableComponent/Scene/InteractableComponent.tscn" id="5_b0f52"]
+[ext_resource type="Script" uid="uid://bqvu3ld03temc" path="res://scenes/General/Components/InteractableComponent/Interactions/Interaction_Inventory.gd" id="6_76v6o"]
+[ext_resource type="PackedScene" uid="uid://cgnevae3alfpl" path="res://scenes/General/Components/InventoryComponent/Scene/InventoryComponent.tscn" id="7_cq4rt"]
+
+[sub_resource type="Resource" id="Resource_uc8e4"]
+script = ExtResource("3_0y3t7")
+maxCapacity = 20
+metadata/_custom_type_script = "uid://b1cwp8tgdjh43"
+
+[sub_resource type="Resource" id="Resource_8tkeb"]
+script = ExtResource("6_76v6o")
+metadata/_custom_type_script = "uid://bqvu3ld03temc"
+
+[node name="store_interior_item" type="Node3D" groups=["iInteractable"]]
+script = ExtResource("1_x8on4")
+store_item_scene = ExtResource("2_ycmyy")
+myShelfType = SubResource("Resource_uc8e4")
+
+[node name="ComponentContainer" parent="." instance=ExtResource("4_6jc7r")]
+
+[node name="InteractableComponent" parent="ComponentContainer" instance=ExtResource("5_b0f52")]
+Action_to_do = SubResource("Resource_8tkeb")
+
+[node name="InventoryComponent" parent="ComponentContainer" instance=ExtResource("7_cq4rt")]
+inventory_size = 4

@@ -1,4 +1,5 @@
 extends Node3D
+class_name store_interior_item
 const PREVIEW_COMPONENT = preload("uid://cpc13ap3bgilr")
 
 @export var store_item_scene:PackedScene
@@ -11,6 +12,7 @@ var inventory_ref: Inventory
 var canBePlaced:bool = true
 var store_item_inst: Node
 var parent_store:StoreTemplate = null
+var snapingPoints:Array[Node3D]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -21,10 +23,14 @@ func _ready() -> void:
 	var inv_comp:Inventory_component = my_component_container.get_component(GameEnums.Components.InventoryComponent)
 	inventory_ref = inv_comp.get_inventory()
 	
+	#Create and add an instance of asset scene
 	store_item_inst = store_item_scene.instantiate()
 	add_child(store_item_inst)
 	#Set Mesh to outline
 	my_component_container.get_component(GameEnums.Components.InteractableComponent).set_target_to_outline(store_item_inst)
+	#Set snapping points of this object
+	for point in store_item_inst.snapping_points.get_children():
+		snapingPoints.append(point)
 	
 	var preview_component = PREVIEW_COMPONENT.instantiate()
 	my_component_container.add_child(preview_component)
@@ -35,7 +41,8 @@ func _on_item_spawned()->void:
 
 func _on_item_placed()->void:
 	place_item()
-	inventory_ref.Request_UI_Update.connect(onInventoryUpdated)
+	if !inventory_ref.Request_UI_Update.is_connected(onInventoryUpdated):
+		inventory_ref.Request_UI_Update.connect(onInventoryUpdated)
 	onInventoryUpdated()
 
 func onInventoryUpdated()->void:

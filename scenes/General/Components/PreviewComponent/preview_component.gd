@@ -13,7 +13,7 @@ var isOverlapping:bool = false
 
 var min_bounds:Vector3
 var max_bounds:Vector3
-
+var intersection:Vector3
 ##If false - ignore input
 var isCurrentlySelected:bool = false
 
@@ -49,13 +49,13 @@ func _physics_process(_delta: float) -> void:
 	var ground_plane = Plane(Vector3.UP, 0.0)
 	
 	# 4. Find where the camera ray hits the ground plane
-	var intersection = ground_plane.intersects_ray(ray_origin, ray_normal)
+	intersection = ground_plane.intersects_ray(ray_origin, ray_normal)
 	
 	if intersection != null:
 		intersection.x = clamp(intersection.x, min_bounds.x, max_bounds.x)
 		intersection.z = clamp(intersection.z, min_bounds.z, max_bounds.z)
 		target_node.global_position = intersection
-
+	#
 ##Collects model meshes and origin materials
 func _gather_all_meshes(target_mesh: Node) -> void:
 	if target_mesh is MeshInstance3D:
@@ -86,12 +86,53 @@ func find_area_to_track(target: Node)->void:
 		connect_to_area()
 
 func connect_to_area():
-	if not area_to_track.area_entered.is_connected(check_required_material) and not area_to_track.body_entered.is_connected(check_required_material):
-		area_to_track.area_entered.connect(check_required_material)
-		area_to_track.body_entered.connect(check_required_material)
-	if not area_to_track.area_exited.is_connected(check_required_material)and not area_to_track.body_exited.is_connected(check_required_material):
-		area_to_track.area_exited.connect(check_required_material)
-		area_to_track.body_exited.connect(check_required_material)
+	if not area_to_track.area_entered.is_connected(_on_area_action) and not area_to_track.body_entered.is_connected(_on_area_action):
+		area_to_track.area_entered.connect(_on_area_action)
+		area_to_track.body_entered.connect(_on_area_action)
+	if not area_to_track.area_exited.is_connected(_on_area_action)and not area_to_track.body_exited.is_connected(_on_area_action):
+		area_to_track.area_exited.connect(_on_area_action)
+		area_to_track.body_exited.connect(_on_area_action)
+
+func _on_area_action(_area: CollisionObject3D = null)->void:
+	if isCurrentlySelected:
+		check_required_material(_area)
+		#if _area.is_in_group("CanBeSnipped"):
+			#var closestpoint = get_closest_point(_area.get_parent().snapping_points.get_children())
+			#target_node.global_position = closestpoint.global_position
+			#print_debug(_area.name)
+
+## Scans overlapping areas for "CanBeSnipped" groups and finds the nearest snap point
+func _find_closest_snap_point_in_overlapping_areas(cursor_pos: Vector3) -> Node3D:
+	var candidates: Array[Node] = []
+	
+	for area in area_to_track.get_overlapping_areas():
+		if area.is_in_group("CanBeSnipped"):
+			var snapping_container = area.get_parent().get_node_or_null("snapping_points")
+			if snapping_container:
+				candidates.append_array(snapping_container.get_children())
+				
+	return get_closest_point(cursor_pos, candidates)
+
+func get_closest_point(reference_pos: Vector3, points: Array[Node]) -> Node3D:
+	var smallest_distance: float = INF
+	var closest_point: Node3D = null
+	
+	for point in points:
+		if point is Node3D:
+			var dist = reference_pos.distance_to(point.global_position)
+			if dist < smallest_distance:
+				smallest_distance = dist
+				closest_point = point
+				
+	return closest_point
+#func get_closest_point(points:Array[Node])->Node3D:
+	#var smallest_distance:float = 999
+	#var closest_point:Node
+	#for point in points:
+		#if target_node.global_position.distance_to(point.global_position) < smallest_distance:
+			#closest_point = point
+			#smallest_distance = target_node.global_position.distance_to(point.global_position)
+	#return closest_point
 
 func check_required_material(_area: CollisionObject3D = null):
 	if not is_inside_tree() or not isCurrentlySelected:
