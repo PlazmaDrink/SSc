@@ -10,11 +10,14 @@ var area_to_track:Area3D
 
 @onready var camera: Camera3D = get_viewport().get_camera_3d()
 var isOverlapping:bool = false
-
 var min_bounds:Vector3
 var max_bounds:Vector3
 var intersection:Vector3
-##If false - ignore input
+
+#Snapping
+var snapping_radius:float = 1
+var snapping_points:Array[Node] = []
+
 var isCurrentlySelected:bool = false
 
 func initiate_component()->void:
@@ -27,7 +30,7 @@ func initiate_component()->void:
 	else:
 		print_debug("No target node selected")
 
-#TODO: bounds need to take in count size of item itself
+##TODO: bounds need to take in count size of item itself
 func set_preview_bonds(BoundsDict:Dictionary)->void:
 	min_bounds = BoundsDict["min_bounds"]
 	max_bounds = BoundsDict["max_bounds"]
@@ -54,6 +57,19 @@ func _physics_process(_delta: float) -> void:
 	if intersection != null:
 		intersection.x = clamp(intersection.x, min_bounds.x, max_bounds.x)
 		intersection.z = clamp(intersection.z, min_bounds.z, max_bounds.z)
+	
+	#snapping_point array is filled on collision detected
+	if !snapping_points.is_empty():
+		var closest_snapping_point = get_closest_point(intersection, snapping_points)
+		var final_position
+		print_debug(intersection.distance_to(closest_snapping_point.global_position))
+		if intersection.distance_to(closest_snapping_point.global_position) < snapping_radius:
+			final_position = closest_snapping_point.global_position
+		else:
+			final_position = intersection
+		target_node.global_position = final_position
+	#no overlapping collision onjects -> prieview model follows mouse cursor
+	else:
 		target_node.global_position = intersection
 	#
 ##Collects model meshes and origin materials
@@ -86,32 +102,34 @@ func find_area_to_track(target: Node)->void:
 		connect_to_area()
 
 func connect_to_area():
-	if not area_to_track.area_entered.is_connected(_on_area_action) and not area_to_track.body_entered.is_connected(_on_area_action):
-		area_to_track.area_entered.connect(_on_area_action)
-		area_to_track.body_entered.connect(_on_area_action)
-	if not area_to_track.area_exited.is_connected(_on_area_action)and not area_to_track.body_exited.is_connected(_on_area_action):
-		area_to_track.area_exited.connect(_on_area_action)
-		area_to_track.body_exited.connect(_on_area_action)
+	if not area_to_track.area_entered.is_connected(_on_area_entered) and not area_to_track.body_entered.is_connected(_on_area_entered):
+		area_to_track.area_entered.connect(_on_area_entered)
+		area_to_track.body_entered.connect(_on_area_entered)
+	if not area_to_track.area_exited.is_connected(_on_area_exited)and not area_to_track.body_exited.is_connected(_on_area_exited):
+		area_to_track.area_exited.connect(_on_area_exited)
+		area_to_track.body_exited.connect(_on_area_exited)
 
-func _on_area_action(_area: CollisionObject3D = null)->void:
+func _on_area_entered(_area: CollisionObject3D = null)->void:
 	if isCurrentlySelected:
 		check_required_material(_area)
-		#if _area.is_in_group("CanBeSnipped"):
-			#var closestpoint = get_closest_point(_area.get_parent().snapping_points.get_children())
-			#target_node.global_position = closestpoint.global_position
-			#print_debug(_area.name)
+		_find_closest_snap_point_in_overlapping_areas(_area)
+		print_debug(_area.get_parent().name)
 
-## Scans overlapping areas for "CanBeSnipped" groups and finds the nearest snap point
-func _find_closest_snap_point_in_overlapping_areas(cursor_pos: Vector3) -> Node3D:
-	var candidates: Array[Node] = []
-	
-	for area in area_to_track.get_overlapping_areas():
-		if area.is_in_group("CanBeSnipped"):
-			var snapping_container = area.get_parent().get_node_or_null("snapping_points")
-			if snapping_container:
-				candidates.append_array(snapping_container.get_children())
-				
-	return get_closest_point(cursor_pos, candidates)
+func _on_area_exited(_area: CollisionObject3D = null)->void:
+	if isCurrentlySelected:
+		check_required_material(_area)
+		if area_to_track.get_overlapping_areas().is_empty():
+			snapping_points.clear()
+
+
+## Scans overlapping areas for "CanBeSnapped" groups and finds the nearest snap point
+func _find_closest_snap_point_in_overlapping_areas(area:CollisionObject3D)->void:
+	if area.is_in_group("CanBeSnapped"):
+		var snapping_container = area.get_parent().get_node_or_null("SnappingPoints")
+		if snapping_container:
+			snapping_points.append_array(snapping_container.get_children())
+			
+	#return get_closest_point(cursor_pos, candidates)
 
 func get_closest_point(reference_pos: Vector3, points: Array[Node]) -> Node3D:
 	var smallest_distance: float = INF
@@ -123,16 +141,8 @@ func get_closest_point(reference_pos: Vector3, points: Array[Node]) -> Node3D:
 			if dist < smallest_distance:
 				smallest_distance = dist
 				closest_point = point
-				
+	
 	return closest_point
-#func get_closest_point(points:Array[Node])->Node3D:
-	#var smallest_distance:float = 999
-	#var closest_point:Node
-	#for point in points:
-		#if target_node.global_position.distance_to(point.global_position) < smallest_distance:
-			#closest_point = point
-			#smallest_distance = target_node.global_position.distance_to(point.global_position)
-	#return closest_point
 
 func check_required_material(_area: CollisionObject3D = null):
 	if not is_inside_tree() or not isCurrentlySelected:
